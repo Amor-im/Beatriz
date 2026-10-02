@@ -45,3 +45,17 @@
     text-align: center;
   }
   
+  .btn.primary{
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: grab;
+    background:#2f9e41;
+    color: #fff;
+    border: 1px solid #e5e7eb;  
+  }
+
+  .acoes-header{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
