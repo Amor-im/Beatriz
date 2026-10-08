@@ -1,0 +1,96 @@
+<div class="checkout largura-pagina">
+  <header class="checkout__topo">
+    <a class="botao botao--texto checkout__voltar" routerLink="/carrinho">← Voltar ao carrinho</a>
+    <h1>Finalizar compra</h1>
+    <p class="checkout__total-movel">
+      Total: <strong>{{ carrinho.total() | currency: 'BRL' }}</strong> ·
+      {{ carrinho.quantidadeTotal() }} {{ carrinho.quantidadeTotal() === 1 ? 'item' : 'itens' }}
+    </p>
+  </header>
+
+  <div class="checkout__colunas">
+    <form class="checkout__form" [formGroup]="form" (ngSubmit)="confirmar()" novalidate>
+      <fieldset class="bloco cartao">
+        <legend class="bloco__titulo">Seus dados</legend>
+        <div class="campo">
+          <label class="campo__rotulo" for="nome">Nome completo</label>
+          <input id="nome" class="campo__controle" type="text" formControlName="nome" autocomplete="name" enterkeyhint="next"
+            [attr.aria-invalid]="!!erro('nome')" [attr.aria-describedby]="erro('nome') ? 'erro-nome' : null" />
+          @if (erro('nome'); as mensagem) { <p id="erro-nome" class="campo__erro">{{ mensagem }}</p> }
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="email">E-mail</label>
+          <input id="email" class="campo__controle" type="email" formControlName="email" autocomplete="email" enterkeyhint="next"
+            [attr.aria-invalid]="!!erro('email')" [attr.aria-describedby]="erro('email') ? 'dica-email erro-email' : 'dica-email'" />
+          <p id="dica-email" class="campo__dica">Nenhum e-mail é enviado: o pedido é uma simulação.</p>
+          @if (erro('email'); as mensagem) { <p id="erro-email" class="campo__erro">{{ mensagem }}</p> }
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco cartao">
+        <legend class="bloco__titulo">Endereço de entrega</legend>
+        <div class="grade-campos">
+          <div class="campo campo--cep">
+            <label class="campo__rotulo" for="cep">CEP</label>
+            <input id="cep" class="campo__controle" type="text" formControlName="cep" autocomplete="postal-code" placeholder="00000-000" appMascaraCep
+              [attr.aria-invalid]="!!erro('cep')" [attr.aria-describedby]="erro('cep') ? 'erro-cep' : null" />
+            @if (erro('cep'); as mensagem) { <p id="erro-cep" class="campo__erro">{{ mensagem }}</p> }
+          </div>
+          <div class="campo campo--largo">
+            <label class="campo__rotulo" for="endereco">Rua ou avenida</label>
+            <input id="endereco" class="campo__controle" type="text" formControlName="endereco" autocomplete="address-line1"
+              [attr.aria-invalid]="!!erro('endereco')" [attr.aria-describedby]="erro('endereco') ? 'erro-endereco' : null" />
+            @if (erro('endereco'); as mensagem) { <p id="erro-endereco" class="campo__erro">{{ mensagem }}</p> }
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="numero">Número</label>
+            <input id="numero" class="campo__controle" type="text" inputmode="numeric" formControlName="numero"
+              [attr.aria-invalid]="!!erro('numero')" [attr.aria-describedby]="erro('numero') ? 'erro-numero' : null" />
+            @if (erro('numero'); as mensagem) { <p id="erro-numero" class="campo__erro">{{ mensagem }}</p> }
+          </div>
+          <div class="campo campo--complemento">
+            <label class="campo__rotulo" for="complemento">Complemento <span class="campo__opcional">(opcional)</span></label>
+            <input id="complemento" class="campo__controle" type="text" formControlName="complemento" autocomplete="address-line2" />
+          </div>
+          <div class="campo campo--largo">
+            <label class="campo__rotulo" for="cidade">Cidade</label>
+            <input id="cidade" class="campo__controle" type="text" formControlName="cidade" autocomplete="address-level2"
+              [attr.aria-invalid]="!!erro('cidade')" [attr.aria-describedby]="erro('cidade') ? 'erro-cidade' : null" />
+            @if (erro('cidade'); as mensagem) { <p id="erro-cidade" class="campo__erro">{{ mensagem }}</p> }
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="uf">Estado</label>
+            <select id="uf" class="campo__controle" formControlName="uf" autocomplete="address-level1"
+              [attr.aria-invalid]="!!erro('uf')" [attr.aria-describedby]="erro('uf') ? 'erro-uf' : null">
+              <option value="" disabled>UF</option>
+              @for (uf of ufs; track uf) { <option [value]="uf">{{ uf }}</option> }
+            </select>
+            @if (erro('uf'); as mensagem) { <p id="erro-uf" class="campo__erro">{{ mensagem }}</p> }
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco cartao">
+        <legend class="bloco__titulo">Forma de pagamento</legend>
+        <div class="pagamentos">
+          @for (forma of formasPagamento; track forma.valor) {
+            <label class="pagamento">
+              <input type="radio" formControlName="pagamento" [value]="forma.valor" />
+              <span class="pagamento__texto">
+                <span class="pagamento__rotulo">{{ forma.rotulo }}</span>
+                <span class="pagamento__dica">{{ forma.dica }}</span>
+              </span>
+            </label>
+          }
+        </div>
+        <p class="campo__dica">Simulação: nenhuma cobrança é feita e nenhum dado de pagamento é pedido.</p>
+      </fieldset>
+
+      <button type="submit" class="botao botao--primario botao--largo checkout__confirmar" [disabled]="enviando()">
+        {{ enviando() ? 'Confirmando pedido…' : 'Confirmar pedido · ' + (carrinho.total() | currency: 'BRL') }}
+      </button>
+    </form>
+
+    <app-resumo-pedido class="checkout__resumo" [mostrarItens]="true" />
+  </div>
+</div>

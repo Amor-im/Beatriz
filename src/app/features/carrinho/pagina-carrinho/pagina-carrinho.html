@@ -1,0 +1,82 @@
+<div class="pagina-carrinho largura-pagina">
+  <header class="pagina-carrinho__topo">
+    <h1>Carrinho</h1>
+    @if (!carrinho.vazio()) {
+      <p class="pagina-carrinho__contagem">
+        {{ carrinho.quantidadeTotal() }} {{ carrinho.quantidadeTotal() === 1 ? 'item' : 'itens' }}
+      </p>
+    }
+  </header>
+
+  @if (carrinho.vazio()) {
+    <app-estado-vazio titulo="Seu carrinho está vazio">
+      <p>Os produtos que você adicionar aparecem aqui, e ficam salvos mesmo se você fechar a página.</p>
+      <a acoes class="botao botao--primario" routerLink="/produtos">Ver produtos</a>
+    </app-estado-vazio>
+  } @else {
+    <div class="pagina-carrinho__colunas">
+      <section aria-labelledby="titulo-itens">
+        <h2 id="titulo-itens" class="apenas-leitor">Itens do carrinho</h2>
+
+        <div class="frete" [class.frete--gratis]="carrinho.faltaParaFreteGratis() === 0">
+          @if (carrinho.faltaParaFreteGratis() > 0) {
+            <p>Faltam <strong>{{ carrinho.faltaParaFreteGratis() | currency: 'BRL' }}</strong> para o frete grátis.</p>
+          } @else {
+            <p><strong>Você ganhou frete grátis.</strong></p>
+          }
+          <div class="frete__barra" role="progressbar" aria-label="Progresso até o frete grátis" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="progressoFrete()">
+            <span [style.width.%]="progressoFrete()"></span>
+          </div>
+        </div>
+
+        <ul class="itens" role="list">
+          @for (item of carrinho.itens(); track item.produto.id) {
+            <li class="item">
+              <a class="item__foto" [routerLink]="['/produtos', item.produto.id]" tabindex="-1" aria-hidden="true">
+                <img [src]="item.produto.imageUrl || 'images/produto-sem-imagem.svg'" width="96" height="96" alt="" loading="lazy" appImagemReserva />
+              </a>
+              <div class="item__info">
+                <p class="sobretitulo">{{ rotuloCategoria(item.produto.categoria) }}</p>
+                <a class="item__nome" [routerLink]="['/produtos', item.produto.id]" lang="en">{{ item.produto.nome }}</a>
+                <p class="item__unitario">
+                  {{ precoFinal(item.produto) | currency: 'BRL' }} cada
+                  @if (item.produto.promo) {
+                    <span class="item__promo">promoção</span>
+                  }
+                </p>
+              </div>
+              <div class="item__acoes">
+                <app-quantidade-controle
+                  [contador]="item.quantidade"
+                  (contadorChange)="alterarQuantidade(item, $event)"
+                  [max]="quantidadeMaxima"
+                  [rotulo]="item.produto.nome"
+                />
+                <p class="item__total">{{ precoFinal(item.produto) * item.quantidade | currency: 'BRL' }}</p>
+                <button type="button" class="botao botao--texto item__remover" (click)="remover(item)" [attr.aria-label]="'Remover do carrinho: ' + item.produto.nome">
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  Remover
+                </button>
+              </div>
+            </li>
+          }
+        </ul>
+
+        <a class="botao botao--texto" routerLink="/produtos">← Continuar comprando</a>
+      </section>
+
+      <app-resumo-pedido class="pagina-carrinho__resumo">
+        <a class="botao botao--primario botao--largo" routerLink="/checkout">Finalizar compra</a>
+      </app-resumo-pedido>
+    </div>
+
+    <!-- No celular, o total e o botão ficam sempre à mão no rodapé da tela. -->
+    <div class="barra-fixa" aria-hidden="true">
+      <div>
+        <p class="barra-fixa__rotulo">Total</p>
+        <p class="barra-fixa__valor">{{ carrinho.total() | currency: 'BRL' }}</p>
+      </div>
+      <a class="botao botao--primario" routerLink="/checkout" tabindex="-1">Finalizar compra</a>
+    </div>
+  }
+</div>

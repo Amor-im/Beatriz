@@ -1,0 +1,45 @@
+<div class="confirmado largura-pagina">
+  @if (pedido(); as pedido) {
+    <section class="confirmado__cartao cartao" aria-labelledby="titulo-confirmado">
+      <div class="confirmado__selo" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </div>
+      <p class="sobretitulo">Pedido {{ pedido.numero }}</p>
+      <h1 #titulo id="titulo-confirmado" class="confirmado__titulo" tabindex="-1">Pedido confirmado, {{ pedido.entrega.nome.split(' ')[0] }}!</h1>
+      <p class="confirmado__texto">
+        Esta é uma loja de demonstração: nada foi cobrado e nenhum produto será enviado.
+        Em uma loja de verdade, a confirmação chegaria em <strong>{{ pedido.entrega.email }}</strong>.
+      </p>
+
+      <dl class="confirmado__dados">
+        <div><dt>Data</dt><dd>{{ pedido.data | date: 'dd/MM/yyyy, HH:mm' }}</dd></div>
+        <div><dt>Pagamento</dt><dd>{{ rotulosPagamento[pedido.entrega.pagamento] }}</dd></div>
+        <div>
+          <dt>Entrega</dt>
+          <dd>
+            {{ pedido.entrega.endereco }}, {{ pedido.entrega.numero }}@if (pedido.entrega.complemento) {, {{ pedido.entrega.complemento }}}
+            · {{ pedido.entrega.cidade }}/{{ pedido.entrega.uf }} · CEP {{ pedido.entrega.cep }}
+          </dd>
+        </div>
+      </dl>
+
+      <ul class="confirmado__itens" role="list">
+        @for (item of pedido.itens; track item.produto.id) {
+          <li>
+            <span><strong class="confirmado__qtd">{{ item.quantidade }}×</strong><span lang="en">{{ item.produto.nome }}</span></span>
+            <span>{{ precoFinal(item.produto) * item.quantidade | currency: 'BRL' }}</span>
+          </li>
+        }
+        <li class="confirmado__frete"><span>Frete</span><span>{{ pedido.frete === 0 ? 'Grátis' : (pedido.frete | currency: 'BRL') }}</span></li>
+        <li class="confirmado__total"><span>Total</span><span>{{ pedido.total | currency: 'BRL' }}</span></li>
+      </ul>
+
+      <a class="botao botao--primario" routerLink="/produtos">Continuar comprando</a>
+    </section>
+  } @else {
+    <app-estado-vazio titulo="Nenhum pedido recente" [nivel]="1">
+      <p>Os detalhes do pedido aparecem logo depois de finalizar a compra. Se você recarregou a página, eles não ficam salvos.</p>
+      <a acoes class="botao botao--primario" routerLink="/produtos">Ver produtos</a>
+    </app-estado-vazio>
+  }
+</div>
