@@ -1,4 +1,4 @@
-import { DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
@@ -27,6 +27,7 @@ type Resultado =
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    CurrencyPipe,
     DecimalPipe,
     GaleriaProduto,
     EtiquetaPreco,

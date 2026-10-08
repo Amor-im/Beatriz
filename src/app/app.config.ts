@@ -18,7 +18,8 @@ import {
 import { routes } from './app.routes';
 import { TituloPaginaStrategy } from './core/titulo-pagina.strategy';
 
-// Formatos brasileiros nos pipes: R$ 1.299,90 e datas dd/mm/aaaa.
+// Formatos brasileiros nos pipes (1.299,90 e datas dd/mm/aaaa).
+// A moeda é o dólar porque a Fake Store API manda os preços em dólar: US$ 1.299,90.
 registerLocaleData(localePt);
 
 export const appConfig: ApplicationConfig = {
@@ -35,6 +36,6 @@ export const appConfig: ApplicationConfig = {
     { provide: TitleStrategy, useClass: TituloPaginaStrategy },
     provideHttpClient(withFetch()),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'USD' },
   ],
 };

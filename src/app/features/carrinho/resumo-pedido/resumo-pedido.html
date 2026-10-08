@@ -6,7 +6,7 @@
       @for (item of carrinho.itens(); track item.produto.id) {
         <li>
           <span class="resumo__item-nome"><span class="resumo__qtd">{{ item.quantidade }}×</span> <span lang="en">{{ item.produto.nome }}</span></span>
-          <span class="resumo__valor">{{ precoFinal(item.produto) * item.quantidade | currency: 'BRL' }}</span>
+          <span class="resumo__valor">{{ precoFinal(item.produto) * item.quantidade | currency }}</span>
         </li>
       }
     </ul>
@@ -15,7 +15,7 @@
   <dl class="resumo__linhas">
     <div>
       <dt>Subtotal</dt>
-      <dd>{{ carrinho.subtotal() | currency: 'BRL' }}</dd>
+      <dd>{{ carrinho.subtotal() | currency }}</dd>
     </div>
     <div>
       <dt>Frete</dt>
@@ -23,7 +23,7 @@
         @if (carrinho.frete() === 0) {
           <strong class="resumo__gratis">Grátis</strong>
         } @else {
-          {{ carrinho.frete() | currency: 'BRL' }}
+          {{ carrinho.frete() | currency }}
         }
       </dd>
     </div>

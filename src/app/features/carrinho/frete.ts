@@ -1,4 +1,4 @@
-// Regras de frete da loja de demonstração (valores fictícios, não há entrega real).
+// Regras de frete da loja de demonstração, em dólar como os preços (valores fictícios, não há entrega real).
 export const FRETE_GRATIS_A_PARTIR_DE = 299;
 export const VALOR_FRETE = 24.9;
 

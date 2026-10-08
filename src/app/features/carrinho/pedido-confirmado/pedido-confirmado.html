@@ -27,11 +27,11 @@
         @for (item of pedido.itens; track item.produto.id) {
           <li>
             <span><strong class="confirmado__qtd">{{ item.quantidade }}×</strong><span lang="en">{{ item.produto.nome }}</span></span>
-            <span>{{ precoFinal(item.produto) * item.quantidade | currency: 'BRL' }}</span>
+            <span>{{ precoFinal(item.produto) * item.quantidade | currency }}</span>
           </li>
         }
-        <li class="confirmado__frete"><span>Frete</span><span>{{ pedido.frete === 0 ? 'Grátis' : (pedido.frete | currency: 'BRL') }}</span></li>
-        <li class="confirmado__total"><span>Total</span><span>{{ pedido.total | currency: 'BRL' }}</span></li>
+        <li class="confirmado__frete"><span>Frete</span><span>{{ pedido.frete === 0 ? 'Grátis' : (pedido.frete | currency) }}</span></li>
+        <li class="confirmado__total"><span>Total</span><span>{{ pedido.total | currency }}</span></li>
       </ul>
 
       <a class="botao botao--primario" routerLink="/produtos">Continuar comprando</a>

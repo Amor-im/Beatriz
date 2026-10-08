@@ -22,7 +22,7 @@ describe('EtiquetaPreco', () => {
     fixture.componentRef.setInput('preco', 1299.9);
     fixture.detectChanges();
 
-    expect(texto('.etiqueta')).toBe('R$ 1.299,90');
+    expect(texto('.etiqueta')).toBe('US$ 1.299,90');
     expect(texto('.antes')).toBeUndefined();
   });
 
@@ -31,8 +31,8 @@ describe('EtiquetaPreco', () => {
     fixture.componentRef.setInput('promo', true);
     fixture.detectChanges();
 
-    expect(texto('s')).toBe('R$ 109,95');
-    expect(texto('.etiqueta')).toBe('por R$ 98,96');
+    expect(texto('s')).toBe('US$ 109,95');
+    expect(texto('.etiqueta')).toBe('por US$ 98,96');
     expect(texto('.selo-desconto')).toBe('-10%');
   });
 });

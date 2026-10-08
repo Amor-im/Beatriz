@@ -3,7 +3,7 @@
     <a class="botao botao--texto checkout__voltar" routerLink="/carrinho">← Voltar ao carrinho</a>
     <h1>Finalizar compra</h1>
     <p class="checkout__total-movel">
-      Total: <strong>{{ carrinho.total() | currency: 'BRL' }}</strong> ·
+      Total: <strong>{{ carrinho.total() | currency }}</strong> ·
       {{ carrinho.quantidadeTotal() }} {{ carrinho.quantidadeTotal() === 1 ? 'item' : 'itens' }}
     </p>
   </header>
@@ -87,7 +87,7 @@
       </fieldset>
 
       <button type="submit" class="botao botao--primario botao--largo checkout__confirmar" [disabled]="enviando()">
-        {{ enviando() ? 'Confirmando pedido…' : 'Confirmar pedido · ' + (carrinho.total() | currency: 'BRL') }}
+        {{ enviando() ? 'Confirmando pedido…' : 'Confirmar pedido · ' + (carrinho.total() | currency) }}
       </button>
     </form>
 

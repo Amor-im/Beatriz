@@ -1,13 +1,13 @@
 @if (promo()) {
   <span class="antes">
     <span class="apenas-leitor">De </span>
-    <s>{{ preco() | currency: 'BRL' }}</s>
+    <s>{{ preco() | currency }}</s>
     <span class="selo-desconto">-{{ desconto }}%</span>
   </span>
   <span class="etiqueta">
     <span class="apenas-leitor">por </span>
-    {{ preco() | desconto: desconto | currency: 'BRL' }}
+    {{ preco() | desconto: desconto | currency }}
   </span>
 } @else {
-  <span class="etiqueta">{{ preco() | currency: 'BRL' }}</span>
+  <span class="etiqueta">{{ preco() | currency }}</span>
 }

@@ -32,7 +32,7 @@ export const ATRASO_SIMULADO_MS = 800;
 /**
  * Checkout simulado: monta o pedido a partir do carrinho, sem servidor e sem pagamento.
  * Quem esvazia o carrinho é a tela de checkout, depois de abrir a confirmação
- * (assim o resumo não "pisca" com R$ 0,00 enquanto a próxima página carrega).
+ * (assim o resumo não "pisca" com total zerado enquanto a próxima página carrega).
  */
 @Injectable({ providedIn: 'root' })
 export class PedidoService {

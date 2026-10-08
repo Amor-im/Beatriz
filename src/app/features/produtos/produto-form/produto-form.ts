@@ -97,8 +97,8 @@ export class ProdutoForm {
   protected erroPreco(): string {
     const c = this.form.controls.preco;
     if (c.hasError('required')) return 'Informe o preço, por exemplo 129,90.';
-    if (c.hasError('min')) return 'O preço precisa ser de pelo menos R$ 1,00.';
-    return 'O preço precisa ser de até R$ 99.999,00.';
+    if (c.hasError('min')) return 'O preço precisa ser de pelo menos US$ 1,00.';
+    return 'O preço precisa ser de até US$ 99.999,00.';
   }
 
   protected erroDescricao(): string {

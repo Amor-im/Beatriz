@@ -35,7 +35,7 @@
 
       <div class="cadastro__linha">
         <div class="campo">
-          <label class="campo__rotulo" for="preco">Preço (R$)</label>
+          <label class="campo__rotulo" for="preco">Preço (US$)</label>
           <input id="preco" class="campo__controle" type="number" inputmode="decimal" step="0.01" min="1" formControlName="preco" placeholder="0,00"
             [attr.aria-invalid]="mostrarErro(form.controls.preco)" [attr.aria-describedby]="mostrarErro(form.controls.preco) ? 'erro-preco' : null" />
           @if (mostrarErro(form.controls.preco)) {

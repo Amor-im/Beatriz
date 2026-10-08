@@ -3,7 +3,7 @@ import { aplicarDesconto } from '../../model/produto';
 
 /**
  * Aplica um desconto percentual a um valor.
- * Uso: {{ produto.preco | desconto: 10 | currency: 'BRL' }}
+ * Uso: {{ produto.preco | desconto: 10 | currency }}
  */
 @Pipe({
   name: 'desconto',

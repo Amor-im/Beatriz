@@ -20,7 +20,7 @@
 
         <div class="frete" [class.frete--gratis]="carrinho.faltaParaFreteGratis() === 0">
           @if (carrinho.faltaParaFreteGratis() > 0) {
-            <p>Faltam <strong>{{ carrinho.faltaParaFreteGratis() | currency: 'BRL' }}</strong> para o frete grátis.</p>
+            <p>Faltam <strong>{{ carrinho.faltaParaFreteGratis() | currency }}</strong> para o frete grátis.</p>
           } @else {
             <p><strong>Você ganhou frete grátis.</strong></p>
           }
@@ -39,7 +39,7 @@
                 <p class="sobretitulo">{{ rotuloCategoria(item.produto.categoria) }}</p>
                 <a class="item__nome" [routerLink]="['/produtos', item.produto.id]" lang="en">{{ item.produto.nome }}</a>
                 <p class="item__unitario">
-                  {{ precoFinal(item.produto) | currency: 'BRL' }} cada
+                  {{ precoFinal(item.produto) | currency }} cada
                   @if (item.produto.promo) {
                     <span class="item__promo">promoção</span>
                   }
@@ -52,7 +52,7 @@
                   [max]="quantidadeMaxima"
                   [rotulo]="item.produto.nome"
                 />
-                <p class="item__total">{{ precoFinal(item.produto) * item.quantidade | currency: 'BRL' }}</p>
+                <p class="item__total">{{ precoFinal(item.produto) * item.quantidade | currency }}</p>
                 <button type="button" class="botao botao--texto item__remover" (click)="remover(item)" [attr.aria-label]="'Remover do carrinho: ' + item.produto.nome">
                   <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
                   Remover
@@ -74,7 +74,7 @@
     <div class="barra-fixa" aria-hidden="true">
       <div>
         <p class="barra-fixa__rotulo">Total</p>
-        <p class="barra-fixa__valor">{{ carrinho.total() | currency: 'BRL' }}</p>
+        <p class="barra-fixa__valor">{{ carrinho.total() | currency }}</p>
       </div>
       <a class="botao botao--primario" routerLink="/checkout" tabindex="-1">Finalizar compra</a>
     </div>
