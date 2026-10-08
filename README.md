@@ -50,7 +50,7 @@ Começou como trabalho prático (TP1) da disciplina de Técnicas de Programaçã
 | Pastas `produto/` e `produtos/`, componente `qunatidade-controle` | Uma pasta por funcionalidade, nomes corrigidos |
 | Rota inexistente voltava para a home | Página 404 |
 | Todas as páginas no bundle inicial | `loadComponent` em todas as rotas |
-| 15 testes, 9 falhando | 108 testes passando |
+| 15 testes, 9 falhando | 115 testes passando |
 | Logo institucional e imagens de medicamentos na pasta pública | Identidade visual própria e só imagens do catálogo |
 
 ## Decisões de design
@@ -89,17 +89,20 @@ npm run build        # build de produção em dist/
 
 ## Qualidade medida
 
-Medido em 08/10/2026 no build de produção servido localmente, com o Lighthouse 12 (perfil móvel) e o axe-core:
+Medido em 08/10/2026 no build de produção servido localmente, com o Lighthouse 12 (perfil móvel, rede e CPU simuladas) e o axe-core. A Fake Store API foi substituída por uma cópia local dela durante a medição.
 
 | Página | Performance | Acessibilidade | Boas práticas | SEO |
 |---|---|---|---|---|
-| Início | 83 | 100 | 100 | 100 |
+| Início | 93 | 100 | 100 | 100 |
 | Produtos | 80 | 100 | 100 | 100 |
-| Detalhe | 94 | 100 | 100 | 100 |
+| Detalhe | 93 | 100 | 100 | 100 |
+| Carrinho | 95 | 100 | 100 | 100 |
+| Sobre | 97 | 100 | 100 | 100 |
 
-- Medição feita com uma cópia local da Fake Store API. Sem a API (usando o catálogo local), Performance ficou entre 78 e 97; Boas práticas cai para 96 só por causa do erro de rede da API fora do ar.
-- O que mais pesa na Performance são as fotos que a Fake Store API serve (JPG de até 1500 px). A cópia local usa WebP de 600 px.
+- Com a API fora do ar (loja usando o catálogo local), Performance ficou entre 81 e 96; Boas práticas cai para 96 nas páginas que chamam a API, só por causa do erro de rede registrado no console.
+- O que mais pesa na página de produtos são as fotos que a Fake Store API serve (JPG de até 1500 px). A cópia local usa WebP de 600 px.
 - axe-core: 0 violações em todas as telas, em 1440 px e 390 px, inclusive com erros de formulário na tela.
+- O fluxo completo (listar → filtrar → detalhe → adicionar → carrinho → checkout → confirmação) foi verificado com Playwright em 1440 px e 390 px, sem erros no console.
 
 ## O que pratiquei e próximos passos
 
@@ -112,6 +115,8 @@ Pratiquei:
 
 Próximos passos:
 - deploy (Vercel ou similar) e link no topo deste README;
+- servir as fotos por uma CDN que redimensiona (loader do `NgOptimizedImage`) e hospedar as fontes junto com o app;
+- sincronizar o carrinho entre abas abertas (evento `storage`);
 - testes de ponta a ponta (Playwright) no repositório, rodando no GitHub Actions;
 - buscar o endereço pelo CEP (ViaCEP);
 - experimentar o `httpResource` quando ele sair da fase experimental.

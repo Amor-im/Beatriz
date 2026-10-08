@@ -46,6 +46,8 @@ Ideia da resposta: `computed` quando quero um **valor** derivado (total do carri
 2. se falhar, o `catchError` busca a cópia local `src/assets/produtos.json` (mesmos campos da API) e o service marca `origem = 'local'`, e a tela mostra um aviso;
 3. se a cópia local também falhar, o erro chega ao componente, que mostra "Não foi possível carregar os produtos" com o botão **Tentar de novo**.
 
+A lista fica guardada no service com `shareReplay(1)`: home, catálogo e cadastro usam a mesma resposta, sem refazer a requisição a cada troca de página. Se der erro, o `shareReplay` não guarda o erro, então a próxima chamada tenta de novo; o botão "Tentar de novo" força uma busca nova com `listar(true)`.
+
 Também tipei a resposta (`ProdutoApi`) no lugar do `any` e converto para o formato da loja num lugar só (`ProdutoMapper`).
 
 **Onde.** `features/produtos/produto.service.ts`, `model/produto.ts`.
@@ -88,6 +90,8 @@ Ideia da resposta: template-driven serve para formulários bem simples. Reativo 
 
 **Onde.** `app.routes.ts`, `app.config.ts`, `core/titulo-pagina.strategy.ts`, `features/carrinho/carrinho-com-itens.guard.ts`.
 
+Testei também `withPreloading(PreloadAllModules)` (baixar todas as páginas em segundo plano). No Lighthouse móvel o tempo bloqueado (TBT) e o LCP pioraram, porque os arquivos extras disputavam a rede lenta com as fotos. Tirei: otimização que não foi medida pode piorar as coisas.
+
 **Pergunta para treinar.** *"Por que guardar os filtros na URL e não num signal do componente?"*
 Ideia da resposta: a URL já é um estado que o navegador sabe guardar, compartilhar e voltar. Se o filtro estivesse só na memória, recarregar a página ou mandar o link para alguém perderia o filtro.
 
@@ -112,7 +116,7 @@ Ideia da resposta: pipe puro só roda de novo quando a referência do valor de e
 
 **Por que usei.** Para testar exatamente os caminhos difíceis de reproduzir na mão: API respondendo, API caindo e o catálogo local assumindo, os dois falhando. O `afterEach(() => http.verify())` garante que nenhuma requisição ficou sem resposta.
 
-Além do `ProdutoService`, testei o `CarrinhoService` (adicionar, somar, máximo de 10, remover, totais com desconto, frete grátis a partir de R$ 299, persistência no localStorage com `TestBed.tick()` para rodar o `effect`), os pipes, os filtros do catálogo, a máscara de CEP, o guard e os componentes principais. São 108 testes; no TP eram 15, e 9 falhavam.
+Além do `ProdutoService`, testei o `CarrinhoService` (adicionar, somar, máximo de 10, remover, totais com desconto, frete grátis a partir de R$ 299, persistência no localStorage com `TestBed.tick()` para rodar o `effect`), os pipes, os filtros do catálogo, a máscara de CEP, o guard e os componentes principais. São 115 testes; no TP eram 15, e 9 falhavam.
 
 **Onde.** `*.spec.ts` ao lado de cada arquivo; rodo com `npm test` (ou `npm run test:ci` sem janela).
 
@@ -130,6 +134,8 @@ Ideia da resposta: `provideHttpClient()` + `provideHttpClientTesting()` no TestB
 | Card como componente de apresentação | O card recebe `input()` e avisa com `output()`; quem decide adicionar ao carrinho é a página. Fica reutilizável (a prévia do cadastro usa o mesmo card). | `card-produto.ts` |
 | Tokens de design em `:root` | Cores, espaços (8/16/24/40/64), raio e sombra num lugar só; os componentes só usam variáveis. | `src/styles.css` |
 | Acessibilidade | Link "Pular para o conteúdo", foco visível, alvos de toque ≥ 44 px, `aria-live` nos avisos, `lang="en"` nos textos que vêm da API em inglês. Rodei o axe em todas as telas: 0 violações. | vários |
+| `ChangeDetectionStrategy.OnPush` | Com OnPush o Angular só revisa o componente quando um `input` muda, um evento acontece nele ou um signal lido no template muda. Como o estado está em signals, dá para usar em todos os componentes sem mudar a lógica. | todos os `@Component` |
+| `adicionar()` devolve quantas unidades entraram | Com limite de 10 por produto, a tela precisa saber se algo entrou de fato para não mostrar "adicionado" quando nada mudou. | `carrinho.service.ts` |
 | `min-height` no `<main>` | Sem ele o rodapé aparecia no topo e "pulava" quando a página carregava (CLS de 0,46 no Lighthouse; depois, ~0). | `app.css` |
 
 **Pergunta extra.** *"O que você faria diferente se fosse um projeto de verdade?"*
