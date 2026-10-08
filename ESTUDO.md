@@ -46,7 +46,9 @@ Ideia da resposta: `computed` quando quero um **valor** derivado (total do carri
 2. se falhar, o `catchError` busca a cópia local `src/assets/produtos.json` (mesmos campos da API) e o service marca `origem = 'local'`, e a tela mostra um aviso;
 3. se a cópia local também falhar, o erro chega ao componente, que mostra "Não foi possível carregar os produtos" com o botão **Tentar de novo**.
 
-A lista fica guardada no service com `shareReplay(1)`: home, catálogo e cadastro usam a mesma resposta, sem refazer a requisição a cada troca de página. Se der erro, o `shareReplay` não guarda o erro, então a próxima chamada tenta de novo; o botão "Tentar de novo" força uma busca nova com `listar(true)`.
+A lista fica guardada no service com `shareReplay(1)`: home, catálogo e cadastro usam a mesma resposta, sem refazer a requisição a cada troca de página. Se der erro, o `shareReplay` não guarda o erro, então a próxima chamada tenta de novo; o botão "Tentar de novo" força uma busca nova com `listar(true)`. Se a lista guardada for a cópia local, ela vale por 1 minuto: depois disso a próxima chamada tenta a API de novo, para a loja não ficar presa na cópia quando a API voltar.
+
+O signal `origem` fala **só da lista do catálogo**. Quem muda o valor é o `listar()`; o `buscarPorId()` (detalhe) não mexe nele. Antes os dois escreviam no mesmo signal, e abrir um produto apagava (ou mostrava sem motivo) o aviso de cópia local no catálogo.
 
 Também tipei a resposta (`ProdutoApi`) no lugar do `any` e converto para o formato da loja num lugar só (`ProdutoMapper`).
 
@@ -90,7 +92,7 @@ Ideia da resposta: template-driven serve para formulários bem simples. Reativo 
 
 **Onde.** `app.routes.ts`, `app.config.ts`, `core/titulo-pagina.strategy.ts`, `features/carrinho/carrinho-com-itens.guard.ts`.
 
-Testei também `withPreloading(PreloadAllModules)` (baixar todas as páginas em segundo plano). No Lighthouse móvel o tempo bloqueado (TBT) e o LCP pioraram, porque os arquivos extras disputavam a rede lenta com as fotos. Tirei: otimização que não foi medida pode piorar as coisas.
+O `withPreloading(PreloadAllModules)` (baixar todas as páginas em segundo plano) foi testado e retirado: os arquivos extras disputavam a rede com as fotos logo na abertura da página.
 
 **Pergunta para treinar.** *"Por que guardar os filtros na URL e não num signal do componente?"*
 Ideia da resposta: a URL já é um estado que o navegador sabe guardar, compartilhar e voltar. Se o filtro estivesse só na memória, recarregar a página ou mandar o link para alguém perderia o filtro.
@@ -101,7 +103,7 @@ Ideia da resposta: a URL já é um estado que o navegador sabe guardar, comparti
 
 **O que é.** Pipe transforma um valor só para exibição no template: `{{ preco | desconto: 10 | currency: 'BRL' }}`.
 
-**Por que usei.** Mantive os dois pipes do TP e corrigi um bug: o `desconto` arredondava para reais inteiros (R$ 98,95 virava R$ 99). Agora a conta fica numa função do model (`aplicarDesconto`) usada pelo pipe **e** pelo carrinho, para o preço da tela e o do total nunca divergirem. São pipes `pure`: o Angular só recalcula quando o valor de entrada muda. Também configurei `LOCALE_ID = 'pt-BR'` para o `currency` mostrar "R$ 1.299,90".
+**Por que usei.** Mantive os dois pipes do TP e corrigi um bug: o `desconto` arredondava para o valor inteiro (98,95 virava 99). Agora a conta fica numa função do model (`aplicarDesconto`) usada pelo pipe **e** pelo carrinho, para o preço da tela e o do total nunca divergirem. São pipes `pure`: o Angular só recalcula quando o valor de entrada muda. Também configurei `LOCALE_ID = 'pt-BR'` e `DEFAULT_CURRENCY_CODE = 'USD'`: o `currency` mostra "US$ 1.299,90", no formato brasileiro e na moeda real dos preços da Fake Store API (dólar).
 
 **Onde.** `shared/pipes/desconto-pipe.ts`, `shared/pipes/truncar-pipe.ts`, `model/produto.ts`.
 
@@ -116,7 +118,9 @@ Ideia da resposta: pipe puro só roda de novo quando a referência do valor de e
 
 **Por que usei.** Para testar exatamente os caminhos difíceis de reproduzir na mão: API respondendo, API caindo e o catálogo local assumindo, os dois falhando. O `afterEach(() => http.verify())` garante que nenhuma requisição ficou sem resposta.
 
-Além do `ProdutoService`, testei o `CarrinhoService` (adicionar, somar, máximo de 10, remover, totais com desconto, frete grátis a partir de R$ 299, persistência no localStorage com `TestBed.tick()` para rodar o `effect`), os pipes, os filtros do catálogo, a máscara de CEP, o guard e os componentes principais. São 115 testes; no TP eram 15, e 9 falhavam.
+Além do `ProdutoService`, testei o `CarrinhoService` (adicionar, somar, máximo de 10, remover, totais com desconto, frete grátis a partir de US$ 299, persistência no localStorage com `TestBed.tick()` para rodar o `effect`), os pipes, os filtros do catálogo, a máscara de CEP, o guard e os componentes principais. São 122 testes de unidade; no TP eram 15, e 9 falhavam.
+
+Além deles, `npm run e2e` roda 8 testes de ponta a ponta com o **Playwright** (o fluxo completo de compra em 1440 px e 390 px, o cadastro, a página 404 e a loja com a API fora do ar). A API é simulada com `page.route()`, e o **axe-core** verifica a acessibilidade em cada tela.
 
 **Onde.** `*.spec.ts` ao lado de cada arquivo; rodo com `npm test` (ou `npm run test:ci` sem janela).
 
@@ -130,13 +134,14 @@ Ideia da resposta: `provideHttpClient()` + `provideHttpClientTesting()` no TestB
 | Decisão | Por quê | Onde |
 |---|---|---|
 | Estoque e promoção com regra fixa por id | O TP usava `Math.random()`: o mesmo produto aparecia "Esgotado" num reload e disponível no outro. A Fake Store API não tem estoque, então simulo de forma previsível e testável. | `model/produto.ts` |
-| `NgOptimizedImage` | Lazy loading por padrão e `priority` nas imagens que aparecem logo de cara (melhora o LCP). | `card-produto`, `banner`, `galeria-produto` |
+| `NgOptimizedImage` | Lazy loading por padrão e `priority` nas imagens que aparecem logo de cara (a imagem principal aparece mais cedo). | `card-produto`, `banner`, `galeria-produto` |
 | Card como componente de apresentação | O card recebe `input()` e avisa com `output()`; quem decide adicionar ao carrinho é a página. Fica reutilizável (a prévia do cadastro usa o mesmo card). | `card-produto.ts` |
 | Tokens de design em `:root` | Cores, espaços (8/16/24/40/64), raio e sombra num lugar só; os componentes só usam variáveis. | `src/styles.css` |
-| Acessibilidade | Link "Pular para o conteúdo", foco visível, alvos de toque ≥ 44 px, `aria-live` nos avisos, `lang="en"` nos textos que vêm da API em inglês. Rodei o axe em todas as telas: 0 violações. | vários |
+| Acessibilidade | Link "Pular para o conteúdo", foco visível, alvos de toque ≥ 44 px, `aria-live` nos avisos, `lang="en"` nos textos que vêm da API em inglês. O `npm run e2e` roda o axe em cada tela. | vários |
 | `ChangeDetectionStrategy.OnPush` | Com OnPush o Angular só revisa o componente quando um `input` muda, um evento acontece nele ou um signal lido no template muda. Como o estado está em signals, dá para usar em todos os componentes sem mudar a lógica. | todos os `@Component` |
+| Carrinho atualizado com o catálogo atual | O carrinho salvo guarda uma cópia do produto. Ao abrir o carrinho ou o checkout, `atualizarProdutos()` troca a cópia pelo produto atual (preço, promoção, estoque) e tira o que esgotou. | `carrinho.service.ts`, `atualizar-carrinho.ts` |
 | `adicionar()` devolve quantas unidades entraram | Com limite de 10 por produto, a tela precisa saber se algo entrou de fato para não mostrar "adicionado" quando nada mudou. | `carrinho.service.ts` |
-| `min-height` no `<main>` | Sem ele o rodapé aparecia no topo e "pulava" quando a página carregava (CLS de 0,46 no Lighthouse; depois, ~0). | `app.css` |
+| `min-height` no `<main>` | Sem ele o rodapé aparecia no topo e "pulava" para baixo quando a página carregava (mudança de layout, o CLS). | `app.css` |
 
 **Pergunta extra.** *"O que você faria diferente se fosse um projeto de verdade?"*
 Ideia da resposta: checkout e preço validados no servidor (nunca confiar no total calculado no navegador), API própria com estoque real, imagens servidas por uma CDN que redimensiona, e testes de ponta a ponta rodando no CI.
