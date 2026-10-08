@@ -1,0 +1,18 @@
+<div class="toasts" role="status" aria-live="polite">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div class="toast">
+      <svg class="toast__icone" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="toast__texto">{{ toast.texto }}</p>
+      @if (toast.link) {
+        <a class="toast__link" [routerLink]="toast.link.rota" (click)="toastService.fechar(toast.id)">{{ toast.link.rotulo }}</a>
+      }
+      <button type="button" class="toast__fechar" (click)="toastService.fechar(toast.id)" aria-label="Fechar aviso">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  }
+</div>

@@ -1,11 +1,29 @@
-<header class="header">
-    <h1>{{titulo()}}</h1>
+<header class="topo">
+  <div class="topo__linha largura-pagina">
+    <a class="marca" routerLink="/" aria-label="Vitrine, página inicial">
+      <svg class="marca__icone" width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M10 9h13a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H10l-5-7z" fill="var(--cor-etiqueta)" />
+        <circle cx="10.5" cy="16" r="1.8" fill="var(--cor-tinta)" />
+      </svg>
+      <span class="marca__nome">vitrine</span>
+    </a>
 
-    <nav>
-        <a routerLink="/">Home</a>
-        <a routerLink="/produtos">Produtos</a>
-        <a routerLink="/sobre">Sobre</a>
+    <nav class="menu" aria-label="Principal">
+      <a routerLink="/produtos" routerLinkActive="ativo" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">Produtos</a>
+      <a routerLink="/produtos/novo" routerLinkActive="ativo" ariaCurrentWhenActive="page">Cadastrar</a>
+      <a routerLink="/sobre" routerLinkActive="ativo" ariaCurrentWhenActive="page">Sobre</a>
     </nav>
 
-
+    <a class="carrinho" routerLink="/carrinho" routerLinkActive="ativo" ariaCurrentWhenActive="page" [attr.aria-label]="rotuloCarrinho()">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 4h2.2l2.1 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 1.9-1.4L21 8H6.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10" cy="20" r="1.5" fill="currentColor" />
+        <circle cx="17" cy="20" r="1.5" fill="currentColor" />
+      </svg>
+      <span class="carrinho__rotulo" aria-hidden="true">Carrinho</span>
+      @if (quantidade() > 0) {
+        <span class="carrinho__badge" aria-hidden="true">{{ quantidade() }}</span>
+      }
+    </a>
+  </div>
 </header>

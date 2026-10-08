@@ -1,3 +1,17 @@
-<footer>
-    <p>&copy;2026 Loja TP1. Todos os direitos reservados</p>
+<footer class="rodape">
+  <div class="rodape__conteudo largura-pagina">
+    <div class="rodape__texto">
+      <p class="rodape__marca">vitrine</p>
+      <p>Loja de demonstração feita em Angular. Nenhuma compra é real e nenhum pagamento é processado.</p>
+    </div>
+    <nav class="rodape__links" aria-label="Rodapé">
+      <a routerLink="/produtos">Produtos</a>
+      <a routerLink="/carrinho">Carrinho</a>
+      <a routerLink="/sobre">Sobre o projeto</a>
+    </nav>
+    <p class="rodape__autoria">
+      © {{ ano }} Beatriz Campos Alves · Produtos e imagens da
+      <a href="https://fakestoreapi.com" target="_blank" rel="noopener">Fake Store API</a>
+    </p>
+  </div>
 </footer>

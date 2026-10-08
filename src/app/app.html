@@ -1,17 +1,10 @@
-<app-header [titulo]="title()" (textoSobre)="receberSobre($event)"></app-header>
+<button type="button" class="pular-conteudo" (click)="pularParaConteudo()">Pular para o conteúdo</button>
 
-<main class="container">
-  <router-outlet></router-outlet>
+<app-header />
 
-  @if(x() % 2 == 0){
-  }
-  <!--<h2>Angular - Aula 01</h2>-->
-
-  
-
-  <!--p>{{sobre}}</p>-->
+<main id="conteudo" class="principal" tabindex="-1" #conteudo>
+  <router-outlet />
 </main>
 
-<app-footer></app-footer>
-
-<!--<app-banner></app-banner>-->
+<app-footer />
+<app-toasts />

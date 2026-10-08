@@ -1,24 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CarrinhoService } from '../../features/carrinho/carrinho.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
-  titulo = input.required<string>();
+  private readonly carrinho = inject(CarrinhoService);
 
-  textoSobre = output<string>();
+  protected readonly quantidade = this.carrinho.quantidadeTotal;
 
-  enviarSobre():void{
-    this.textoSobre.emit('Técnica de programação 1.\nDesenvolvido por Beatriz');
-  }
-
-  exibirMensagem(msg:string):void{
-    alert(msg);
-  }
+  /** Texto lido pelo leitor de tela no botão do carrinho. */
+  protected readonly rotuloCarrinho = computed(() => {
+    const qtd = this.quantidade();
+    if (qtd === 0) return 'Carrinho, vazio';
+    return `Carrinho, ${qtd} ${qtd === 1 ? 'item' : 'itens'}`;
+  });
 }
-

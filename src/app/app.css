@@ -1,13 +1,28 @@
-.container {
-    flex: 1;
-    padding: 24px 16px;
-    max-width: 1100px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    color: #2f9e41;
-  }
-  
+.principal {
+  flex: 1;
+  width: 100%;
+}
+
+.principal:focus {
+  outline: none;
+}
+
+.pular-conteudo {
+  position: absolute;
+  z-index: 100;
+  top: var(--espaco-1);
+  left: var(--espaco-1);
+  min-height: var(--alvo-toque);
+  padding: 10px var(--espaco-2);
+  border: 0;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-tinta);
+  color: #fff;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+
+.pular-conteudo:focus-visible {
+  transform: none;
+  outline-color: var(--cor-etiqueta);
+}
