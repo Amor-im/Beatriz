@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ToastService } from '../../../core/toast/toast.service';
 import { precoFinal, rotuloCategoria } from '../../../model/produto';
@@ -12,6 +12,7 @@ import { ResumoPedido } from '../resumo-pedido/resumo-pedido';
 
 @Component({
   selector: 'app-pagina-carrinho',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CurrencyPipe, RouterLink, EstadoVazio, QuantidadeControle, ImagemReserva, ResumoPedido],
   templateUrl: './pagina-carrinho.html',
   styleUrl: './pagina-carrinho.css',
@@ -24,9 +25,9 @@ export class PaginaCarrinho {
   protected readonly precoFinal = precoFinal;
   protected readonly rotuloCategoria = rotuloCategoria;
 
-  /** Progresso até o frete grátis (0 a 100), para a barra. */
+  /** Progresso até o frete grátis (0 a 100), para a barra. floor: só enche quando atingir de verdade. */
   protected readonly progressoFrete = computed(() =>
-    Math.min(100, Math.round((this.carrinho.subtotal() / FRETE_GRATIS_A_PARTIR_DE) * 100)),
+    Math.min(100, Math.floor((this.carrinho.subtotal() / FRETE_GRATIS_A_PARTIR_DE) * 100)),
   );
 
   alterarQuantidade(item: ItemCarrinho, quantidade: number): void {

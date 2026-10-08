@@ -1,9 +1,9 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ToastService } from '../../core/toast/toast.service';
 import { CATEGORIAS, Produto } from '../../model/produto';
-import { CarrinhoService } from '../carrinho/carrinho.service';
+import { CarrinhoService, mensagemAdicao } from '../carrinho/carrinho.service';
 import { CardProduto } from '../produtos/card-produto/card-produto';
 import { ProdutoService } from '../produtos/produto.service';
 import { Banner } from './banner/banner';
@@ -21,6 +21,7 @@ const FOTO_CATEGORIA: Record<string, string> = {
 
 @Component({
   selector: 'app-home',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Banner, CardProduto, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -56,7 +57,11 @@ export class Home {
   }
 
   onAdicionar(produto: Produto): void {
-    this.carrinho.adicionar(produto);
-    this.toast.mostrar('Produto adicionado ao carrinho', { rotulo: 'Ver carrinho', rota: '/carrinho' });
+    const adicionadas = this.carrinho.adicionar(produto);
+    this.toast.mostrar(
+      mensagemAdicao(adicionadas),
+      { rotulo: 'Ver carrinho', rota: '/carrinho' },
+      adicionadas > 0 ? 'sucesso' : 'aviso',
+    );
   }
 }

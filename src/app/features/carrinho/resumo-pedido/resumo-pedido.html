@@ -31,7 +31,7 @@
 
   <div class="resumo__total">
     <span>Total</span>
-    <app-etiqueta-preco [produto]="{ preco: carrinho.total() }" tamanho="grande" />
+    <app-etiqueta-preco [preco]="carrinho.total()" tamanho="grande" />
   </div>
 
   <ng-content />

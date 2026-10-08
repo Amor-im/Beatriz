@@ -22,7 +22,7 @@ describe('PedidoConfirmado', () => {
     TestBed.inject(CarrinhoService).adicionar(produtoFake(), 1);
     TestBed.inject(PedidoService)
       .finalizar({
-        nome: 'Ana Souza',
+        nome: '  Ana   Souza ',
         email: 'ana@exemplo.com',
         cep: '01310-100',
         endereco: 'Avenida Paulista',

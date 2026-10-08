@@ -44,7 +44,7 @@
           </div>
           <div class="campo">
             <label class="campo__rotulo" for="numero">Número</label>
-            <input id="numero" class="campo__controle" type="text" inputmode="numeric" formControlName="numero"
+            <input id="numero" class="campo__controle" type="text" formControlName="numero"
               [attr.aria-invalid]="!!erro('numero')" [attr.aria-describedby]="erro('numero') ? 'erro-numero' : null" />
             @if (erro('numero'); as mensagem) { <p id="erro-numero" class="campo__erro">{{ mensagem }}</p> }
           </div>

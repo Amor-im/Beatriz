@@ -38,22 +38,31 @@ export class CarrinhoService {
     effect(() => salvarNoStorage(this._itens()));
   }
 
-  adicionar(produto: Produto, quantidade = 1): void {
+  /**
+   * Adiciona o produto (ou soma à quantidade que já está no carrinho), até o limite de 10.
+   * Devolve quantas unidades entraram de fato: 0 quando o limite já foi atingido.
+   */
+  adicionar(produto: Produto, quantidade = 1): number {
     if (quantidade <= 0 || produto.estado === 'esgotado') {
-      return;
+      return 0;
     }
-    this._itens.update((itens) => {
-      const existente = itens.find((item) => item.produto.id === produto.id);
-      if (!existente) {
-        return [...itens, { produto, quantidade: Math.min(quantidade, QUANTIDADE_MAXIMA) }];
-      }
-      // Imutável: cria um novo array e um novo item em vez de alterar o objeto antigo.
-      return itens.map((item) =>
-        item === existente
-          ? { ...item, quantidade: Math.min(item.quantidade + quantidade, QUANTIDADE_MAXIMA) }
-          : item,
-      );
-    });
+    const noCarrinho = this._itens().find((item) => item.produto.id === produto.id)?.quantidade ?? 0;
+    const adicionadas = Math.min(quantidade, QUANTIDADE_MAXIMA - noCarrinho);
+    if (adicionadas <= 0) {
+      return 0;
+    }
+
+    this._itens.update((itens) =>
+      noCarrinho === 0
+        ? [...itens, { produto, quantidade: adicionadas }]
+        : // Imutável: cria um novo array e um novo item em vez de alterar o objeto antigo.
+          itens.map((item) =>
+            item.produto.id === produto.id
+              ? { ...item, quantidade: item.quantidade + adicionadas }
+              : item,
+          ),
+    );
+    return adicionadas;
   }
 
   alterarQuantidade(produtoId: number, quantidade: number): void {
@@ -101,9 +110,20 @@ function salvarNoStorage(itens: ItemCarrinho[]): void {
 function ehItemValido(item: unknown): item is ItemCarrinho {
   const candidato = item as ItemCarrinho;
   return (
-    typeof candidato?.quantidade === 'number' &&
+    Number.isInteger(candidato?.quantidade) &&
     candidato.quantidade > 0 &&
+    candidato.quantidade <= QUANTIDADE_MAXIMA &&
     typeof candidato.produto?.id === 'number' &&
     typeof candidato.produto?.preco === 'number'
   );
+}
+
+/** Texto do aviso depois de adicionar, a partir de quantas unidades entraram de fato. */
+export function mensagemAdicao(adicionadas: number): string {
+  if (adicionadas === 0) {
+    return `Você já tem o máximo de ${QUANTIDADE_MAXIMA} unidades deste produto no carrinho`;
+  }
+  return adicionadas === 1
+    ? '1 unidade adicionada ao carrinho'
+    : `${adicionadas} unidades adicionadas ao carrinho`;
 }

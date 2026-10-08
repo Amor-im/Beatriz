@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ type CampoComErro = 'nome' | 'email' | 'cep' | 'endereco' | 'numero' | 'cidade' 
 
 /** Mensagens de erro por campo e por tipo de erro do validador. */
 const MENSAGENS: Record<CampoComErro, Record<string, string>> = {
-  nome: { required: 'Digite seu nome completo.', minlength: 'Digite nome e sobrenome.' },
+  nome: { required: 'Digite seu nome completo.', pattern: 'Digite nome e sobrenome.' },
   email: { required: 'Digite seu e-mail.', email: 'Confira o e-mail: ele precisa ter @ e domínio, como nome@exemplo.com.' },
   cep: { required: 'Digite o CEP.', pattern: 'O CEP tem 8 números, no formato 00000-000.' },
   endereco: { required: 'Digite a rua ou avenida.' },
@@ -28,6 +28,7 @@ const MENSAGENS: Record<CampoComErro, Record<string, string>> = {
 
 @Component({
   selector: 'app-checkout',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, MascaraCep, ResumoPedido],
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
@@ -48,7 +49,8 @@ export class Checkout {
   ];
 
   protected readonly form = this.fb.nonNullable.group({
-    nome: ['', [Validators.required, Validators.minLength(5)]],
+    // Pelo menos duas palavras: "Ana Souza". Só espaços não passa.
+    nome: ['', [Validators.required, Validators.pattern(/\S+\s+\S+/)]],
     email: ['', [Validators.required, Validators.email]],
     cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
     endereco: ['', Validators.required],
@@ -60,10 +62,10 @@ export class Checkout {
   });
 
   protected readonly enviando = signal(false);
-  protected readonly tentouEnviar = signal(false);
 
+  /** Mostra o erro depois que a pessoa sai do campo (touched). Ao confirmar, todos viram touched. */
   protected mostrarErro(controle: AbstractControl): boolean {
-    return controle.invalid && (controle.touched || this.tentouEnviar());
+    return controle.invalid && controle.touched;
   }
 
   /** Devolve a mensagem do primeiro erro do campo (ou null se o campo está válido). */
@@ -75,7 +77,10 @@ export class Checkout {
   }
 
   confirmar(): void {
-    this.tentouEnviar.set(true);
+    // Evita um segundo clique criar outro pedido enquanto o primeiro é confirmado.
+    if (this.enviando() || this.carrinho.vazio()) {
+      return;
+    }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       setTimeout(() =>
@@ -88,9 +93,7 @@ export class Checkout {
     this.pedidoService
       .finalizar(this.form.getRawValue())
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.enviando.set(false);
-        this.router.navigate(['/pedido-confirmado']);
-      });
+      // `enviando` continua true: o botão fica desabilitado até a página de confirmação abrir.
+      .subscribe(() => this.router.navigate(['/pedido-confirmado']));
   }
 }

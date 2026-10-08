@@ -31,7 +31,7 @@ describe('PaginaCarrinho', () => {
     expect(el.querySelectorAll('.item').length).toBe(1);
     expect(el.querySelector('.item__nome')?.textContent).toContain('Mochila');
     expect(el.querySelector('.frete')?.textContent).toContain('para o frete grátis');
-    expect(el.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('67');
+    expect(el.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('66');
   });
 
   it('altera a quantidade pelo seletor e remove o item', () => {

@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { EstadoVazio } from '../../../shared/estado-vazio/estado-vazio';
 import { EtiquetaPreco } from '../../../shared/etiqueta-preco/etiqueta-preco';
 import { Truncar } from '../../../shared/pipes/truncar-pipe';
 import { QuantidadeControle } from '../../../shared/quantidade-controle/quantidade-controle';
-import { CarrinhoService, QUANTIDADE_MAXIMA } from '../../carrinho/carrinho.service';
+import { CarrinhoService, mensagemAdicao, QUANTIDADE_MAXIMA } from '../../carrinho/carrinho.service';
 import { FRETE_GRATIS_A_PARTIR_DE } from '../../carrinho/frete';
 import { GaleriaProduto } from '../galeria-produto/galeria-produto';
 import { ProdutoService } from '../produto.service';
@@ -24,6 +24,7 @@ type Resultado =
 
 @Component({
   selector: 'app-produto-detalhe',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
     DecimalPipe,
@@ -94,11 +95,11 @@ export class ProdutoDetalhe {
   }
 
   adicionarAoCarrinho(produto: Produto): void {
-    const qtd = this.quantidade();
-    this.carrinho.adicionar(produto, qtd);
+    const adicionadas = this.carrinho.adicionar(produto, this.quantidade());
     this.toast.mostrar(
-      qtd === 1 ? '1 unidade adicionada ao carrinho' : `${qtd} unidades adicionadas ao carrinho`,
+      mensagemAdicao(adicionadas),
       { rotulo: 'Ver carrinho', rota: '/carrinho' },
+      adicionadas > 0 ? 'sucesso' : 'aviso',
     );
   }
 }

@@ -37,6 +37,16 @@ describe('Checkout', () => {
     expect(TestBed.inject(PedidoService).ultimoPedido()).toBeNull();
   });
 
+  it('não aceita nome só com espaços ou só com uma palavra', () => {
+    preencher('nome', '     ');
+    confirmar();
+    expect(el.querySelector('#erro-nome')?.textContent).toContain('Digite nome e sobrenome');
+
+    preencher('nome', 'Beatriz');
+    fixture.detectChanges();
+    expect(el.querySelector('#erro-nome')?.textContent).toContain('Digite nome e sobrenome');
+  });
+
   it('valida o formato do e-mail e do CEP', () => {
     preencher('email', 'ana.exemplo.com');
     preencher('cep', '0131');
@@ -58,7 +68,9 @@ describe('Checkout', () => {
     confirmar();
 
     expect(el.querySelector('button[type="submit"]')?.textContent).toContain('Confirmando pedido');
+    confirmar(); // segundo clique enquanto confirma: ignorado
     tick(ATRASO_SIMULADO_MS);
+    expect(navegar).toHaveBeenCalledTimes(1);
 
     const pedido = TestBed.inject(PedidoService).ultimoPedido();
     expect(pedido?.entrega.cep).toBe('01310-100');

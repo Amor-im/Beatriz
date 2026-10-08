@@ -30,4 +30,17 @@ describe('ToastService', () => {
     expect(service.toasts().length).toBe(0);
     tick(DURACAO_TOAST_MS);
   }));
+
+  it('pausa enquanto o mouse ou o foco está no aviso e retoma depois', fakeAsync(() => {
+    service.mostrar('Produto adicionado', { rotulo: 'Ver carrinho', rota: '/carrinho' });
+    const id = service.toasts()[0].id;
+
+    service.pausar(id);
+    tick(DURACAO_TOAST_MS * 2);
+    expect(service.toasts().length).toBe(1);
+
+    service.retomar(id);
+    tick(DURACAO_TOAST_MS);
+    expect(service.toasts().length).toBe(0);
+  }));
 });

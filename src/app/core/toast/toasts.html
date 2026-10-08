@@ -1,8 +1,18 @@
 <div class="toasts" role="status" aria-live="polite">
   @for (toast of toastService.toasts(); track toast.id) {
-    <div class="toast">
+    <div
+      class="toast"
+      (mouseenter)="toastService.pausar(toast.id)"
+      (mouseleave)="toastService.retomar(toast.id)"
+      (focusin)="toastService.pausar(toast.id)"
+      (focusout)="toastService.retomar(toast.id)"
+    >
       <svg class="toast__icone" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        @if (toast.tipo === 'aviso') {
+          <path d="M12 7v6M12 17h.01" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        } @else {
+          <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        }
       </svg>
       <p class="toast__texto">{{ toast.texto }}</p>
       @if (toast.link) {

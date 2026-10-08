@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { produtoFake } from '../../../testing/produtos-fake';
-import { CarrinhoService, CHAVE_CARRINHO, QUANTIDADE_MAXIMA } from './carrinho.service';
+import { CarrinhoService, CHAVE_CARRINHO, mensagemAdicao, QUANTIDADE_MAXIMA } from './carrinho.service';
 import { VALOR_FRETE } from './frete';
 
 describe('CarrinhoService', () => {
@@ -45,9 +45,10 @@ describe('CarrinhoService', () => {
       expect(carrinho.itens()[0].quantidade).toBe(4);
     });
 
-    it(`não passa de ${QUANTIDADE_MAXIMA} unidades do mesmo produto`, () => {
-      carrinho.adicionar(mochila, 8);
-      carrinho.adicionar(mochila, 5);
+    it(`não passa de ${QUANTIDADE_MAXIMA} unidades e devolve quantas entraram de fato`, () => {
+      expect(carrinho.adicionar(mochila, 8)).toBe(8);
+      expect(carrinho.adicionar(mochila, 5)).toBe(2);
+      expect(carrinho.adicionar(mochila, 1)).toBe(0);
 
       expect(carrinho.itens()[0].quantidade).toBe(QUANTIDADE_MAXIMA);
     });
@@ -146,10 +147,21 @@ describe('CarrinhoService', () => {
     it('descarta itens salvos com formato inválido', () => {
       localStorage.setItem(
         CHAVE_CARRINHO,
-        JSON.stringify([{ produto: mochila, quantidade: 1 }, { produto: null, quantidade: 2 }]),
+        JSON.stringify([
+          { produto: mochila, quantidade: 1 },
+          { produto: null, quantidade: 2 },
+          { produto: pulseira, quantidade: 999 }, // editado na mão: passa do limite
+          { produto: { ...mochila, id: 9 }, quantidade: 1.5 },
+        ]),
       );
 
       expect(criarServico().itens().length).toBe(1);
     });
+  });
+
+  it('mensagemAdicao explica quando o limite já foi atingido', () => {
+    expect(mensagemAdicao(1)).toBe('1 unidade adicionada ao carrinho');
+    expect(mensagemAdicao(3)).toBe('3 unidades adicionadas ao carrinho');
+    expect(mensagemAdicao(0)).toContain(`máximo de ${QUANTIDADE_MAXIMA} unidades`);
   });
 });

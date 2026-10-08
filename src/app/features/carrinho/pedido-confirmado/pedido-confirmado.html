@@ -5,7 +5,7 @@
         <svg width="32" height="32" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </div>
       <p class="sobretitulo">Pedido {{ pedido.numero }}</p>
-      <h1 #titulo id="titulo-confirmado" class="confirmado__titulo" tabindex="-1">Pedido confirmado, {{ pedido.entrega.nome.split(' ')[0] }}!</h1>
+      <h1 #titulo id="titulo-confirmado" class="confirmado__titulo" tabindex="-1">Pedido confirmado, {{ primeiroNome() }}!</h1>
       <p class="confirmado__texto">
         Esta é uma loja de demonstração: nada foi cobrado e nenhum produto será enviado.
         Em uma loja de verdade, a confirmação chegaria em <strong>{{ pedido.entrega.email }}</strong>.
