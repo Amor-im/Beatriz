@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Componentes · Agenda Fácil</title>
+  <link rel="stylesheet" href="estilos/tokens.css">
+  <link rel="stylesheet" href="estilos/icones.css">
+  <link rel="stylesheet" href="estilos/componentes.css">
+  <link rel="stylesheet" href="estilos/telas.css">
+  <link rel="stylesheet" href="estilos/indice.css">
+  <script src="js/comum.js" defer></script>
+  <style>
+    /* Só nesta página: estados "congelados" para documentar hover e foco lado a lado.
+       Nas telas de verdade, esses estados vêm de :hover e :focus-visible (componentes.css). */
+    .botao.forca-hover { background: var(--caneta-escura); border-color: var(--caneta-escura); }
+    .botao--secundario.forca-hover { background: var(--caneta-clara); color: var(--caneta-escura); border-color: var(--caneta); }
+    .botao--perigo.forca-hover { background: var(--erro-fundo); border-color: var(--erro); }
+    .forca-foco { outline: 3px solid var(--foco); outline-offset: 2px; }
+    .campo__entrada.forca-foco { outline-offset: 1px; border-color: var(--caneta); }
+    .horario.forca-hover { background: var(--caneta-clara); border-color: var(--caneta); color: var(--caneta-escura); }
+    .chip.forca-hover { border-color: var(--caneta); background: var(--caneta-clara); }
+
+    .vitrine { display: grid; gap: var(--esp-48); }
+    .vitrine section { display: grid; gap: var(--esp-16); }
+    .vitrine h2 { font-size: var(--texto-h2); }
+    .linha-estados { display: flex; flex-wrap: wrap; gap: var(--esp-24); align-items: flex-start; }
+    .estado { display: grid; gap: var(--esp-8); justify-items: start; min-width: 140px; }
+    .estado > small { font-size: var(--texto-pequeno); color: var(--tinta-suave); font-family: var(--fonte-hora); }
+    .paleta { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--esp-16); }
+    .cor { border: 1.5px solid var(--linha); border-radius: var(--raio-m); overflow: hidden; background: var(--superficie); }
+    .cor__amostra { height: 72px; display: grid; place-items: center; font-weight: 700; }
+    .cor p { padding: var(--esp-8) var(--esp-16); font-size: var(--texto-pequeno); }
+    .cor code { font-family: var(--fonte-hora); }
+    .tipos { display: grid; gap: var(--esp-16); }
+    .tipos > div { display: grid; grid-template-columns: 220px 1fr; gap: var(--esp-16); align-items: baseline; border-bottom: 1px solid var(--linha); padding-bottom: var(--esp-16); }
+    .espacos { display: grid; gap: var(--esp-8); }
+    .espacos div { display: flex; align-items: center; gap: var(--esp-16); font-family: var(--fonte-hora); font-size: var(--texto-pequeno); }
+    .espacos span { display: block; height: 16px; background: var(--caneta); border-radius: 2px; }
+    .campo-demo { width: 320px; }
+    .toast-estatico { position: static; transform: none; width: 420px; }
+  </style>
+</head>
+<body>
+  <main class="indice" id="conteudo">
+    <header class="indice__topo">
+      <span class="logo">Agenda <span class="logo__facil">Fácil</span></span>
+      <h1>Componentes e estados</h1>
+      <p>A vitrine do mini design system. A explicação de cada decisão e o contraste de cada cor estão em <a href="../design-system.md">design-system.md</a>.</p>
+    </header>
+
+    <div class="vitrine">
+      <section id="cores" aria-labelledby="t-cores">
+        <h2 id="t-cores">Cores</h2>
+        <div class="paleta">
+          <div class="cor"><div class="cor__amostra" style="background:#131a2e;color:#fff">Aa</div><p><strong>Tinta</strong><br><code>#131A2E</code> · texto</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#4a5470;color:#fff">Aa</div><p><strong>Tinta suave</strong><br><code>#4A5470</code> · texto secundário</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#f5f6fa">Aa</div><p><strong>Papel</strong><br><code>#F5F6FA</code> · fundo</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#2340c2;color:#fff">Aa</div><p><strong>Caneta</strong><br><code>#2340C2</code> · ações</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#182e91;color:#fff">Aa</div><p><strong>Caneta escura</strong><br><code>#182E91</code> · hover</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#e6eafb;color:#2340c2">Aa</div><p><strong>Caneta clara</strong><br><code>#E6EAFB</code> · seleção</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#d4f56a">Aa</div><p><strong>Marca-texto</strong><br><code>#D4F56A</code> · destaque (só fundo)</p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#e3f4ea;color:#11743f">Confirmado</div><p><strong>Sucesso</strong><br><code>#11743F</code> / <code>#E3F4EA</code></p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#fdf0d5;color:#8a4b00">A confirmar</div><p><strong>Aviso</strong><br><code>#8A4B00</code> / <code>#FDF0D5</code></p></div>
+          <div class="cor"><div class="cor__amostra" style="background:#fce8e6;color:#b3261e">Erro</div><p><strong>Erro</strong><br><code>#B3261E</code> / <code>#FCE8E6</code></p></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-tipos">
+        <h2 id="t-tipos">Tipografia</h2>
+        <div class="tipos">
+          <div><small class="hora">Gabarito 800 · 32</small><span class="cartao__dia">8 de outubro</span></div>
+          <div><small class="hora">Gabarito 800 · 26/32</small><h1>Escolha o serviço</h1></div>
+          <div><small class="hora">Gabarito 700 · 20</small><p class="vazio__titulo">Sexta está lotada</p></div>
+          <div><small class="hora">Atkinson Next 700 · 17</small><p class="texto-h3">Precisa mudar?</p></div>
+          <div><small class="hora">Atkinson Next 400 · 16</small><p>Só para falar sobre este horário. Sem senha e sem criar conta.</p></div>
+          <div><small class="hora">Atkinson Next 400 · 14</small><p class="texto-pequeno texto-suave">Horário de Brasília.</p></div>
+          <div><small class="hora">Atkinson Mono 600 · 17</small><p class="hora">09:40 · 16:20 · 18:20</p></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-espacos">
+        <h2 id="t-espacos">Espaços</h2>
+        <div class="espacos">
+          <div><span style="width:4px"></span>4 px · entre ícone e texto</div>
+          <div><span style="width:8px"></span>8 px · entre horários, entre chips</div>
+          <div><span style="width:16px"></span>16 px · margem lateral no celular, padding de card</div>
+          <div><span style="width:24px"></span>24 px · entre blocos de uma tela</div>
+          <div><span style="width:32px"></span>32 px · padding de formulário no computador</div>
+          <div><span style="width:48px"></span>48 px · altura mínima de alvo de toque, respiro de seção</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-botao">
+        <h2 id="t-botao">Botão</h2>
+        <div class="linha-estados">
+          <div class="estado"><small>padrão</small><button type="button" class="botao">Confirmar agendamento</button></div>
+          <div class="estado"><small>hover</small><button type="button" class="botao forca-hover">Confirmar agendamento</button></div>
+          <div class="estado"><small>foco (teclado)</small><button type="button" class="botao forca-foco">Confirmar agendamento</button></div>
+          <div class="estado"><small>carregando</small><button type="button" class="botao esta-carregando" disabled>Confirmando…</button></div>
+          <div class="estado"><small>desabilitado</small><button type="button" class="botao" disabled>Confirmar agendamento</button></div>
+        </div>
+        <div class="linha-estados">
+          <div class="estado"><small>secundário</small><button type="button" class="botao botao--secundario">Remarcar</button></div>
+          <div class="estado"><small>secundário · hover</small><button type="button" class="botao botao--secundario forca-hover">Remarcar</button></div>
+          <div class="estado"><small>fantasma</small><button type="button" class="botao botao--fantasma"><span class="icone icone-mais" aria-hidden="true"></span>Adicionar serviço</button></div>
+          <div class="estado"><small>perigo</small><button type="button" class="botao botao--perigo"><span class="icone icone-x" aria-hidden="true"></span>Cancelar agendamento</button></div>
+          <div class="estado"><small>perigo · confirmação</small><button type="button" class="botao botao--perigo-cheio">Cancelar agendamento</button></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-campo">
+        <h2 id="t-campo">Campo (input)</h2>
+        <div class="linha-estados">
+          <div class="estado campo-demo"><small>padrão</small>
+            <div class="campo"><label class="campo__rotulo" for="d1">Seu nome</label><input class="campo__entrada" id="d1" type="text"></div>
+          </div>
+          <div class="estado campo-demo"><small>foco</small>
+            <div class="campo"><label class="campo__rotulo" for="d2">Seu nome</label><input class="campo__entrada forca-foco" id="d2" type="text" value="Luc"></div>
+          </div>
+          <div class="estado campo-demo"><small>com dica</small>
+            <div class="campo"><label class="campo__rotulo" for="d3">WhatsApp</label><p class="campo__dica" id="d3-dica">Só para falar sobre este horário.</p><input class="campo__entrada" id="d3" type="tel" placeholder="(00) 00000-0000" aria-describedby="d3-dica"></div>
+          </div>
+          <div class="estado campo-demo"><small>erro</small>
+            <div class="campo"><label class="campo__rotulo" for="d4">WhatsApp</label><input class="campo__entrada" id="d4" type="tel" value="(11) 9123" aria-invalid="true" aria-describedby="d4-erro"><p class="campo__erro" id="d4-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite o número com DDD, no formato (00) 00000-0000.</p></div>
+          </div>
+          <div class="estado campo-demo"><small>desabilitado</small>
+            <div class="campo"><label class="campo__rotulo" for="d5">Domingo, abre às</label><input class="campo__entrada" id="d5" type="text" value="Fechado" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-horario">
+        <h2 id="t-horario">Card de horário</h2>
+        <div class="linha-estados">
+          <div class="estado"><small>livre</small><a class="horario" href="#t-horario">16:20</a></div>
+          <div class="estado"><small>hover</small><a class="horario forca-hover" href="#t-horario">16:20</a></div>
+          <div class="estado"><small>foco</small><a class="horario forca-foco" href="#t-horario">16:20</a></div>
+          <div class="estado"><small>escolhido</small><a class="horario" href="#t-horario" aria-current="true"><span class="icone icone-check" aria-hidden="true"></span>16:20</a></div>
+          <div class="estado"><small>indisponível (só no painel)</small><span class="horario" aria-disabled="true">16:20<span class="visualmente-oculto">, ocupado</span></span></div>
+          <div class="estado"><small>carregando</small><span class="horario esqueleto" aria-hidden="true">&nbsp;</span></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-chip">
+        <h2 id="t-chip">Chip de serviço</h2>
+        <div class="linha-estados">
+          <div class="estado"><small>desligado</small><button type="button" class="chip" aria-pressed="false"><span class="icone icone-check" aria-hidden="true"></span>Barba</button></div>
+          <div class="estado"><small>hover</small><button type="button" class="chip forca-hover" aria-pressed="false"><span class="icone icone-check" aria-hidden="true"></span>Barba</button></div>
+          <div class="estado"><small>ligado</small><button type="button" class="chip" aria-pressed="true"><span class="icone icone-check" aria-hidden="true"></span>Barba</button></div>
+          <div class="estado"><small>foco</small><button type="button" class="chip forca-foco" aria-pressed="false"><span class="icone icone-check" aria-hidden="true"></span>Barba</button></div>
+          <div class="estado"><small>sugestão</small><button type="button" class="chip"><span class="icone icone-mais" aria-hidden="true"></span>Pezinho</button></div>
+          <div class="estado"><small>desabilitado</small><button type="button" class="chip" disabled>Pigmentação</button></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-status">
+        <h2 id="t-status">Status (sempre ícone + texto)</h2>
+        <div class="linha-estados">
+          <span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span>
+          <span class="status status--a-confirmar"><span class="icone icone-relogio" aria-hidden="true"></span>A confirmar</span>
+          <span class="status status--cancelado"><span class="icone icone-x" aria-hidden="true"></span>Cancelado</span>
+          <span class="status status--bloqueado"><span class="icone icone-cadeado" aria-hidden="true"></span>Bloqueado</span>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-toast">
+        <h2 id="t-toast">Toast</h2>
+        <div class="linha-estados">
+          <div class="estado"><small>sucesso</small><div class="toast toast-estatico"><span class="icone icone-check" aria-hidden="true"></span><span class="toast__texto">Link copiado</span></div></div>
+          <div class="estado"><small>com ação</small><div class="toast toast-estatico"><span class="icone icone-check" aria-hidden="true"></span><span class="toast__texto">Agendamento de Lucas cancelado.</span><button type="button" class="toast__acao">Desfazer</button></div></div>
+          <div class="estado"><small>erro</small><div class="toast toast-estatico"><span class="icone icone-alerta" aria-hidden="true"></span><span class="toast__texto">Não deu para copiar aqui. Selecione o link e copie à mão.</span></div></div>
+        </div>
+        <p><button type="button" class="botao botao--secundario" data-toast="Assim o toast aparece de verdade, no rodapé da tela.">Ver um toast de verdade</button></p>
+      </section>
+
+      <section aria-labelledby="t-vazio">
+        <h2 id="t-vazio">Estado vazio</h2>
+        <div class="linha-estados">
+          <div class="vazio campo-demo">
+            <span class="vazio__icone" aria-hidden="true"><span class="icone icone-calendario"></span></span>
+            <p class="vazio__titulo">Sexta está lotada</p>
+            <p>Todos os horários de sexta-feira, 9 de outubro, já foram marcados.</p>
+            <button type="button" class="botao botao--secundario">Ver sábado, 10 de outubro</button>
+          </div>
+          <div class="vazio campo-demo">
+            <span class="vazio__icone" aria-hidden="true"><span class="icone icone-calendario"></span></span>
+            <p class="vazio__titulo">Nenhum agendamento hoje</p>
+            <p>Os horários livres já aparecem no seu link. Divulgue para os clientes marcarem.</p>
+            <button type="button" class="botao"><span class="icone icone-copiar" aria-hidden="true"></span>Copiar meu link</button>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-aviso">
+        <h2 id="t-aviso">Aviso na página</h2>
+        <div class="aviso aviso--atencao campo-demo"><span class="icone icone-alerta" aria-hidden="true"></span><div><p class="aviso__titulo">O horário das 16:20 acabou de ser reservado</p><p>Escolha outro horário.</p></div></div>
+        <div class="aviso aviso--info campo-demo"><span class="icone icone-info" aria-hidden="true"></span><div><p class="aviso__titulo">Dica</p><p>Coloque o link nos links do seu perfil.</p></div></div>
+      </section>
+
+      <section aria-labelledby="t-cartao">
+        <h2 id="t-cartao">Cartão do horário (assinatura)</h2>
+        <article class="cartao campo-demo" aria-label="Exemplo de cartão do horário">
+          <div class="cartao__corpo">
+            <p class="cartao__negocio"><span>Barbearia Exemplo</span><span>Seu horário</span></p>
+            <p class="cartao__quando"><span class="cartao__semana">quinta-feira</span><span class="cartao__dia">8 de outubro</span><span class="cartao__hora">16:20 <span class="cartao__as">às</span> 17:00</span></p>
+            <p class="cartao__servico"><span><span class="icone icone-tesoura" aria-hidden="true"></span>Corte</span><span><span class="icone icone-pessoas" aria-hidden="true"></span><span>com Rafa</span></span><span>R$ 45</span></p>
+          </div>
+          <div class="cartao__picote" aria-hidden="true"></div>
+          <div class="cartao__canhoto"><p class="cartao__canhoto-linha"><span class="icone icone-local" aria-hidden="true"></span><span>Rua Exemplo, 123 · Centro</span></p></div>
+        </article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

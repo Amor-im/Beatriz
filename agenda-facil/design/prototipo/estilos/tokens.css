@@ -1,0 +1,115 @@
+/* =========================================================
+   Agenda Fácil · tokens (as decisões do design system em variáveis)
+   Documentação e contraste de cada par: design/design-system.md
+   Regra: componente nenhum usa cor, fonte ou espaço "solto";
+   tudo passa por uma variável daqui.
+   ========================================================= */
+
+/* ---------- Fontes (arquivos locais: abre sem internet) ---------- */
+@font-face {
+  font-family: "Gabarito";
+  src: url("../fontes/gabarito-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Gabarito";
+  src: url("../fontes/gabarito-latin-800-normal.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fontes/atkinson-hyperlegible-next-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fontes/atkinson-hyperlegible-next-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fontes/atkinson-hyperlegible-next-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("../fontes/atkinson-hyperlegible-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("../fontes/atkinson-hyperlegible-mono-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ---------- Cores ---------- */
+  /* Tinta e papel: texto e fundos */
+  --tinta: #131a2e;          /* texto principal: 16,0:1 sobre --papel */
+  --tinta-suave: #4a5470;    /* texto secundário: 6,96:1 sobre --papel */
+  --tinta-dica: #6b7389;     /* dicas e placeholders: 4,73:1 sobre branco */
+  --papel: #f5f6fa;          /* fundo da página */
+  --superficie: #ffffff;     /* cards, campos, janelas */
+  --linha: #d6dae5;          /* divisórias (decorativas, nunca o único limite de um controle) */
+  --linha-forte: #79819a;    /* borda de campo e de horário: 3,87:1 sobre branco (mínimo 3:1) */
+
+  /* Caneta: a cor das ações (azul de caneta esferográfica) */
+  --caneta: #2340c2;         /* botão principal, links, seleção: 8,13:1 com branco */
+  --caneta-escura: #182e91;  /* hover e pressionado: 11,42:1 com branco */
+  --caneta-clara: #e6eafb;   /* fundo de hover e de item selecionado */
+
+  /* Marca-texto: o destaque. Só como FUNDO atrás de --tinta (14,05:1); nunca como texto */
+  --marca-texto: #d4f56a;
+
+  /* Estados (sempre com ícone e texto junto, nunca só a cor) */
+  --sucesso: #11743f;   --sucesso-fundo: #e3f4ea;  /* 5,12:1 */
+  --aviso: #8a4b00;     --aviso-fundo: #fdf0d5;    /* 6,03:1 */
+  --erro: #b3261e;      --erro-fundo: #fce8e6;     /* 5,55:1; 6,54:1 sobre branco */
+
+  --foco: #2340c2;      /* contorno de foco do teclado */
+
+  /* ---------- Tipografia ---------- */
+  --fonte-titulo: "Gabarito", "Trebuchet MS", system-ui, sans-serif;
+  --fonte-texto: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fonte-hora: "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+
+  /* Escala (tamanho / altura da linha) */
+  --texto-destaque: 2rem;     /* 32/36: o dia no cartão do horário */
+  --texto-h1: 1.625rem;       /* 26/32 no celular; 32/38 no computador */
+  --texto-h2: 1.25rem;        /* 20/26 */
+  --texto-h3: 1.0625rem;      /* 17/24 */
+  --texto-corpo: 1rem;        /* 16/24: nunca menos que isso em campo (evita zoom no iPhone) */
+  --texto-pequeno: 0.875rem;  /* 14/20: o menor tamanho usado */
+  --texto-hora: 1.0625rem;    /* 17/24 na fonte mono */
+
+  /* ---------- Espaços (múltiplos de 4) ---------- */
+  --esp-4: 4px;
+  --esp-8: 8px;
+  --esp-16: 16px;
+  --esp-24: 24px;
+  --esp-32: 32px;
+  --esp-48: 48px;
+
+  /* ---------- Tamanhos ---------- */
+  --alvo-minimo: 48px;   /* altura de botão, horário, item de lista (mínimo exigido: 44px) */
+  --largura-cliente: 480px;
+
+  /* ---------- Raios e sombras ---------- */
+  --raio-p: 8px;     /* campos, horários */
+  --raio-m: 12px;    /* cards, botões */
+  --raio-g: 20px;    /* cartão do horário, janelas */
+  --raio-total: 999px; /* chips */
+  --sombra-1: 0 1px 2px rgb(19 26 46 / 6%), 0 2px 8px rgb(19 26 46 / 6%);
+  --sombra-2: 0 8px 24px rgb(19 26 46 / 14%), 0 2px 6px rgb(19 26 46 / 8%);
+
+  /* ---------- Movimento ---------- */
+  --transicao: 120ms ease-out;
+}
+
+@media (min-width: 900px) {
+  :root { --texto-h1: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transicao: 0ms; }
+}

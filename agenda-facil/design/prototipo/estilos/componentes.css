@@ -1,0 +1,410 @@
+/* =========================================================
+   Agenda Fácil · base e componentes
+   Cada componente lista os estados que precisa ter:
+   padrão, hover, foco (teclado), erro, desabilitado, carregando.
+   ========================================================= */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+/* O atributo hidden sempre esconde, mesmo em componentes com display próprio (.vazio, .aviso...) */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-corpo);
+  line-height: 1.5;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+h1 { font-family: var(--fonte-titulo); font-weight: 800; font-size: var(--texto-h1); letter-spacing: -0.01em; }
+h2 { font-family: var(--fonte-titulo); font-weight: 700; font-size: var(--texto-h2); }
+h3 { font-size: var(--texto-h3); font-weight: 700; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+a { color: var(--caneta); text-underline-offset: 3px; }
+a:hover { color: var(--caneta-escura); }
+
+/* Foco do teclado: igual em tudo, sempre visível */
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+  border-radius: var(--raio-p);
+}
+
+/* Texto só para leitor de tela */
+.visualmente-oculto {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* "Pular para o conteúdo": aparece quando recebe foco */
+.pular {
+  position: absolute; left: var(--esp-16); top: -100px; z-index: 100;
+  display: inline-flex; align-items: center; min-height: 44px;
+  background: var(--superficie); padding: var(--esp-8) var(--esp-16);
+  border-radius: var(--raio-p); box-shadow: var(--sombra-2);
+}
+.pular:focus { top: var(--esp-16); }
+
+.texto-suave { color: var(--tinta-suave); }
+.texto-pequeno { font-size: var(--texto-pequeno); line-height: 1.43; }
+.hora { font-family: var(--fonte-hora); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- Botão ----------
+   .botao              principal (uma ação principal por tela)
+   .botao--secundario  borda, fundo branco
+   .botao--fantasma    só texto, para ações de menor peso
+   .botao--perigo      destrutivo (cancelar agendamento)
+   Estados: :hover, :focus-visible, :disabled, .esta-carregando */
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--esp-8);
+  min-height: var(--alvo-minimo);
+  padding: 0 var(--esp-24);
+  border: 2px solid var(--caneta);
+  border-radius: var(--raio-m);
+  background: var(--caneta);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), border-color var(--transicao), color var(--transicao);
+}
+.botao:hover { background: var(--caneta-escura); border-color: var(--caneta-escura); color: #fff; }
+.botao--largo { width: 100%; }
+
+.botao--secundario { background: var(--superficie); color: var(--caneta); }
+.botao--secundario:hover { background: var(--caneta-clara); color: var(--caneta-escura); }
+
+.botao--fantasma { background: transparent; border-color: transparent; color: var(--caneta); padding: 0 var(--esp-16); }
+.botao--fantasma:hover { background: var(--caneta-clara); border-color: transparent; color: var(--caneta-escura); }
+
+.botao--perigo { background: var(--superficie); border-color: var(--erro); color: var(--erro); }
+.botao--perigo:hover { background: var(--erro-fundo); border-color: var(--erro); color: var(--erro); }
+.botao--perigo-cheio { background: var(--erro); border-color: var(--erro); color: #fff; }
+.botao--perigo-cheio:hover { background: #8f1e18; border-color: #8f1e18; }
+
+.botao:disabled,
+.botao[aria-disabled="true"] {
+  background: var(--papel); border-color: var(--linha); color: var(--tinta-dica);
+  cursor: not-allowed;
+}
+
+/* Carregando: o texto muda ("Confirmando…") e aparece um giro. O botão fica desabilitado. */
+.botao.esta-carregando { cursor: progress; }
+.botao.esta-carregando::before {
+  content: "";
+  width: 1.1em; height: 1.1em;
+  border: 2px solid currentColor; border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 700ms linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .botao.esta-carregando::before { animation-duration: 2s; }
+}
+
+/* Botão só de ícone (sempre com aria-label) */
+.botao-icone {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--alvo-minimo); height: var(--alvo-minimo);
+  border: 0; border-radius: var(--raio-m);
+  background: transparent; color: var(--tinta);
+  cursor: pointer;
+}
+.botao-icone:hover { background: var(--caneta-clara); color: var(--caneta-escura); }
+
+/* ---------- Campo (input com rótulo, dica e erro) ----------
+   O rótulo fica sempre visível (placeholder não substitui rótulo).
+   Erro: borda vermelha + ícone + texto, ligado ao campo por aria-describedby. */
+.campo { display: grid; gap: var(--esp-8); }
+.campo + .campo { margin-top: var(--esp-24); }
+.campo__rotulo { font-weight: 700; }
+.campo__opcional { font-weight: 400; color: var(--tinta-suave); }
+.campo__dica { color: var(--tinta-suave); font-size: var(--texto-pequeno); line-height: 1.43; }
+
+.campo__entrada {
+  width: 100%;
+  min-height: var(--alvo-minimo);
+  padding: var(--esp-8) var(--esp-16);
+  border: 1.5px solid var(--linha-forte);
+  border-radius: var(--raio-p);
+  background: var(--superficie);
+  font-size: var(--texto-corpo);
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+.campo__entrada::placeholder { color: var(--tinta-dica); }
+.campo__entrada:hover { border-color: var(--tinta-suave); }
+.campo__entrada:focus-visible { outline: 3px solid var(--foco); outline-offset: 1px; border-color: var(--caneta); }
+.campo__entrada:disabled { background: var(--papel); border-style: dashed; color: var(--tinta-suave); cursor: not-allowed; }
+
+.campo__entrada[aria-invalid="true"] { border-color: var(--erro); border-width: 2px; background: #fffafa; }
+.campo__erro {
+  display: none;
+  align-items: flex-start; gap: var(--esp-8);
+  color: var(--erro); font-size: var(--texto-pequeno); font-weight: 600; line-height: 1.43;
+}
+.campo__erro .icone { margin-top: 1px; }
+.campo__entrada[aria-invalid="true"] ~ .campo__erro,
+.campo__erro.esta-visivel { display: flex; }
+
+select.campo__entrada {
+  appearance: none;
+  padding-right: var(--esp-48);
+  background: var(--superficie) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23131a2e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center / 20px no-repeat;
+}
+
+/* Interruptor (dia aberto/fechado). É um checkbox de verdade, com texto ao lado. */
+.interruptor { display: inline-flex; align-items: center; gap: var(--esp-8); min-height: var(--alvo-minimo); cursor: pointer; }
+.interruptor input {
+  appearance: none; margin: 0;
+  width: 44px; height: 26px; flex: none;
+  border-radius: var(--raio-total);
+  border: 2px solid var(--linha-forte);
+  background: var(--superficie);
+  position: relative; cursor: pointer;
+  transition: background-color var(--transicao);
+}
+.interruptor input::after {
+  content: ""; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--linha-forte);
+  transition: transform var(--transicao);
+}
+.interruptor input:checked { background: var(--caneta); border-color: var(--caneta); }
+.interruptor input:checked::after { background: #fff; transform: translateX(18px); }
+
+/* ---------- Card de horário ----------
+   Um horário livre. É um link: tocar já leva para o próximo passo.
+   Estados: hover, foco, selecionado (aria-current), desabilitado (só no painel). */
+.horario {
+  display: flex; align-items: center; justify-content: center; gap: var(--esp-4);
+  min-height: var(--alvo-minimo);
+  border: 1.5px solid var(--linha-forte);
+  border-radius: var(--raio-p);
+  background: var(--superficie);
+  color: var(--tinta);
+  font-family: var(--fonte-hora); font-weight: 600; font-size: var(--texto-hora);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  transition: background-color var(--transicao), border-color var(--transicao);
+}
+.horario:hover { background: var(--caneta-clara); border-color: var(--caneta); color: var(--caneta-escura); }
+.horario[aria-current="true"] { background: var(--caneta); border-color: var(--caneta); color: #fff; }
+.horario[aria-disabled="true"] {
+  border-style: dashed; border-color: var(--linha); background: var(--papel);
+  color: var(--tinta-dica); text-decoration: line-through; pointer-events: none;
+}
+.grade-horarios { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--esp-8); }
+
+/* ---------- Chip de serviço ----------
+   Pílula que liga/desliga (aria-pressed). Ligada: fundo azul claro + ícone de check. */
+.chip {
+  display: inline-flex; align-items: center; gap: var(--esp-8);
+  min-height: 44px;
+  padding: 0 var(--esp-16);
+  border: 1.5px solid var(--linha-forte);
+  border-radius: var(--raio-total);
+  background: var(--superficie);
+  color: var(--tinta);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transicao), border-color var(--transicao);
+}
+.chip:hover { border-color: var(--caneta); background: var(--caneta-clara); }
+.chip[aria-pressed="true"],
+.chip:has(input:checked) { border-color: var(--caneta); background: var(--caneta-clara); color: var(--caneta-escura); }
+.chip .icone-check { display: none; }
+.chip[aria-pressed="true"] .icone-check,
+.chip:has(input:checked) .icone-check { display: inline-block; }
+.chip:has(input:focus-visible) { outline: 3px solid var(--foco); outline-offset: 2px; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip:disabled { border-style: dashed; color: var(--tinta-dica); cursor: not-allowed; background: var(--papel); }
+.lista-chips { display: flex; flex-wrap: wrap; gap: var(--esp-8); }
+
+/* ---------- Card de serviço e de opção (página do cliente) ---------- */
+.lista-opcoes { display: grid; gap: var(--esp-8); }
+.opcao {
+  display: flex; align-items: center; gap: var(--esp-16);
+  min-height: 72px;
+  padding: var(--esp-16);
+  border: 1.5px solid var(--linha);
+  border-radius: var(--raio-m);
+  background: var(--superficie);
+  color: var(--tinta);
+  text-decoration: none;
+  box-shadow: var(--sombra-1);
+  transition: border-color var(--transicao), background-color var(--transicao);
+}
+.opcao:hover { border-color: var(--caneta); background: #fbfcff; color: var(--tinta); }
+.opcao:hover .opcao__seta { color: var(--caneta); transform: translateX(2px); }
+.opcao__corpo { flex: 1; display: grid; gap: 2px; }
+.opcao__titulo { font-weight: 700; font-size: var(--texto-h3); }
+.opcao__info { color: var(--tinta-suave); font-size: var(--texto-pequeno); }
+.opcao__preco { font-weight: 700; white-space: nowrap; }
+.opcao__seta { color: var(--tinta-suave); transition: transform var(--transicao); }
+
+.avatar {
+  display: grid; place-items: center; flex: none;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--caneta-clara); color: var(--caneta-escura);
+  font-family: var(--fonte-titulo); font-weight: 800;
+}
+.avatar--neutro { background: var(--papel); color: var(--tinta); border: 1.5px dashed var(--linha-forte); }
+
+/* ---------- Status (sempre ícone + texto) ---------- */
+.status {
+  display: inline-flex; align-items: center; gap: var(--esp-4);
+  padding: 2px var(--esp-8);
+  border-radius: var(--raio-total);
+  font-size: var(--texto-pequeno); font-weight: 700; line-height: 1.43;
+  white-space: nowrap;
+}
+.status .icone { width: 1em; height: 1em; }
+.status--confirmado { background: var(--sucesso-fundo); color: var(--sucesso); }
+.status--a-confirmar { background: var(--aviso-fundo); color: var(--aviso); }
+.status--cancelado { background: var(--erro-fundo); color: var(--erro); }
+.status--bloqueado { background: var(--papel); color: var(--tinta-suave); border: 1px solid var(--linha-forte); }
+
+/* ---------- Aviso dentro da página (erro, atenção, informação) ---------- */
+.aviso {
+  display: flex; gap: var(--esp-16); align-items: flex-start;
+  padding: var(--esp-16);
+  border-radius: var(--raio-m);
+  border: 1.5px solid currentColor;
+}
+.aviso .icone { margin-top: 2px; }
+.aviso__titulo { font-weight: 700; }
+.aviso p + p { margin-top: var(--esp-4); }
+.aviso > div { color: var(--tinta); }
+.aviso--erro { background: var(--erro-fundo); color: var(--erro); }
+.aviso--atencao { background: var(--aviso-fundo); color: var(--aviso); }
+.aviso--info { background: var(--caneta-clara); color: var(--caneta); }
+
+/* ---------- Toast ----------
+   Mensagem curta depois de uma ação. Fica num role="status" (o leitor de tela lê sozinho).
+   Pode ter uma ação ("Desfazer"). Some sozinho depois de alguns segundos. */
+.toast-area {
+  position: fixed; left: 50%; bottom: var(--esp-24); z-index: 50;
+  transform: translateX(-50%);
+  width: min(calc(100% - var(--esp-32)), 440px);
+  pointer-events: none;
+}
+.toast {
+  display: flex; align-items: center; gap: var(--esp-16);
+  min-height: 56px;
+  padding: var(--esp-8) var(--esp-8) var(--esp-8) var(--esp-16);
+  border-radius: var(--raio-m);
+  background: var(--tinta);
+  color: #fff;
+  box-shadow: var(--sombra-2);
+  pointer-events: auto;
+}
+.toast[hidden] { display: none; }
+.toast__texto { flex: 1; }
+.toast .icone-check { color: #9be2b7; }
+.toast .icone-alerta { color: #ffb4ab; }
+.toast__acao {
+  min-height: 44px; padding: 0 var(--esp-16);
+  border: 0; border-radius: var(--raio-p);
+  background: transparent; color: var(--marca-texto);
+  font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
+  cursor: pointer;
+}
+.toast__acao:hover { background: rgb(255 255 255 / 10%); }
+.toast__acao:focus-visible { outline-color: var(--marca-texto); }
+
+/* ---------- Estado vazio ----------
+   Explica por que está vazio e oferece a próxima ação. */
+.vazio {
+  display: grid; justify-items: center; gap: var(--esp-8);
+  padding: var(--esp-32) var(--esp-24);
+  border: 1.5px dashed var(--linha-forte);
+  border-radius: var(--raio-m);
+  background: var(--superficie);
+  text-align: center;
+}
+.vazio__icone {
+  display: grid; place-items: center;
+  width: 56px; height: 56px; margin-bottom: var(--esp-8);
+  border-radius: 50%;
+  background: var(--marca-texto); color: var(--tinta);
+}
+.vazio__icone .icone { width: 28px; height: 28px; }
+.vazio__titulo { font-family: var(--fonte-titulo); font-weight: 700; font-size: var(--texto-h2); }
+.vazio p { max-width: 36ch; color: var(--tinta-suave); }
+.vazio .botao { margin-top: var(--esp-16); }
+
+/* ---------- Esqueleto (carregando) ---------- */
+.esqueleto {
+  border-radius: var(--raio-p);
+  background: linear-gradient(90deg, #e9ebf2 25%, #f3f4f8 50%, #e9ebf2 75%) 0 0 / 200% 100%;
+  animation: brilhar 1.4s ease-in-out infinite;
+}
+@keyframes brilhar { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .esqueleto { animation: none; } }
+
+/* ---------- Passos (onde estou no fluxo) ----------
+   Texto "Passo 2 de 4" + barra com 4 partes. A parte atual tem texto, não só cor. */
+.passos { display: grid; gap: var(--esp-8); }
+.passos__texto { font-size: var(--texto-pequeno); color: var(--tinta-suave); }
+.passos__texto strong { color: var(--tinta); }
+.passos__barra { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--esp-4); }
+.passos__barra li { height: 6px; border-radius: var(--raio-total); background: var(--linha); }
+.passos__barra li.feito { background: var(--caneta); }
+.passos__barra li.atual { background: var(--caneta); box-shadow: 0 0 0 2px var(--papel), 0 0 0 3.5px var(--caneta); }
+
+/* ---------- Janela (dialog) ---------- */
+.janela {
+  width: min(calc(100% - var(--esp-32)), 520px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-g);
+  background: var(--superficie);
+  color: var(--tinta);
+  box-shadow: var(--sombra-2);
+}
+.janela::backdrop { background: rgb(19 26 46 / 45%); }
+.janela__cabecalho { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--esp-16); padding: var(--esp-24) var(--esp-24) 0; }
+.janela__corpo { padding: var(--esp-16) var(--esp-24); }
+.janela__rodape { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: var(--esp-8); padding: var(--esp-16) var(--esp-24) var(--esp-24); }
+.janela__cabecalho .botao-icone { margin: -12px -12px 0 0; }
+
+/* Caixa de seleção comum (com alvo grande) */
+.marcar { display: flex; align-items: flex-start; gap: var(--esp-16); min-height: var(--alvo-minimo); padding: var(--esp-8) 0; cursor: pointer; }
+.marcar input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--caneta); flex: none; }
+
+/* ---------- Logotipo ---------- */
+.logo {
+  display: inline-flex; align-items: baseline; gap: 0.18em;
+  font-family: var(--fonte-titulo); font-weight: 800; font-size: 1.375rem; letter-spacing: -0.02em;
+  color: var(--tinta); text-decoration: none;
+}
+.logo__facil {
+  padding: 0 0.18em;
+  background: linear-gradient(transparent 22%, var(--marca-texto) 22%, var(--marca-texto) 88%, transparent 88%);
+  border-radius: 3px;
+}
+
+/* Título com tamanho de h3 quando a hierarquia pede um h2 (ex.: "Precisa mudar?") */
+.texto-h3 { font-family: var(--fonte-texto); font-size: var(--texto-h3); font-weight: 700; line-height: 1.3; }
+
+/* Botão que não estica dentro de um grid */
+.alinha-inicio { justify-self: start; }
+
+/* A janela recebe o foco ao abrir; o contorno fica nos controles de dentro, não na janela inteira */
+.janela:focus, .janela:focus-visible { outline: none; }
+
+/* Logotipo quando é link: alvo de toque com 44 px de altura */
+a.logo { min-height: 44px; align-items: center; }
