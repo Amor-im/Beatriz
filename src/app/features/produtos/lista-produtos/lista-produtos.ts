@@ -1,11 +1,11 @@
-import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 import { ToastService } from '../../../core/toast/toast.service';
 import { CATEGORIAS, Produto, rotuloCategoria } from '../../../model/produto';
 import { EstadoVazio } from '../../../shared/estado-vazio/estado-vazio';
-import { CarrinhoService } from '../../carrinho/carrinho.service';
+import { CarrinhoService, mensagemAdicao } from '../../carrinho/carrinho.service';
 import { CardProduto } from '../card-produto/card-produto';
 import { filtrarProdutos, OPCOES_ORDENACAO, Ordenacao } from '../filtro-produtos';
 import { ProdutoService } from '../produto.service';
@@ -14,6 +14,7 @@ type EstadoTela = 'carregando' | 'pronto' | 'erro';
 
 @Component({
   selector: 'app-lista-produtos',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CardProduto, RouterLink, EstadoVazio],
   templateUrl: './lista-produtos.html',
   styleUrl: './lista-produtos.css',
@@ -74,15 +75,18 @@ export class ListaProdutos {
   constructor() {
     this.carregar();
 
+    // Sem distinctUntilChanged: depois de "Limpar filtros" a mesma palavra precisa funcionar de novo.
+    // Navegar para a URL atual não faz nada, então repetir o termo é inofensivo.
     this.termoDigitado
-      .pipe(debounceTime(300), distinctUntilChanged(), takeUntilDestroyed())
+      .pipe(debounceTime(300), takeUntilDestroyed())
       .subscribe((termo) => this.atualizarUrl({ busca: termo.trim() || null }, true));
   }
 
-  carregar(): void {
+  /** `recarregar` ignora a lista guardada no service e busca de novo (botões "Tentar de novo"). */
+  carregar(recarregar = false): void {
     this.estado.set('carregando');
     this.produtoService
-      .listar()
+      .listar(recarregar)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (lista) => {
@@ -107,8 +111,12 @@ export class ListaProdutos {
   }
 
   onAdicionar(produto: Produto): void {
-    this.carrinho.adicionar(produto);
-    this.toast.mostrar('Produto adicionado ao carrinho', { rotulo: 'Ver carrinho', rota: '/carrinho' });
+    const adicionadas = this.carrinho.adicionar(produto);
+    this.toast.mostrar(
+      mensagemAdicao(adicionadas),
+      { rotulo: 'Ver carrinho', rota: '/carrinho' },
+      adicionadas > 0 ? 'sucesso' : 'aviso',
+    );
   }
 
   private atualizarUrl(params: Params, substituirHistorico = false): void {

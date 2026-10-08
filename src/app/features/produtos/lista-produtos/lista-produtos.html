@@ -65,7 +65,7 @@
     @case ('erro') {
       <div class="aviso aviso--erro" role="alert">
         <p><strong>Não foi possível carregar os produtos.</strong> A API e a cópia local não responderam. Verifique sua conexão e tente de novo.</p>
-        <button type="button" class="botao botao--secundario" (click)="carregar()">Tentar de novo</button>
+        <button type="button" class="botao botao--secundario" (click)="carregar(true)">Tentar de novo</button>
       </div>
     }
 
@@ -73,7 +73,7 @@
       @if (origem() === 'local') {
         <div class="aviso catalogo__aviso">
           <p>A Fake Store API não respondeu, então você está vendo a cópia local do catálogo.</p>
-          <button type="button" class="botao botao--texto" (click)="carregar()">Tentar a API de novo</button>
+          <button type="button" class="botao botao--texto" (click)="carregar(true)">Tentar a API de novo</button>
         </div>
       }
 

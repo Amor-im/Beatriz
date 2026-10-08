@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { PRODUTOS_API } from '../../../../testing/produtos-fake';
 import { CarrinhoService } from '../../carrinho/carrinho.service';
@@ -89,4 +89,18 @@ describe('ListaProdutos', () => {
 
     expect(TestBed.inject(CarrinhoService).quantidadeTotal()).toBe(1);
   });
+
+  it('a mesma busca funciona de novo depois de limpar os filtros', fakeAsync(() => {
+    const navegar = spyOn(TestBed.inject(Router), 'navigate').and.resolveTo(true);
+    http.expectOne(URL_API).flush(PRODUTOS_API);
+
+    fixture.componentInstance.aoDigitar('xyz');
+    tick(300);
+    fixture.componentRef.setInput('busca', undefined); // clicou em "Limpar filtros"
+    fixture.componentInstance.aoDigitar('xyz');
+    tick(300);
+
+    expect(navegar).toHaveBeenCalledTimes(2);
+    expect(navegar.calls.mostRecent().args[1]?.queryParams).toEqual({ busca: 'xyz' });
+  }));
 });

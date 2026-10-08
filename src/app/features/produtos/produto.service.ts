@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, tap, timeout } from 'rxjs';
+import { catchError, map, Observable, shareReplay, tap, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { Produto, ProdutoApi, ProdutoMapper } from '../../model/produto';
@@ -24,21 +24,33 @@ export class ProdutoService {
   /** Somente leitura para os componentes: quem muda a origem é o service. */
   readonly origem = this._origem.asReadonly();
 
+  /** Lista guardada depois da primeira busca: home, catálogo e cadastro reaproveitam. */
+  private catalogo$?: Observable<Produto[]>;
+
   /**
    * Lista os produtos da API. Se a API falhar, usa o catálogo local (`assets/produtos.json`).
    * Se o arquivo local também falhar, o erro chega ao componente, que mostra a tela de erro.
+   *
+   * O resultado fica guardado (shareReplay): trocar de página não faz outra requisição.
+   * `recarregar = true` força uma busca nova (botão "Tentar de novo").
    */
-  listar(): Observable<Produto[]> {
-    this.logger.info('[ProdutoService] Buscando a lista de produtos');
-    return this.http.get<ProdutoApi[]>(this.urlProdutos).pipe(
-      timeout(TEMPO_LIMITE_MS),
-      map((lista) => lista.map((json) => ProdutoMapper.fromApi(json))),
-      tap(() => this._origem.set('api')),
-      catchError((erro: unknown) => {
-        this.logger.warn('[ProdutoService] API indisponível, usando o catálogo local', erro);
-        return this.listarLocal();
-      }),
-    );
+  listar(recarregar = false): Observable<Produto[]> {
+    if (!this.catalogo$ || recarregar) {
+      this.logger.info('[ProdutoService] Buscando a lista de produtos');
+      this.catalogo$ = this.http.get<ProdutoApi[]>(this.urlProdutos).pipe(
+        timeout(TEMPO_LIMITE_MS),
+        map((lista) => lista.map((json) => ProdutoMapper.fromApi(json))),
+        tap(() => this._origem.set('api')),
+        catchError((erro: unknown) => {
+          this.logger.warn('[ProdutoService] API indisponível, usando o catálogo local', erro);
+          return this.listarLocal();
+        }),
+        // Guarda a última lista para quem se inscrever depois. Em caso de erro, não guarda:
+        // a próxima chamada tenta de novo.
+        shareReplay(1),
+      );
+    }
+    return this.catalogo$;
   }
 
   buscarPorId(id: number): Observable<Produto | undefined> {

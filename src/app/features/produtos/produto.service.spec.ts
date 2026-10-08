@@ -72,6 +72,36 @@ describe('ProdutoService', () => {
     });
   });
 
+  describe('lista guardada (shareReplay)', () => {
+    it('reaproveita a lista: a segunda chamada não faz outra requisição', () => {
+      service.listar().subscribe();
+      http.expectOne(URL_API).flush(PRODUTOS_API);
+
+      let recebido: Produto[] = [];
+      service.listar().subscribe((lista) => (recebido = lista));
+
+      http.expectNone(URL_API);
+      expect(recebido.length).toBe(4);
+    });
+
+    it('com recarregar = true, busca de novo', () => {
+      service.listar().subscribe();
+      http.expectOne(URL_API).flush(PRODUTOS_API);
+
+      service.listar(true).subscribe();
+      http.expectOne(URL_API).flush(PRODUTOS_API);
+    });
+
+    it('não guarda erro: depois de falhar, a próxima chamada tenta de novo', () => {
+      service.listar().subscribe({ error: () => undefined });
+      http.expectOne(URL_API).error(new ProgressEvent('network error'));
+      http.expectOne(URL_LOCAL).error(new ProgressEvent('network error'));
+
+      service.listar().subscribe();
+      http.expectOne(URL_API).flush(PRODUTOS_API);
+    });
+  });
+
   describe('buscarPorId', () => {
     it('busca um produto pelo id', () => {
       let recebido: Produto | undefined;
