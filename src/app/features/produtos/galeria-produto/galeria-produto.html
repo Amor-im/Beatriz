@@ -1,0 +1,37 @@
+<div class="galeria">
+  <button
+    type="button"
+    class="galeria__principal"
+    [class.ampliada]="ampliada()"
+    [attr.aria-pressed]="ampliada()"
+    [attr.aria-label]="ampliada() ? 'Reduzir foto' : 'Ampliar foto'"
+    (click)="alternarZoom()"
+    (pointermove)="moverZoom($event)"
+  >
+    <img
+      [ngSrc]="imagemAtual()"
+      fill
+      sizes="(min-width: 900px) 50vw, 100vw"
+      priority
+      [alt]="'Foto do produto: ' + nome()"
+      [style.transform-origin]="origemZoom()"
+      appImagemReserva
+    />
+    <span class="galeria__dica" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2" /><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />@if (!ampliada()) {<path d="M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />} @else {<path d="M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />}</svg>
+      {{ ampliada() ? 'Reduzir' : 'Ampliar' }}
+    </span>
+  </button>
+
+  @if (imagens().length > 1) {
+    <ul class="galeria__miniaturas" role="list">
+      @for (imagem of imagens(); track imagem; let i = $index) {
+        <li>
+          <button type="button" class="miniatura" [attr.aria-current]="i === indiceAtual() ? 'true' : null" (click)="selecionar(i)" [attr.aria-label]="'Ver foto ' + (i + 1) + ' de ' + imagens().length">
+            <img [src]="imagem" width="72" height="72" alt="" appImagemReserva />
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

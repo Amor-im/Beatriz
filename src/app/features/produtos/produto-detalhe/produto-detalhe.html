@@ -1,32 +1,86 @@
-<section class="detalhe">
-    @if(carregando()){
-        <p>Carregando...</p>
+<div class="detalhe largura-pagina">
+  @switch (resultado().estado) {
+    @case ('carregando') {
+      <p class="apenas-leitor" role="status">Carregando produto…</p>
+      <div class="produto" aria-hidden="true">
+        <div class="esqueleto detalhe__esqueleto-foto"></div>
+        <div class="produto__info">
+          <div class="esqueleto detalhe__esqueleto-linha"></div>
+          <div class="esqueleto detalhe__esqueleto-titulo"></div>
+          <div class="esqueleto detalhe__esqueleto-linha"></div>
+        </div>
+      </div>
     }
-    @else {
-        @if(!produto()){
-            <p>produto não encontrado</p>
-            <button class="btn ghost" (click)="voltar()">Voltar</button>
-        }
-        @else{
-            <article class="detalhe-card">
-                <img class="thumb" [src]="produto()!.imageUrl"/>
-                <div class="infos">
-                    <h2>{{produto()!.nome}}</h2>
-                    <p class="descricao">{{produto()!.descricao}}</p>
-                @if(produto()!.promo){
-                    {{produto()!.preco | desconto:10 | currency:'BRL':'synbol':'1.2-2'}}
-                }
-                @else{
-                    {{produto()!.preco | currency:'BRL':'synbol':'1.2-2'}}
-                }
 
-                <div class="acoes">
-
-                </div>
-                    <button class="btn ghost" (click)="voltar()">Voltar</button>
-                    <!--Aqui vai ter um botao comprar em breve-->
-                </div>
-            </article>
-        }
+    @case ('nao-encontrado') {
+      <app-estado-vazio titulo="Produto não encontrado" [nivel]="1">
+        <p>Esse produto não existe ou saiu do catálogo. Confira os outros produtos da loja.</p>
+        <a acoes class="botao botao--primario" routerLink="/produtos">Ver produtos</a>
+      </app-estado-vazio>
     }
-</section>
+
+    @case ('erro') {
+      <h1 class="apenas-leitor">Erro ao carregar o produto</h1>
+      <div class="aviso aviso--erro" role="alert">
+        <p><strong>Não foi possível carregar este produto.</strong> Verifique sua conexão e tente de novo.</p>
+        <button type="button" class="botao botao--secundario" (click)="tentarDeNovo()">Tentar de novo</button>
+      </div>
+    }
+
+    @case ('pronto') {
+      @if (produto(); as produto) {
+        <nav class="trilha" aria-label="Você está em">
+          <ol>
+            <li><a routerLink="/produtos">Produtos</a></li>
+            <li><a routerLink="/produtos" [queryParams]="{ categoria: produto.categoria }">{{ categoria() }}</a></li>
+            <li aria-current="page" lang="en">{{ produto.nome | truncar: 40 }}</li>
+          </ol>
+        </nav>
+
+        <article class="produto">
+          <app-galeria-produto [imagens]="produto.imageUrl ? [produto.imageUrl] : []" [nome]="produto.nome" />
+
+          <div class="produto__info">
+            <p class="sobretitulo">{{ categoria() }}</p>
+            <h1 class="produto__nome" lang="en">{{ produto.nome }}</h1>
+
+            @if (produto.avaliacao; as avaliacao) {
+              <p class="avaliacao">
+                <span class="avaliacao__estrelas" aria-hidden="true" [style.--nota]="avaliacao.nota">★★★★★</span>
+                <span>{{ avaliacao.nota | number: '1.1-1' }} de 5 · {{ avaliacao.total }} avaliações</span>
+              </p>
+            }
+
+            <app-etiqueta-preco [produto]="produto" tamanho="grande" />
+            @if (produto.promo) {
+              <p class="produto__nota">Promoção: {{ desconto }}% de desconto já aplicado no preço.</p>
+            }
+
+            @if (produto.estado === 'esgotado') {
+              <div class="aviso">
+                <p><strong>Produto esgotado.</strong> Ele volta a ficar disponível quando o estoque for reposto.</p>
+              </div>
+            } @else {
+              <div class="produto__compra">
+                <app-quantidade-controle [(contador)]="quantidade" [max]="quantidadeMaxima" [rotulo]="produto.nome" />
+                <button type="button" class="botao botao--primario produto__botao" (click)="adicionarAoCarrinho(produto)">
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            }
+
+            <ul class="produto__garantias" role="list">
+              <li>Frete grátis em compras a partir de R$ {{ freteGratisAPartirDe | number: '1.2-2' }}</li>
+              <li>Compra simulada: nenhum pagamento é processado</li>
+            </ul>
+
+            <section class="produto__descricao" aria-labelledby="titulo-descricao">
+              <h2 id="titulo-descricao">Descrição</h2>
+              <p lang="en">{{ produto.descricao }}</p>
+            </section>
+          </div>
+        </article>
+      }
+    }
+  }
+</div>
