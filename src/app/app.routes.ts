@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './features/home/home';
-import { ListaProdutos } from './features/produto/lista-produtos/lista-produtos';
+import { ListaProdutos } from './features/produtos/lista-produtos/lista-produtos';
 import { ProdutoDetalhe } from './features/produtos/produto-detalhe/produto-detalhe';
 import { Sobre } from './features/sobre/sobre';
 import { ProdutoForm } from './features/produtos/produto-form/produto-form';

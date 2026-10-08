@@ -5,8 +5,8 @@ import { Footer } from './core/footer/footer';
 import { Banner } from './core/banner/banner';
 import { QuantidadeControle } from "./shared/quantidade-controle/quantidade-controle";
 import { Produto } from './model/produto';
-import { CardProduto } from "./features/produto/card-produto/card-produto";
-import { ListaProdutos } from "./features/produto/lista-produtos/lista-produtos";
+import { CardProduto } from "./features/produtos/card-produto/card-produto";
+import { ListaProdutos } from "./features/produtos/lista-produtos/lista-produtos";
 
 @Component({
   selector: 'app-root',

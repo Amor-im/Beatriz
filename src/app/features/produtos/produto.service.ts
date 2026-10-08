@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { LoggerService } from '../../../core/services/logger/logger.service';
-import { Produto, ProdutoMapper } from '../../../model/produto';
+import { LoggerService } from '../../core/services/logger/logger.service';
+import { Produto, ProdutoMapper } from '../../model/produto';
 import { catchError, delay, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';

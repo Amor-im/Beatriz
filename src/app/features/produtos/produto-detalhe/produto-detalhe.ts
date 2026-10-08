@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProdutoService } from '../services/produto.service';
+import { ProdutoService } from '../produto.service';
 import { Produto } from '../../../model/produto';
 import { DescontoPipe } from '../../../shared/pipes/desconto-pipe';
 import { CurrencyPipe } from '@angular/common';
