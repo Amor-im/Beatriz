@@ -77,7 +77,7 @@ As decisões técnicas estão explicadas em linguagem simples no [ESTUDO.md](EST
 
 ## Como rodar
 
-Pré-requisito: Node.js 20 ou mais novo.
+Pré-requisito: Node.js 20.19+, 22.12+ ou 24+ (as versões que o Angular 20 aceita).
 
 ```bash
 npm install
