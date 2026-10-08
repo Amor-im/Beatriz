@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
 import { LoggerService } from './logger.service';
 
 describe('LoggerService', () => {
-  let service: LoggerService;
+  it('repassa as mensagens para o console', () => {
+    const logger = TestBed.inject(LoggerService);
+    const info = spyOn(console, 'info');
+    const erro = spyOn(console, 'error');
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(LoggerService);
-  });
+    logger.info('carregou');
+    logger.error('falhou', { status: 500 });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(info).toHaveBeenCalledWith('carregou', '');
+    expect(erro).toHaveBeenCalledWith('falhou', { status: 500 });
   });
 });

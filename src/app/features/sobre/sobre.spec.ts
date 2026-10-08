@@ -1,23 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Sobre } from './sobre';
 
 describe('Sobre', () => {
-  let component: Sobre;
-  let fixture: ComponentFixture<Sobre>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Sobre]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(Sobre);
-    component = fixture.componentInstance;
+  it('conta que o projeto começou na faculdade', () => {
+    TestBed.configureTestingModule({ imports: [Sobre], providers: [provideRouter([])] });
+    const fixture = TestBed.createComponent(Sobre);
     fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.nativeElement.textContent).toContain('IFSP');
   });
 });

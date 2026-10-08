@@ -1,23 +1,32 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
+  it('monta o layout com cabeçalho, conteúdo principal e rodapé', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, loja-tp1-angular');
+    const el = fixture.nativeElement as HTMLElement;
+
+    expect(el.querySelector('header')).not.toBeNull();
+    expect(el.querySelector('main#conteudo')).not.toBeNull();
+    expect(el.querySelector('footer')).not.toBeNull();
+  });
+
+  it('"Pular para o conteúdo" leva o foco ao <main>', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const el = fixture.nativeElement as HTMLElement;
+
+    el.querySelector<HTMLButtonElement>('.pular-conteudo')!.click();
+
+    expect(document.activeElement).toBe(el.querySelector('main'));
   });
 });

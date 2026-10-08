@@ -1,23 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Footer } from './footer';
 
 describe('Footer', () => {
-  let component: Footer;
-  let fixture: ComponentFixture<Footer>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Footer]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(Footer);
-    component = fixture.componentInstance;
+  it('avisa que a loja é uma demonstração', () => {
+    TestBed.configureTestingModule({ imports: [Footer], providers: [provideRouter([])] });
+    const fixture = TestBed.createComponent(Footer);
     fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.nativeElement.textContent).toContain('Nenhuma compra é real');
   });
 });
