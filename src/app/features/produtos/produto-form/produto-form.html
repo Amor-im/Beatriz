@@ -1,77 +1,113 @@
-<section class="form-container">
-    <h2>Novo produto</h2>
+<div class="cadastro largura-pagina">
+  <header class="cadastro__topo">
+    <p class="sobretitulo">Área da loja</p>
+    <h1>Cadastrar produto</h1>
+    <p class="cadastro__intro">
+      O produto é enviado para a Fake Store API. Ela é uma API de teste: confirma o cadastro, mas não guarda o produto no catálogo.
+    </p>
+  </header>
 
-    <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" novalidate>
-        <div class="campo">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" [(ngModel)]="novoProduto.nome", required, minlength="3"/>
+  @if (envio(); as e) {
+    @if (e.estado === 'sucesso') {
+      <div class="aviso aviso--sucesso" role="status">
+        <p><strong>Produto “{{ e.nome }}” cadastrado.</strong> A API respondeu com o id {{ e.id }}.</p>
+        <a class="botao botao--texto" routerLink="/produtos">Ver catálogo</a>
+      </div>
+    } @else if (e.estado === 'erro') {
+      <div class="aviso aviso--erro" role="alert">
+        <p><strong>Não foi possível cadastrar agora.</strong> A Fake Store API não respondeu. Seus dados continuam no formulário: tente salvar de novo.</p>
+      </div>
+    }
+  }
 
-        <small class="erro" [hidden]="!(formulario.controls['nome']?. dirty && formulario.controls['nome']?.invalid)">\|
-                Nome do produto é obrigatorio e deve ter ao menos tres caracteres.
-        </small>
-        </div>
+  <div class="cadastro__colunas">
+    <form class="cadastro__form cartao" [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+      <p class="campo__dica">Todos os campos são obrigatórios, exceto os marcados como opcionais.</p>
 
-        <div class="campo">
-            <label for="preco">Preço</label>
-            <input type="number" id="preco" name="preco" [(ngModel)]="novoProduto.preco", required, minlength="1"/>
-
-            @if(formulario.controls['preco']?.invalid && formulario.submitted){
-                <small class="erro">
-                    Preco é obrigatorio e deve ser no minimo 1.
-                </small>
-            }
-
-        </div>
-
-        <div class="campo">
-            <label for="descricao">Descriçao</label>
-            <textarea name="descricao" id="descricao" [(ngModel)]="novoProduto.descricao", required></textarea>
-        </div>
-
-        <div class="campo">
-            <label for="categoria">Categoria</label>
-            <select id="categoria" name="categoria" [(ngModel)]="categoriaSelecionada" >
-                <option value="">Selecione...</option>
-                @for(cat of categorias(); track cat){
-                    <option [value]="cat">{{cat}}</option>
-                }
-            </select>
-
-            @if(formulario.submitted && formulario.controls['categoria'].invalid){
-                <small class="erro">
-                    Selecione uma categoria.
-                </small>
-            }
-        </div>
-
-        @if(mostrarNovaCategoria()){
-            <div class="campo">
-                <label for="novaCategoria">Nova Categoria</label>
-                <input type="text" id="novaCategoria" name="novaCategoria" [(ngModel)]="novaCategoria", required/>
-                @if(mostrarNovaCategoria() && !(formulario.submitted && novaCategoria().trim().length ==0)){
-                    <small class="erro">
-                        Digite a categoria.
-                    </small>
-                }
-            </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="nome">Nome do produto</label>
+        <input id="nome" class="campo__controle" type="text" formControlName="nome" autocomplete="off" enterkeyhint="next"
+          [attr.aria-invalid]="mostrarErro(form.controls.nome)" [attr.aria-describedby]="mostrarErro(form.controls.nome) ? 'erro-nome' : null" />
+        @if (mostrarErro(form.controls.nome)) {
+          <p id="erro-nome" class="campo__erro">{{ erroNome() }}</p>
         }
+      </div>
+
+      <div class="cadastro__linha">
+        <div class="campo">
+          <label class="campo__rotulo" for="preco">Preço (R$)</label>
+          <input id="preco" class="campo__controle" type="number" inputmode="decimal" step="0.01" min="1" formControlName="preco" placeholder="0,00"
+            [attr.aria-invalid]="mostrarErro(form.controls.preco)" [attr.aria-describedby]="mostrarErro(form.controls.preco) ? 'erro-preco' : null" />
+          @if (mostrarErro(form.controls.preco)) {
+            <p id="erro-preco" class="campo__erro">{{ erroPreco() }}</p>
+          }
+        </div>
 
         <div class="campo">
-            <label for="imageUrl">Imagem (URL)</label>
-            <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="novoProduto.imageUrl"/>
+          <label class="campo__rotulo" for="categoria">Categoria</label>
+          <select id="categoria" class="campo__controle" formControlName="categoria"
+            [attr.aria-invalid]="mostrarErro(form.controls.categoria)" [attr.aria-describedby]="mostrarErro(form.controls.categoria) ? 'erro-categoria' : null">
+            <option value="" disabled>Escolha uma categoria</option>
+            @for (cat of categorias; track cat.slug) {
+              <option [value]="cat.slug">{{ cat.rotulo }}</option>
+            }
+            <option [value]="categoriaOutra">Outra</option>
+          </select>
+          @if (mostrarErro(form.controls.categoria)) {
+            <p id="erro-categoria" class="campo__erro">Escolha uma categoria.</p>
+          }
         </div>
+      </div>
 
-        <div class="campo check">
-            <label><input type="checkbox" name="promo" id="promo" [(ngModel)]="novoProduto.promo"/>Em promoção</label>
+      @if (mostrarNovaCategoria()) {
+        <div class="campo">
+          <label class="campo__rotulo" for="novaCategoria">Nome da nova categoria</label>
+          <input id="novaCategoria" class="campo__controle" type="text" formControlName="novaCategoria"
+            [attr.aria-invalid]="mostrarErro(form.controls.novaCategoria)" [attr.aria-describedby]="mostrarErro(form.controls.novaCategoria) ? 'erro-nova-categoria' : null" />
+          @if (mostrarErro(form.controls.novaCategoria)) {
+            <p id="erro-nova-categoria" class="campo__erro">Digite o nome da categoria (pelo menos 3 caracteres).</p>
+          }
         </div>
+      }
 
-        <div class="botoesform">
-            <button type="submit" [disabled]="enviando()">Salvar</button>
-            <button class="botaocancelar" (click)="this.router.navigateByUrl('/produtos')">Cancelar</button>
-        </div>
-
-        @if(mensagem()){
-            <p class="mensagem">{{mensagem()}}</p>
+      <div class="campo">
+        <label class="campo__rotulo" for="descricao">Descrição</label>
+        <textarea id="descricao" class="campo__controle" formControlName="descricao" [attr.maxlength]="limiteDescricao"
+          [attr.aria-invalid]="mostrarErro(form.controls.descricao)"
+          [attr.aria-describedby]="mostrarErro(form.controls.descricao) ? 'contador-descricao erro-descricao' : 'contador-descricao'"></textarea>
+        <p id="contador-descricao" class="campo__dica">{{ tamanhoDescricao() }} de {{ limiteDescricao }} caracteres</p>
+        @if (mostrarErro(form.controls.descricao)) {
+          <p id="erro-descricao" class="campo__erro">{{ erroDescricao() }}</p>
         }
+      </div>
+
+      <div class="campo">
+        <label class="campo__rotulo" for="imageUrl">Endereço da imagem <span class="campo__opcional">(opcional)</span></label>
+        <input id="imageUrl" class="campo__controle" type="url" formControlName="imageUrl" placeholder="https://…"
+          [attr.aria-invalid]="mostrarErro(form.controls.imageUrl)" [attr.aria-describedby]="mostrarErro(form.controls.imageUrl) ? 'dica-imagem erro-imagem' : 'dica-imagem'" />
+        <p id="dica-imagem" class="campo__dica">Sem imagem, o card usa uma ilustração.</p>
+        @if (mostrarErro(form.controls.imageUrl)) {
+          <p id="erro-imagem" class="campo__erro">Cole um endereço que comece com http:// ou https://.</p>
+        }
+      </div>
+
+      <label class="opcao">
+        <input type="checkbox" formControlName="promo" />
+        <span>Em promoção (10% de desconto)</span>
+      </label>
+
+      <div class="cadastro__acoes">
+        <button type="submit" class="botao botao--primario" [disabled]="envio().estado === 'enviando'">
+          {{ envio().estado === 'enviando' ? 'Salvando…' : 'Salvar produto' }}
+        </button>
+        <a class="botao botao--texto" routerLink="/produtos">Cancelar</a>
+      </div>
     </form>
-</section>
+
+    <aside class="cadastro__previa" aria-labelledby="titulo-previa">
+      <h2 id="titulo-previa" class="cadastro__previa-titulo">Prévia do card</h2>
+      <p class="campo__dica">É assim que o produto vai aparecer no catálogo.</p>
+      <app-card-produto [produto]="previa()" [previa]="true" />
+    </aside>
+  </div>
+</div>
