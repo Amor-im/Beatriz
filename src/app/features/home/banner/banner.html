@@ -1,0 +1,35 @@
+<section class="banner largura-pagina" aria-labelledby="banner-titulo">
+  <div class="banner__texto">
+    <p class="sobretitulo">Loja de demonstração em Angular</p>
+    <h1 id="banner-titulo" class="banner__titulo">Moda, joias e eletrônicos numa vitrine só.</h1>
+    <p class="banner__apoio">
+      Busque, filtre, compare preços e monte seu carrinho. O checkout é simulado: nenhum pagamento é feito.
+    </p>
+    <div class="banner__acoes">
+      <a class="botao botao--primario" routerLink="/produtos">Ver produtos</a>
+      <a class="botao botao--secundario" routerLink="/produtos" [queryParams]="{ promo: 1 }">Ver promoções</a>
+    </div>
+  </div>
+
+  <div class="vitrine" aria-label="Destaques" role="group">
+    <div class="vitrine__prateleira">
+      @if (carregando()) {
+        @for (i of [0, 1, 2]; track i) {
+          <div class="vitrine__item" aria-hidden="true">
+            <div class="vitrine__foto esqueleto"></div>
+          </div>
+        }
+      } @else {
+        @for (produto of destaques(); track produto.id; let i = $index) {
+          <a class="vitrine__item" [routerLink]="['/produtos', produto.id]">
+            <span class="vitrine__foto">
+              <img [ngSrc]="produto.imageUrl || imagemReserva" fill sizes="(min-width: 900px) 15vw, 30vw" [priority]="i === 0" alt="" appImagemReserva />
+            </span>
+            <span class="apenas-leitor" lang="en">{{ produto.nome }}</span>
+            <app-etiqueta-preco class="vitrine__etiqueta" [produto]="produto" />
+          </a>
+        }
+      }
+    </div>
+  </div>
+</section>

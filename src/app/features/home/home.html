@@ -1,1 +1,29 @@
-<app-lista-produtos></app-lista-produtos>
+<app-banner [destaques]="destaques()" [carregando]="carregando()" />
+
+<section class="secao largura-pagina" aria-labelledby="titulo-categorias">
+  <h2 id="titulo-categorias" class="secao__titulo">Compre por categoria</h2>
+  <ul class="categorias" role="list">
+    @for (cat of categorias; track cat.slug) {
+      <li>
+        <a class="categoria" routerLink="/produtos" [queryParams]="{ categoria: cat.slug }">
+          <img class="categoria__foto" [src]="cat.foto" width="600" height="600" loading="lazy" decoding="async" alt="" />
+          <span class="categoria__nome">{{ cat.rotulo }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+</section>
+
+@if (promocoes().length > 0) {
+  <section class="secao largura-pagina" aria-labelledby="titulo-promocoes">
+    <div class="secao__topo">
+      <h2 id="titulo-promocoes" class="secao__titulo">Em promoção</h2>
+      <a class="botao botao--texto" routerLink="/produtos" [queryParams]="{ promo: 1 }">Ver todas</a>
+    </div>
+    <ul class="grade" role="list">
+      @for (produto of promocoes(); track produto.id) {
+        <li><app-card-produto [produto]="produto" (adicionar)="onAdicionar($event)" /></li>
+      }
+    </ul>
+  </section>
+}
