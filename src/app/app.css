@@ -1,6 +1,9 @@
 .principal {
   flex: 1;
   width: 100%;
+  /* Reserva a altura da tela enquanto a página (carregada sob demanda) chega:
+     sem isso o rodapé aparece no topo e "pula" para baixo (CLS). */
+  min-height: 100vh;
 }
 
 .principal:focus {

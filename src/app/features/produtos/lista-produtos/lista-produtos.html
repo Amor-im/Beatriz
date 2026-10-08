@@ -81,6 +81,7 @@
         {{ resultado().length }} {{ resultado().length === 1 ? 'produto encontrado' : 'produtos encontrados' }}
       </p>
 
+      <h2 class="apenas-leitor">Resultados</h2>
       @if (resultado().length === 0) {
         <app-estado-vazio titulo="Nenhum produto com esses filtros">
           <p>Tente outra palavra na busca ou escolha outra categoria.</p>
