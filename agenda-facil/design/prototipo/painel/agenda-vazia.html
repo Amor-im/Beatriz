@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda de terça · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/painel.js" defer></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para a agenda</a>
+  <div class="painel">
+    <nav class="menu" aria-label="Menu do painel">
+      <a class="logo" href="agenda.html">Agenda <span class="logo__facil">Fácil</span></a>
+      <ul class="menu__lista">
+        <li><a class="menu__item" href="agenda.html" aria-current="page"><span class="icone icone-calendario" aria-hidden="true"></span>Agenda</a></li>
+        <li><a class="menu__item" href="servicos.html"><span class="icone icone-tesoura" aria-hidden="true"></span>Serviços</a></li>
+        <li><a class="menu__item" href="horarios.html"><span class="icone icone-relogio" aria-hidden="true"></span>Horários e equipe</a></li>
+        <li><a class="menu__item" href="link.html"><span class="icone icone-link" aria-hidden="true"></span>Meu link</a></li>
+        <li><a class="menu__item" href="#" data-toast="Configurações (dados do negócio, regras de cancelamento, conta) ficam para a Parte 2."><span class="icone icone-ajustes" aria-hidden="true"></span>Configurações</a></li>
+      </ul>
+      <div class="menu__rodape">
+        <div class="menu__negocio">
+          <span class="negocio__logo" aria-hidden="true">BE</span>
+          <div><p><strong>Barbearia Exemplo</strong></p><p class="texto-pequeno texto-suave">Rafa · dono</p></div>
+        </div>
+        <a class="menu__item" href="cadastro.html"><span class="icone icone-sair" aria-hidden="true"></span>Sair</a>
+      </div>
+    </nav>
+
+    <main class="area" id="conteudo">
+      <div class="area__topo">
+        <div class="area__titulo">
+          <h1>Agenda</h1>
+          <div class="navegar-dia">
+            <a class="botao-icone" href="agenda.html" aria-label="Dia anterior"><span class="icone icone-chevron-esquerda" aria-hidden="true"></span></a>
+            <p class="navegar-dia__data">Terça, 20 de outubro</p>
+            <a class="botao-icone" href="#" data-toast="No protótipo, só o dia de hoje tem agendamentos." aria-label="Próximo dia"><span class="icone icone-chevron-direita" aria-hidden="true"></span></a>
+          </div>
+        </div>
+        <div class="area__acoes">
+          <button type="button" class="botao botao--secundario" data-abre="bloquear"><span class="icone icone-cadeado" aria-hidden="true"></span>Bloquear horário</button>
+          <button type="button" class="botao" data-abre="novo"><span class="icone icone-mais" aria-hidden="true"></span>Novo agendamento</button>
+        </div>
+      </div>
+
+      <p class="resumo-dia"><span><strong data-conta="total">0</strong> agendamentos</span><span><strong data-conta="a-confirmar">0</strong> a confirmar</span><span><strong data-conta="bloqueados">0</strong> horários bloqueados</span></p>
+
+      <div class="vazio">
+        <span class="vazio__icone" aria-hidden="true"><span class="icone icone-calendario"></span></span>
+        <h2 class="vazio__titulo">Nenhum agendamento na terça, 20 de outubro</h2>
+        <p>Os horários livres desse dia já aparecem no seu link. Divulgue no Instagram ou no WhatsApp para os clientes marcarem.</p>
+        <div class="area__acoes">
+          <button type="button" class="botao" data-copiar="https://agendafacil.example/barbearia-exemplo"><span class="icone icone-copiar" aria-hidden="true"></span>Copiar meu link</button>
+          <button type="button" class="botao botao--secundario" data-abre="novo"><span class="icone icone-mais" aria-hidden="true"></span>Novo agendamento</button>
+        </div>
+      </div>
+      <div class="grade" hidden><div class="grade__coluna" id="coluna-rafa"></div><div class="grade__coluna" id="coluna-julia"></div></div>
+    </main>
+  </div>
+
+  <!-- Janela: cancelar agendamento -->
+  <dialog class="janela" id="cancelar" aria-labelledby="cancelar-titulo">
+    <div class="janela__cabecalho">
+      <h2 id="cancelar-titulo">Cancelar o agendamento de <span data-campo="nome">Lucas</span>?</h2>
+      <button type="button" class="botao-icone" data-fecha aria-label="Fechar"><span class="icone icone-x" aria-hidden="true"></span></button>
+    </div>
+    <div class="janela__corpo pilha">
+      <p><span class="hora" data-campo="quando">16:20 às 17:00</span>, <span data-campo="servico">Corte · 40 min · R$ 45</span>, com <span data-campo="com">Rafa</span>. O horário volta a aparecer livre no seu link.</p>
+      <div class="campo">
+        <label class="campo__rotulo" for="motivo-cancelar">Motivo <span class="campo__opcional">(opcional)</span></label>
+        <input class="campo__entrada" id="motivo-cancelar" type="text" aria-describedby="motivo-dica">
+        <p class="campo__dica" id="motivo-dica">Vai junto na mensagem para o cliente, se você avisar.</p>
+      </div>
+      <label class="marcar"><input type="checkbox" id="avisar-cliente" checked><span>Avisar o cliente no WhatsApp<br><span class="texto-pequeno texto-suave">Abre o seu WhatsApp com a mensagem pronta. Você só aperta enviar.</span></span></label>
+    </div>
+    <div class="janela__rodape">
+      <button type="button" class="botao botao--secundario" data-fecha>Manter agendamento</button>
+      <button type="button" class="botao botao--perigo-cheio" id="confirmar-cancelar">Cancelar agendamento</button>
+    </div>
+  </dialog>
+
+  <!-- Janela: bloquear horário -->
+  <dialog class="janela" id="bloquear" aria-labelledby="bloquear-titulo">
+    <form id="form-bloquear">
+      <div class="janela__cabecalho">
+        <h2 id="bloquear-titulo">Bloquear horário</h2>
+        <button type="button" class="botao-icone" data-fecha aria-label="Fechar"><span class="icone icone-x" aria-hidden="true"></span></button>
+      </div>
+      <div class="janela__corpo pilha">
+        <div class="linha-campos">
+          <div class="campo">
+            <label class="campo__rotulo" for="bloquear-profissional">Profissional</label>
+            <select class="campo__entrada" id="bloquear-profissional" name="profissional">
+              <option value="rafa">Rafa</option>
+              <option value="julia">Júlia</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="bloquear-dia">Dia</label>
+            <input class="campo__entrada" id="bloquear-dia" name="dia" type="date" value="2026-10-08">
+          </div>
+        </div>
+        <div class="linha-campos">
+          <div class="campo">
+            <label class="campo__rotulo" for="bloquear-inicio">Das</label>
+            <input class="campo__entrada" id="bloquear-inicio" name="inicio" type="time" step="600" min="09:00" max="19:00" value="15:00">
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="bloquear-fim">Até</label>
+            <input class="campo__entrada" id="bloquear-fim" name="fim" type="time" step="600" min="09:00" max="19:00" value="16:00" aria-describedby="bloquear-fim-erro">
+            <p class="campo__erro" id="bloquear-fim-erro" data-erro-hora><span class="icone icone-alerta" aria-hidden="true"></span>O fim precisa ser depois do início.</p>
+          </div>
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="bloquear-motivo">Motivo <span class="campo__opcional">(opcional, só você vê)</span></label>
+          <input class="campo__entrada" id="bloquear-motivo" name="motivo" type="text" value="Médico">
+        </div>
+        <div class="aviso aviso--atencao" data-aviso-conflito hidden role="status">
+          <span class="icone icone-alerta" aria-hidden="true"></span>
+          <div>
+            <p class="aviso__titulo">Já tem agendamento nesse intervalo</p>
+            <p data-lista>André, 15:40 (Corte)</p>
+            <p>Cancele ou remarque esse horário antes, ou escolha outro intervalo.</p>
+          </div>
+        </div>
+        <p class="texto-pequeno texto-suave">O intervalo some do seu link assim que você bloquear. Para folgas toda semana, use Horários e equipe.</p>
+      </div>
+      <div class="janela__rodape">
+        <button type="button" class="botao botao--secundario" data-fecha>Voltar</button>
+        <button type="submit" class="botao" id="botao-bloquear"><span class="icone icone-cadeado" aria-hidden="true"></span>Bloquear horário</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Janela: novo agendamento -->
+  <dialog class="janela" id="novo" aria-labelledby="novo-titulo">
+    <form id="form-novo">
+      <div class="janela__cabecalho">
+        <div>
+          <h2 id="novo-titulo">Novo agendamento</h2>
+          <p class="texto-suave">Para quem ligou ou chegou no balcão.</p>
+        </div>
+        <button type="button" class="botao-icone" data-fecha aria-label="Fechar"><span class="icone icone-x" aria-hidden="true"></span></button>
+      </div>
+      <div class="janela__corpo pilha">
+        <div class="linha-campos">
+          <div class="campo">
+            <label class="campo__rotulo" for="novo-cliente">Nome do cliente</label>
+            <input class="campo__entrada" id="novo-cliente" name="cliente" type="text" autocomplete="off" required aria-describedby="novo-cliente-erro">
+            <p class="campo__erro" id="novo-cliente-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite o nome do cliente.</p>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="novo-telefone">WhatsApp <span class="campo__opcional">(opcional)</span></label>
+            <input class="campo__entrada" id="novo-telefone" name="telefone" type="tel" inputmode="numeric" placeholder="(00) 00000-0000">
+          </div>
+        </div>
+        <div class="linha-campos">
+          <div class="campo">
+            <label class="campo__rotulo" for="novo-servico">Serviço</label>
+            <select class="campo__entrada" id="novo-servico" name="servico">
+              <option value="Corte|40">Corte · 40 min · R$ 45</option>
+              <option value="Barba|30">Barba · 30 min · R$ 35</option>
+              <option value="Corte e barba|70">Corte e barba · 70 min · R$ 70</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="campo__rotulo" for="novo-profissional">Com</label>
+            <select class="campo__entrada" id="novo-profissional" name="profissional">
+              <option value="rafa">Rafa</option>
+              <option value="julia">Júlia</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="novo-horario">Horário livre hoje</label>
+          <select class="campo__entrada" id="novo-horario" name="horario">
+            <option>15:00</option>
+            <option>17:00</option>
+            <option>18:20</option>
+          </select>
+        </div>
+      </div>
+      <div class="janela__rodape">
+        <button type="button" class="botao botao--secundario" data-fecha>Voltar</button>
+        <button type="submit" class="botao">Salvar agendamento</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

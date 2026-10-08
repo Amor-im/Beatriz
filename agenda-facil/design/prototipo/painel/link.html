@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seu link está pronto · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+</head>
+<body>
+  <div class="onboarding">
+    <header class="onboarding__topo">
+      <a class="logo" href="../index.html">Agenda <span class="logo__facil">Fácil</span></a>
+      <p class="texto-pequeno texto-suave">Barbearia Exemplo</p>
+    </header>
+
+    <div class="onboarding__corpo">
+      <main class="onboarding__form" id="conteudo">
+        <div class="confirmado-topo">
+          <span class="selo-ok" aria-hidden="true"><span class="icone icone-check"></span></span>
+          <h1>Seu link está pronto</h1>
+          <p class="texto-suave">A partir de agora, quem abrir este link vê seus horários livres e marca sozinho. Cada agendamento aparece na sua agenda na hora.</p>
+        </div>
+
+        <section class="cartao-form" aria-labelledby="link-titulo">
+          <h2 id="link-titulo" class="texto-h3">Seu link</h2>
+          <div class="link-pronto">
+            <span class="link-pronto__url">agendafacil.example/barbearia-exemplo</span>
+            <button type="button" class="botao" data-copiar="https://agendafacil.example/barbearia-exemplo"><span class="icone icone-copiar" aria-hidden="true"></span>Copiar link</button>
+          </div>
+
+          <div class="compartilhar">
+            <a class="botao botao--secundario" href="#" data-toast="No produto, abre o WhatsApp com o texto: “Agora dá para marcar horário na Barbearia Exemplo pelo link…”"><span class="icone icone-mensagem" aria-hidden="true"></span>Mandar no WhatsApp</a>
+            <a class="botao botao--secundario" href="../cliente/index.html"><span class="icone icone-olho" aria-hidden="true"></span>Ver como o cliente vê</a>
+          </div>
+
+          <div class="qr">
+            <img src="qr-barbearia-exemplo.svg" alt="QR code que abre agendafacil.example/barbearia-exemplo">
+            <div class="pilha">
+              <p><strong>QR code para o balcão</strong></p>
+              <p class="texto-pequeno texto-suave">Imprima e cole no espelho ou no caixa. Quem aponta a câmera do celular cai direto na sua agenda.</p>
+              <a class="botao botao--fantasma alinha-inicio" href="qr-barbearia-exemplo.svg" download><span class="icone icone-baixar" aria-hidden="true"></span>Baixar QR code</a>
+            </div>
+          </div>
+
+          <div class="aviso aviso--info">
+            <span class="icone icone-info" aria-hidden="true"></span>
+            <div>
+              <p class="aviso__titulo">Dica para o Instagram</p>
+              <p>Coloque o link nos links do seu perfil e escreva na bio algo como "Agende pelo link".</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="rodape-form">
+          <span></span>
+          <a class="botao" href="agenda.html">Ir para a agenda<span class="icone icone-chevron-direita" aria-hidden="true"></span></a>
+        </div>
+      </main>
+
+      <aside class="previa" aria-label="Prévia do seu link">
+        <p class="previa__rotulo">Assim os clientes vão ver</p>
+        <div class="previa__tela" aria-hidden="true">
+          <div class="negocio">
+            <div class="negocio__marca"><span class="negocio__logo">BE</span><p class="negocio__nome titulo-falso">Barbearia Exemplo</p></div>
+          </div>
+          <div class="previa__lista">
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Corte</span><span class="opcao__info">40 min</span></span><span class="opcao__preco">R$ 45</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Barba</span><span class="opcao__info">30 min</span></span><span class="opcao__preco">R$ 35</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Corte e barba</span><span class="opcao__info">1 h 10 min</span></span><span class="opcao__preco">R$ 70</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Sobrancelha</span><span class="opcao__info">20 min</span></span><span class="opcao__preco">R$ 20</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O que você oferece? · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/onboarding.js" defer></script>
+</head>
+<body>
+  <div class="onboarding">
+    <header class="onboarding__topo">
+      <a class="logo" href="../index.html">Agenda <span class="logo__facil">Fácil</span></a>
+      <p class="texto-pequeno texto-suave">Barbearia Exemplo</p>
+    </header>
+
+    <div class="onboarding__corpo">
+      <main class="onboarding__form" id="conteudo">
+        <ol class="passos-numerados" aria-label="Passos do cadastro">
+          <li class="feito"><span class="numero"><span class="icone icone-check" aria-hidden="true"></span><span class="visualmente-oculto">Feito:</span></span>Seu negócio</li>
+          <li aria-current="step"><span class="numero">2</span>Serviços</li>
+          <li><span class="numero">3</span>Horários e equipe</li>
+        </ol>
+
+        <div class="cabecalho-passo">
+          <h1>O que você oferece?</h1>
+          <p class="texto-suave">Já deixamos os serviços mais comuns de barbearia. Ajuste o nome, o tempo e o preço, ou remova o que você não faz.</p>
+        </div>
+
+        <form class="cartao-form" id="form-servicos" action="horarios.html" method="get">
+          <div class="tabela-servicos" id="lista-servicos">
+            <div class="tabela-servicos__cabeca" aria-hidden="true"><span>Serviço</span><span>Duração</span><span>Preço</span><span></span></div>
+
+            <div class="linha-servico">
+              <input class="campo__entrada" type="text" value="Corte" aria-label="Nome do serviço 1">
+              <select class="campo__entrada" aria-label="Duração do serviço 1"><option>20 min</option><option>30 min</option><option selected>40 min</option><option>50 min</option><option>1 h</option><option>1 h 10 min</option><option>1 h 30 min</option></select>
+              <div class="campo-preco"><span aria-hidden="true">R$</span><input class="campo__entrada" type="text" inputmode="decimal" value="45" aria-label="Preço do serviço 1, em reais"></div>
+              <button type="button" class="botao-icone" data-remover aria-label="Remover Corte"><span class="icone icone-x" aria-hidden="true"></span></button>
+            </div>
+            <div class="linha-servico">
+              <input class="campo__entrada" type="text" value="Barba" aria-label="Nome do serviço 2">
+              <select class="campo__entrada" aria-label="Duração do serviço 2"><option>20 min</option><option selected>30 min</option><option>40 min</option><option>50 min</option><option>1 h</option><option>1 h 10 min</option><option>1 h 30 min</option></select>
+              <div class="campo-preco"><span aria-hidden="true">R$</span><input class="campo__entrada" type="text" inputmode="decimal" value="35" aria-label="Preço do serviço 2, em reais"></div>
+              <button type="button" class="botao-icone" data-remover aria-label="Remover Barba"><span class="icone icone-x" aria-hidden="true"></span></button>
+            </div>
+            <div class="linha-servico">
+              <input class="campo__entrada" type="text" value="Corte e barba" aria-label="Nome do serviço 3">
+              <select class="campo__entrada" aria-label="Duração do serviço 3"><option>20 min</option><option>30 min</option><option>40 min</option><option>50 min</option><option>1 h</option><option selected>1 h 10 min</option><option>1 h 30 min</option></select>
+              <div class="campo-preco"><span aria-hidden="true">R$</span><input class="campo__entrada" type="text" inputmode="decimal" value="70" aria-label="Preço do serviço 3, em reais"></div>
+              <button type="button" class="botao-icone" data-remover aria-label="Remover Corte e barba"><span class="icone icone-x" aria-hidden="true"></span></button>
+            </div>
+            <div class="linha-servico">
+              <input class="campo__entrada" type="text" value="Sobrancelha" aria-label="Nome do serviço 4">
+              <select class="campo__entrada" aria-label="Duração do serviço 4"><option selected>20 min</option><option>30 min</option><option>40 min</option><option>50 min</option><option>1 h</option><option>1 h 10 min</option><option>1 h 30 min</option></select>
+              <div class="campo-preco"><span aria-hidden="true">R$</span><input class="campo__entrada" type="text" inputmode="decimal" value="20" aria-label="Preço do serviço 4, em reais"></div>
+              <button type="button" class="botao-icone" data-remover aria-label="Remover Sobrancelha"><span class="icone icone-x" aria-hidden="true"></span></button>
+            </div>
+          </div>
+
+          <button type="button" class="botao botao--fantasma alinha-inicio" id="adicionar-servico"><span class="icone icone-mais" aria-hidden="true"></span>Adicionar serviço</button>
+
+          <div class="sugestoes">
+            <p class="campo__rotulo" id="sugestoes-titulo">Também é comum em barbearia</p>
+            <div class="lista-chips" role="group" aria-labelledby="sugestoes-titulo">
+              <button type="button" class="chip" data-sugestao="Pezinho"><span class="icone icone-mais" aria-hidden="true"></span>Pezinho</button>
+              <button type="button" class="chip" data-sugestao="Hidratação"><span class="icone icone-mais" aria-hidden="true"></span>Hidratação</button>
+              <button type="button" class="chip" data-sugestao="Pigmentação"><span class="icone icone-mais" aria-hidden="true"></span>Pigmentação</button>
+              <button type="button" class="chip" data-sugestao="Corte infantil"><span class="icone icone-mais" aria-hidden="true"></span>Corte infantil</button>
+            </div>
+          </div>
+
+          <p class="campo__erro" id="servicos-erro" role="alert"><span class="icone icone-alerta" aria-hidden="true"></span>Deixe pelo menos 1 serviço para os clientes poderem marcar.</p>
+
+          <div class="rodape-form">
+            <a class="botao botao--secundario" href="cadastro.html"><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+            <button type="submit" class="botao">Continuar<span class="icone icone-chevron-direita" aria-hidden="true"></span></button>
+          </div>
+        </form>
+      </main>
+
+      <aside class="previa" aria-label="Prévia do seu link">
+        <p class="previa__rotulo">Assim os clientes vão ver</p>
+        <div class="previa__tela" aria-hidden="true">
+          <div class="negocio">
+            <div class="negocio__marca"><span class="negocio__logo">BE</span><p class="negocio__nome titulo-falso">Barbearia Exemplo</p></div>
+          </div>
+          <div class="previa__lista" id="previa-servicos">
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Corte</span><span class="opcao__info">40 min</span></span><span class="opcao__preco">R$ 45</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Barba</span><span class="opcao__info">30 min</span></span><span class="opcao__preco">R$ 35</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Corte e barba</span><span class="opcao__info">1 h 10 min</span></span><span class="opcao__preco">R$ 70</span></div>
+            <div class="opcao"><span class="opcao__corpo"><span class="opcao__titulo">Sobrancelha</span><span class="opcao__info">20 min</span></span><span class="opcao__preco">R$ 20</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

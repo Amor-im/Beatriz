@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crie a agenda do seu negócio · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/onboarding.js" defer></script>
+</head>
+<body>
+  <div class="onboarding">
+    <header class="onboarding__topo">
+      <a class="logo" href="../index.html">Agenda <span class="logo__facil">Fácil</span></a>
+      <p class="texto-pequeno">Já tem conta? <a href="agenda.html">Entrar</a></p>
+    </header>
+
+    <div class="onboarding__corpo">
+      <main class="onboarding__form" id="conteudo">
+        <ol class="passos-numerados" aria-label="Passos do cadastro">
+          <li aria-current="step"><span class="numero">1</span>Seu negócio</li>
+          <li><span class="numero">2</span>Serviços</li>
+          <li><span class="numero">3</span>Horários e equipe</li>
+        </ol>
+
+        <div class="cabecalho-passo">
+          <h1>Crie a agenda do seu negócio</h1>
+          <p class="texto-suave">Leva uns 5 minutos. No fim, você recebe um link para os clientes marcarem sozinhos.</p>
+        </div>
+
+        <form class="cartao-form" id="form-cadastro" action="servicos.html" method="get">
+          <div class="campo">
+            <label class="campo__rotulo" for="negocio">Nome do negócio</label>
+            <input class="campo__entrada" id="negocio" name="negocio" type="text" autocomplete="organization" value="Barbearia Exemplo" required aria-describedby="negocio-dica negocio-erro">
+            <p class="campo__dica" id="negocio-dica">Aparece para os clientes e no seu link.</p>
+            <p class="campo__erro" id="negocio-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite o nome do negócio.</p>
+          </div>
+
+          <fieldset class="campo grupo-campo" aria-describedby="tipo-dica">
+            <legend class="campo__rotulo">Tipo de negócio</legend>
+            <p class="campo__dica" id="tipo-dica">Usamos para sugerir serviços. Dá para mudar tudo depois.</p>
+            <div class="lista-chips">
+              <label class="chip"><input type="radio" name="tipo" value="salao"><span class="icone icone-check" aria-hidden="true"></span>Salão de beleza</label>
+              <label class="chip"><input type="radio" name="tipo" value="barbearia" checked><span class="icone icone-check" aria-hidden="true"></span>Barbearia</label>
+              <label class="chip"><input type="radio" name="tipo" value="estetica"><span class="icone icone-check" aria-hidden="true"></span>Estética</label>
+              <label class="chip"><input type="radio" name="tipo" value="quadra"><span class="icone icone-check" aria-hidden="true"></span>Quadra esportiva</label>
+              <label class="chip"><input type="radio" name="tipo" value="outro"><span class="icone icone-check" aria-hidden="true"></span>Outro</label>
+            </div>
+          </fieldset>
+
+          <div class="campo">
+            <label class="campo__rotulo" for="email">Seu e-mail</label>
+            <input class="campo__entrada" id="email" name="email" type="email" autocomplete="email" placeholder="voce@example.com" required aria-describedby="email-dica email-erro">
+            <p class="campo__dica" id="email-dica">Para entrar no painel. Não aparece para os clientes.</p>
+            <p class="campo__erro" id="email-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite um e-mail completo, como nome@provedor.com.</p>
+          </div>
+
+          <div class="campo">
+            <label class="campo__rotulo" for="senha">Crie uma senha</label>
+            <div class="campo-senha">
+              <input class="campo__entrada" id="senha" name="senha" type="password" autocomplete="new-password" minlength="8" required aria-describedby="senha-dica senha-erro">
+              <button type="button" class="botao-icone" id="mostrar-senha" aria-label="Mostrar senha" aria-pressed="false"><span class="icone icone-olho" aria-hidden="true"></span></button>
+            </div>
+            <p class="campo__dica" id="senha-dica">Pelo menos 8 caracteres.</p>
+            <p class="campo__erro" id="senha-erro"><span class="icone icone-alerta" aria-hidden="true"></span>A senha precisa ter pelo menos 8 caracteres.</p>
+          </div>
+
+          <div class="rodape-form">
+            <p class="texto-pequeno texto-suave">Ao continuar, você aceita os <a href="#" data-toast="Termos de uso: ficam para a Parte 2.">termos de uso</a>.</p>
+            <button type="submit" class="botao">Continuar<span class="icone icone-chevron-direita" aria-hidden="true"></span></button>
+          </div>
+        </form>
+      </main>
+
+      <aside class="previa" aria-label="Prévia do seu link">
+        <p class="previa__rotulo">Assim os clientes vão ver</p>
+        <div class="previa__tela" aria-hidden="true">
+          <div class="negocio">
+            <div class="negocio__marca"><span class="negocio__logo">BE</span><p class="negocio__nome titulo-falso">Barbearia Exemplo</p></div>
+          </div>
+          <div class="previa__lista">
+            <div class="esqueleto esqueleto--opcao"></div>
+            <div class="esqueleto esqueleto--opcao"></div>
+            <div class="esqueleto esqueleto--opcao"></div>
+          </div>
+        </div>
+        <p class="texto-pequeno texto-suave">Os serviços aparecem aqui no próximo passo.</p>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

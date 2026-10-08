@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda de hoje (celular) · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/painel.js" defer></script>
+</head>
+<body>
+  <div class="agenda-celular">
+    <header class="agenda-celular__topo">
+      <div class="agenda-celular__dia">
+        <a class="botao-icone" href="#" data-toast="No protótipo, só o dia de hoje tem agendamentos." aria-label="Dia anterior"><span class="icone icone-chevron-esquerda" aria-hidden="true"></span></a>
+        <h1>Hoje<small>quinta, 8 de outubro</small></h1>
+        <a class="botao-icone" href="agenda-vazia.html" aria-label="Próximo dia"><span class="icone icone-chevron-direita" aria-hidden="true"></span></a>
+      </div>
+      <div class="lista-chips" role="group" aria-label="Mostrar agenda de">
+        <button type="button" class="chip" aria-pressed="true"><span class="icone icone-check" aria-hidden="true"></span>Todos</button>
+        <button type="button" class="chip" aria-pressed="false"><span class="icone icone-check" aria-hidden="true"></span>Rafa</button>
+        <button type="button" class="chip" aria-pressed="false"><span class="icone icone-check" aria-hidden="true"></span>Júlia</button>
+      </div>
+      <p class="resumo-dia texto-pequeno"><span><strong data-conta="total">11</strong> agendamentos</span><span><strong data-conta="a-confirmar">4</strong> a confirmar</span></p>
+    </header>
+
+    <main id="conteudo">
+      <details class="mais-cedo">
+        <summary class="botao botao--fantasma">Mais cedo hoje (6)</summary>
+        <ul class="lista-dia lista-dia--sem-margem">
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Carlos" data-inicio="09:00" data-fim="09:40" data-servico="Corte · 40 min · R$ 45" data-com="Rafa" data-status="confirmado" data-whatsapp="(11) 90000-0001" data-origem="Pelo link, ontem às 20:14">
+          <span class="item-dia__hora">09:00<small>até 09:40</small></span>
+          <span class="item-dia__corpo"><strong>Carlos</strong><span class="texto-pequeno texto-suave">Corte · Rafa</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Gustavo" data-inicio="09:30" data-fim="10:00" data-servico="Barba · 30 min · R$ 35" data-com="Júlia" data-status="confirmado" data-whatsapp="(11) 90000-0007" data-origem="Pelo link, ontem às 19:05">
+          <span class="item-dia__hora">09:30<small>até 10:00</small></span>
+          <span class="item-dia__corpo"><strong>Gustavo</strong><span class="texto-pequeno texto-suave">Barba · Júlia</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Pedro" data-inicio="10:00" data-fim="11:10" data-servico="Corte e barba · 70 min · R$ 70" data-com="Rafa" data-status="confirmado" data-whatsapp="(11) 90000-0002" data-origem="Adicionado por você">
+          <span class="item-dia__hora">10:00<small>até 11:10</small></span>
+          <span class="item-dia__corpo"><strong>Pedro</strong><span class="texto-pequeno texto-suave">Corte e barba · Rafa</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Diego" data-inicio="10:40" data-fim="11:20" data-servico="Corte · 40 min · R$ 45" data-com="Júlia" data-status="confirmado" data-whatsapp="(11) 90000-0008" data-origem="Pelo link, segunda às 12:30">
+          <span class="item-dia__hora">10:40<small>até 11:20</small></span>
+          <span class="item-dia__corpo"><strong>Diego</strong><span class="texto-pequeno texto-suave">Corte · Júlia</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><div class="item-dia bloco--bloqueado"><span class="item-dia__hora">12:00<small>até 13:00</small></span><span class="item-dia__corpo"><strong><span class="icone icone-cadeado" aria-hidden="true"></span> Bloqueado · Almoço</strong><span class="texto-pequeno texto-suave">Rafa</span></span></div></li>
+        <li><div class="item-dia bloco--bloqueado"><span class="item-dia__hora">13:00<small>até 14:00</small></span><span class="item-dia__corpo"><strong><span class="icone icone-cadeado" aria-hidden="true"></span> Bloqueado · Almoço</strong><span class="texto-pequeno texto-suave">Júlia</span></span></div></li>
+        </ul>
+      </details>
+      <p class="agora-celular"><span class="status status--agora"><span class="icone icone-relogio" aria-hidden="true"></span>Agora, 14:10</span></p>
+      <ul class="lista-dia">
+        <li><button type="button" class="item-dia bloco--a-confirmar" data-nome="Marcos" data-inicio="14:20" data-fim="15:00" data-servico="Corte · 40 min · R$ 45" data-com="Rafa" data-status="a-confirmar" data-whatsapp="(11) 90000-0003" data-origem="Pelo link, hoje às 08:02">
+          <span class="item-dia__hora">14:20<small>até 15:00</small></span>
+          <span class="item-dia__corpo"><strong>Marcos</strong><span class="texto-pequeno texto-suave">Corte · Rafa</span><span data-selo><span class="status status--a-confirmar"><span class="icone icone-relogio" aria-hidden="true"></span>A confirmar</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--a-confirmar" data-nome="Renato" data-inicio="14:40" data-fim="15:10" data-servico="Barba · 30 min · R$ 35" data-com="Júlia" data-status="a-confirmar" data-whatsapp="(11) 90000-0009" data-origem="Pelo link, hoje às 10:41">
+          <span class="item-dia__hora">14:40<small>até 15:10</small></span>
+          <span class="item-dia__corpo"><strong>Renato</strong><span class="texto-pequeno texto-suave">Barba · Júlia</span><span data-selo><span class="status status--a-confirmar"><span class="icone icone-relogio" aria-hidden="true"></span>A confirmar</span></span></span>
+        </button></li>
+        <li><p class="livre"><span><strong class="hora">15:00</strong> livre com Rafa</span><span>40 min</span></p></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="André" data-inicio="15:40" data-fim="16:20" data-servico="Corte · 40 min · R$ 45" data-com="Rafa" data-status="confirmado" data-whatsapp="(11) 90000-0004" data-origem="Pelo link, terça às 21:37">
+          <span class="item-dia__hora">15:40<small>até 16:20</small></span>
+          <span class="item-dia__corpo"><strong>André</strong><span class="texto-pequeno texto-suave">Corte · Rafa</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Felipe" data-inicio="16:00" data-fim="17:10" data-servico="Corte e barba · 70 min · R$ 70" data-com="Júlia" data-status="confirmado" data-whatsapp="(11) 90000-0010" data-origem="Pelo link, ontem às 22:10">
+          <span class="item-dia__hora">16:00<small>até 17:10</small></span>
+          <span class="item-dia__corpo"><strong>Felipe</strong><span class="texto-pequeno texto-suave">Corte e barba · Júlia</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--a-confirmar" data-nome="Lucas" data-inicio="16:20" data-fim="17:00" data-servico="Corte · 40 min · R$ 45" data-com="Rafa" data-status="a-confirmar" data-whatsapp="(11) 90000-0005" data-origem="Pelo link, hoje às 13:58">
+          <span class="item-dia__hora">16:20<small>até 17:00</small></span>
+          <span class="item-dia__corpo"><strong>Lucas</strong><span class="texto-pequeno texto-suave">Corte · Rafa</span><span data-selo><span class="status status--a-confirmar"><span class="icone icone-relogio" aria-hidden="true"></span>A confirmar</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--confirmado" data-nome="Bruno" data-inicio="17:40" data-fim="18:10" data-servico="Barba · 30 min · R$ 35" data-com="Rafa" data-status="confirmado" data-whatsapp="(11) 90000-0006" data-origem="Adicionado por você">
+          <span class="item-dia__hora">17:40<small>até 18:10</small></span>
+          <span class="item-dia__corpo"><strong>Bruno</strong><span class="texto-pequeno texto-suave">Barba · Rafa</span><span data-selo><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Confirmado</span></span></span>
+        </button></li>
+        <li><button type="button" class="item-dia bloco--a-confirmar" data-nome="João" data-inicio="18:00" data-fim="18:40" data-servico="Corte · 40 min · R$ 45" data-com="Júlia" data-status="a-confirmar" data-whatsapp="(11) 90000-0011" data-origem="Pelo link, hoje às 11:15">
+          <span class="item-dia__hora">18:00<small>até 18:40</small></span>
+          <span class="item-dia__corpo"><strong>João</strong><span class="texto-pequeno texto-suave">Corte · Júlia</span><span data-selo><span class="status status--a-confirmar"><span class="icone icone-relogio" aria-hidden="true"></span>A confirmar</span></span></span>
+        </button></li>
+      </ul>
+    </main>
+
+    <div class="barra-acoes">
+      <button type="button" class="botao botao--secundario" data-toast="No celular, abre a mesma janela de bloquear do computador."><span class="icone icone-cadeado" aria-hidden="true"></span>Bloquear</button>
+      <button type="button" class="botao" data-toast="No celular, abre a mesma janela de novo agendamento do computador."><span class="icone icone-mais" aria-hidden="true"></span>Novo</button>
+    </div>
+  </div>
+
+  <dialog class="janela folha" id="detalhe" aria-labelledby="detalhe-titulo">
+    <div class="janela__cabecalho">
+      <div>
+        <p class="texto-pequeno texto-suave">Agendamento</p>
+        <h2 id="detalhe-titulo" data-campo="nome">Lucas</h2>
+      </div>
+      <button type="button" class="botao-icone" data-fecha aria-label="Fechar"><span class="icone icone-x" aria-hidden="true"></span></button>
+    </div>
+    <div class="janela__corpo pilha">
+      <span data-campo="status"></span>
+      <dl class="lista-dados">
+        <div><dt>Quando</dt><dd><span class="hora" data-campo="quando"></span> · hoje</dd></div>
+        <div><dt>Serviço</dt><dd data-campo="servico"></dd></div>
+        <div><dt>Com</dt><dd data-campo="com"></dd></div>
+        <div><dt>WhatsApp</dt><dd data-campo="whatsapp"></dd></div>
+      </dl>
+    </div>
+    <div class="janela__rodape janela__rodape--empilhado">
+      <button type="button" class="botao botao--largo" data-acao="confirmar"><span class="icone icone-check" aria-hidden="true"></span>Marcar como confirmado</button>
+      <button type="button" class="botao botao--secundario botao--largo" data-acao="pedir" data-toast="No produto, abre o WhatsApp com a mensagem pronta."><span class="icone icone-mensagem" aria-hidden="true"></span>Pedir confirmação no WhatsApp</button>
+      <button type="button" class="botao botao--perigo botao--largo" data-abre="cancelar"><span class="icone icone-x" aria-hidden="true"></span>Cancelar agendamento</button>
+    </div>
+  </dialog>
+
+  <dialog class="janela" id="cancelar" aria-labelledby="cancelar-titulo">
+    <div class="janela__cabecalho">
+      <h2 id="cancelar-titulo">Cancelar o agendamento de <span data-campo="nome">Lucas</span>?</h2>
+    </div>
+    <div class="janela__corpo pilha">
+      <label class="marcar"><input type="checkbox" id="avisar-cliente" checked><span>Avisar o cliente no WhatsApp</span></label>
+    </div>
+    <div class="janela__rodape">
+      <button type="button" class="botao botao--secundario" data-fecha>Manter</button>
+      <button type="button" class="botao botao--perigo-cheio" id="confirmar-cancelar">Cancelar agendamento</button>
+    </div>
+  </dialog>
+</body>
+</html>

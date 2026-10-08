@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quando você atende? · Agenda Fácil</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/onboarding.js" defer></script>
+</head>
+<body>
+  <div class="onboarding">
+    <header class="onboarding__topo">
+      <a class="logo" href="../index.html">Agenda <span class="logo__facil">Fácil</span></a>
+      <p class="texto-pequeno texto-suave">Barbearia Exemplo</p>
+    </header>
+
+    <div class="onboarding__corpo">
+      <main class="onboarding__form" id="conteudo">
+        <ol class="passos-numerados" aria-label="Passos do cadastro">
+          <li class="feito"><span class="numero"><span class="icone icone-check" aria-hidden="true"></span><span class="visualmente-oculto">Feito:</span></span>Seu negócio</li>
+          <li class="feito"><span class="numero"><span class="icone icone-check" aria-hidden="true"></span><span class="visualmente-oculto">Feito:</span></span>Serviços</li>
+          <li aria-current="step"><span class="numero">3</span>Horários e equipe</li>
+        </ol>
+
+        <div class="cabecalho-passo">
+          <h1>Quando você atende?</h1>
+          <p class="texto-suave">Os clientes só veem horários dentro destes intervalos. Para uma folga num dia específico, use "Bloquear horário" na agenda.</p>
+        </div>
+
+        <form class="cartao-form" id="form-horarios" action="link.html" method="get">
+          <fieldset class="grupo-campo">
+            <legend class="campo__rotulo">Dias e horários</legend>
+            <div class="semana">
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="seg-estado"><span>Segunda</span></label>
+                <span class="texto-pequeno texto-suave" id="seg-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Segunda, abre às"><span>às</span><input class="campo__entrada" type="time" value="19:00" aria-label="Segunda, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="ter-estado"><span>Terça</span></label>
+                <span class="texto-pequeno texto-suave" id="ter-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Terça, abre às"><span>às</span><input class="campo__entrada" type="time" value="19:00" aria-label="Terça, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="qua-estado"><span>Quarta</span></label>
+                <span class="texto-pequeno texto-suave" id="qua-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Quarta, abre às"><span>às</span><input class="campo__entrada" type="time" value="19:00" aria-label="Quarta, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="qui-estado"><span>Quinta</span></label>
+                <span class="texto-pequeno texto-suave" id="qui-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Quinta, abre às"><span>às</span><input class="campo__entrada" type="time" value="19:00" aria-label="Quinta, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="sex-estado"><span>Sexta</span></label>
+                <span class="texto-pequeno texto-suave" id="sex-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Sexta, abre às"><span>às</span><input class="campo__entrada" type="time" value="19:00" aria-label="Sexta, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" checked data-dia aria-describedby="sab-estado"><span>Sábado</span></label>
+                <span class="texto-pequeno texto-suave" id="sab-estado" data-estado>Aberto</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Sábado, abre às"><span>às</span><input class="campo__entrada" type="time" value="14:00" aria-label="Sábado, fecha às"></span>
+              </div>
+              <div class="linha-dia">
+                <label class="interruptor"><input type="checkbox" data-dia aria-describedby="dom-estado"><span>Domingo</span></label>
+                <span class="texto-pequeno texto-suave" id="dom-estado" data-estado>Fechado</span>
+                <span class="linha-dia__horas"><input class="campo__entrada" type="time" value="09:00" aria-label="Domingo, abre às" disabled><span>às</span><input class="campo__entrada" type="time" value="13:00" aria-label="Domingo, fecha às" disabled></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="campo">
+            <span class="campo__rotulo" id="intervalo-rotulo">Intervalo de almoço</span>
+            <span class="linha-dia__horas" role="group" aria-labelledby="intervalo-rotulo"><input class="campo__entrada" type="time" value="12:00" aria-label="Intervalo começa às"><span>às</span><input class="campo__entrada" type="time" value="13:00" aria-label="Intervalo termina às"></span>
+            <p class="campo__dica">Vale para todo mundo. Na agenda dá para mudar o de cada pessoa.</p>
+          </div>
+
+          <fieldset class="grupo-campo">
+            <legend class="campo__rotulo">Quem atende</legend>
+            <p class="campo__dica">Cada pessoa vira uma coluna na sua agenda e uma opção para o cliente escolher.</p>
+            <div class="equipe" id="lista-equipe">
+              <div class="pessoa"><span class="avatar" aria-hidden="true">RA</span><input class="campo__entrada" type="text" value="Rafa" aria-label="Nome da pessoa 1"><span class="texto-pequeno texto-suave">você</span></div>
+              <div class="pessoa"><span class="avatar" aria-hidden="true">JU</span><input class="campo__entrada" type="text" value="Júlia" aria-label="Nome da pessoa 2"><button type="button" class="botao-icone" data-remover aria-label="Remover Júlia"><span class="icone icone-x" aria-hidden="true"></span></button></div>
+            </div>
+            <button type="button" class="botao botao--fantasma alinha-inicio" id="adicionar-pessoa"><span class="icone icone-mais" aria-hidden="true"></span>Adicionar pessoa</button>
+          </fieldset>
+
+          <div class="rodape-form">
+            <a class="botao botao--secundario" href="servicos.html"><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+            <button type="submit" class="botao">Criar meu link<span class="icone icone-chevron-direita" aria-hidden="true"></span></button>
+          </div>
+        </form>
+      </main>
+
+      <aside class="previa" aria-label="Resumo">
+        <p class="previa__rotulo">Na agenda do cliente</p>
+        <div class="bloco-mudar">
+          <p><strong>Segunda a sexta</strong>, 9:00 às 19:00</p>
+          <p><strong>Sábado</strong>, 9:00 às 14:00</p>
+          <p><strong>Domingo</strong>, fechado</p>
+          <p class="texto-pequeno texto-suave">O cliente só vê os horários em que cabe o serviço inteiro, contando a duração de cada um.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
