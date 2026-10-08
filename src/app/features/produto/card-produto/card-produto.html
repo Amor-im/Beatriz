@@ -26,7 +26,7 @@
         <!--<div class="linhapreco">
             <span class="preco"> {{produto().preco | currency:'BRL': 'symbol': '1.2-2'}}</span>
 
-            <app-qunatidade-controle [(contador)]="quantidade"></app-qunatidade-controle>
+            <app-quantidade-controle [(contador)]="quantidade"></app-quantidade-controle>
         </div>-->
         
         <div class="preco-container">
@@ -40,7 +40,7 @@
             }
 
             @if(produto().estado != 'esgotado'){
-                <app-qunatidade-controle [(contador)]="quantidade"></app-qunatidade-controle>
+                <app-quantidade-controle [(contador)]="quantidade"></app-quantidade-controle>
             }
 
         </div>

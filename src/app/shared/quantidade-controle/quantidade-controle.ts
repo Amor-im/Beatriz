@@ -1,12 +1,12 @@
 import { Component, model } from '@angular/core';
 
 @Component({
-  selector: 'app-qunatidade-controle',
+  selector: 'app-quantidade-controle',
   imports: [],
-  templateUrl: './qunatidade-controle.html',
-  styleUrl: './qunatidade-controle.css',
+  templateUrl: './quantidade-controle.html',
+  styleUrl: './quantidade-controle.css',
 })
-export class QunatidadeControle {
+export class QuantidadeControle {
   contador = model<number>(1);
 
   decrementar(){
