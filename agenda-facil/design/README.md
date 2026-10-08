@@ -12,7 +12,7 @@ Agendamento online para pequenos negócios de serviço. O dono configura serviç
 | Peça | Onde |
 |---|---|
 | Protótipo navegável (abre com dois cliques) | [`prototipo/index.html`](prototipo/index.html) |
-| Arquivo no Figma | TODO: link do Figma |
+| Arquivo no Figma (rascunho) | [Agenda Fácil · Case UX](https://www.figma.com/design/MpVoEKY4sBXdY5LbL2sO0d) · TODO(Beatriz): duplicar o arquivo para a conta Figma dela |
 | Telas exportadas | [`telas/`](telas/) |
 | Pesquisa | [`pesquisa/`](pesquisa/) |
 | Design system | [design-system.md](design-system.md) |
@@ -144,7 +144,20 @@ Estados que também desenhei: dia lotado, erro nos campos, horário reservado po
 
 ### Figma
 
-TODO: link do Figma.
+Arquivo: [Agenda Fácil · Case UX](https://www.figma.com/design/MpVoEKY4sBXdY5LbL2sO0d) (rascunho).
+TODO(Beatriz): duplicar o arquivo para a conta Figma dela e trocar este link pelo da cópia.
+
+O que já está lá, na página "Wireframes · UI":
+
+- **Variáveis** com os mesmos nomes do CSS: cores (`caneta`, `marca-texto`, `erro`…), espaços (de 4 a 48, mais o alvo mínimo de 44) e raios. Cada variável mostra o nome no código (`var(--caneta)`), então design e código falam a mesma língua.
+- **Estilos** de texto (Gabarito e Atkinson Hyperlegible) e de sombra.
+- **Componentes com variantes e propriedades:** botão, campo, horário, chip de serviço, selo de status, toast, opção de profissional, dia, indicador de passos, topo, resumo, estado vazio, aviso, cartão do horário, bloco da agenda, menu e item do dia no celular. Os estados ficam nas variantes.
+- **14 telas de alta fidelidade** feitas com esses componentes: 7 do cliente (celular) e 7 do painel (computador e a agenda no celular).
+
+O plano gratuito do Figma aceita 3 páginas por arquivo, então juntei as cinco partes em três páginas: "Pesquisa · Fluxos", "Wireframes · UI" e "Protótipo".
+TODO(Beatriz): completar no Figma a página "Pesquisa · Fluxos" (pode colar os diagramas de [fluxos.md](fluxos.md)) e a página "Protótipo" (ligar as telas do cliente com interações de clique), e passar os [wireframes v1](wireframes/index.html) para lá. Até lá, a pesquisa e os fluxos estão neste repositório e o protótipo navegável é o HTML.
+
+As imagens em [`telas/`](telas/) são prints do protótipo HTML, que tem o mesmo design das telas do Figma.
 
 ## Decisões de design
 
@@ -203,6 +216,7 @@ Escrevi um [roteiro com 5 tarefas](testes-usabilidade.md), cada uma com critéri
 
 - TODO(Beatriz): entrevistar 3 donos e 3 clientes, preencher a planilha de síntese e atualizar as hipóteses.
 - TODO(Beatriz): rodar o teste de usabilidade com 5 pessoas.
+- TODO(Beatriz): duplicar o arquivo do Figma para a conta dela e completar as páginas "Pesquisa · Fluxos" e "Protótipo".
 - Revisar personas, requisitos e telas com o que as entrevistas e o teste mostrarem.
 - Resolver os achados abertos da avaliação (botão de confirmar abaixo da dobra, estado sem internet).
 - Parte 2: construir o produto com os [requisitos](requisitos.md) Must primeiro.

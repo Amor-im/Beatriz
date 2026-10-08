@@ -6,7 +6,7 @@ Agenda Fácil: case de UX + produto full stack, em construção. Agendamento onl
 
 - **Case de UX (Parte 1):** [design/README.md](design/README.md)
 - **Protótipo navegável:** [design/prototipo/index.html](design/prototipo/index.html) (abre com dois cliques)
-- **Figma:** TODO: link do Figma
+- **Figma (rascunho):** [Agenda Fácil · Case UX](https://www.figma.com/design/MpVoEKY4sBXdY5LbL2sO0d) · TODO(Beatriz): duplicar o arquivo para a conta Figma dela e trocar este link
 - **Produto (Parte 2):** em breve
 - **Deploy:** em breve
 - **Código:** [github.com/beatrizcampos-dev/agenda-facil](https://github.com/beatrizcampos-dev/agenda-facil)
