@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../environments/environment';
 import { Produto } from '../../model/produto';
 import { PRODUTOS_API } from '../../../testing/produtos-fake';
-import { ProdutoService } from './produto.service';
+import { NOVA_TENTATIVA_API_MS, ProdutoService } from './produto.service';
 
 describe('ProdutoService', () => {
   let service: ProdutoService;
@@ -92,6 +92,26 @@ describe('ProdutoService', () => {
       http.expectOne(URL_API).flush(PRODUTOS_API);
     });
 
+    it('a cópia local vale 1 minuto; depois disso tenta a API de novo', () => {
+      jasmine.clock().install();
+      jasmine.clock().mockDate(new Date(2026, 9, 8, 10, 0, 0));
+      try {
+        service.listar().subscribe();
+        http.expectOne(URL_API).error(new ProgressEvent('network error'));
+        http.expectOne(URL_LOCAL).flush(PRODUTOS_API);
+
+        service.listar().subscribe(); // dentro do minuto: reaproveita a cópia
+        http.expectNone(URL_API);
+
+        jasmine.clock().tick(NOVA_TENTATIVA_API_MS + 1);
+        service.listar().subscribe(); // passou o minuto: tenta a API
+        http.expectOne(URL_API).flush(PRODUTOS_API);
+        expect(service.origem()).toBe('api');
+      } finally {
+        jasmine.clock().uninstall();
+      }
+    });
+
     it('não guarda erro: depois de falhar, a próxima chamada tenta de novo', () => {
       service.listar().subscribe({ error: () => undefined });
       http.expectOne(URL_API).error(new ProgressEvent('network error'));
@@ -130,7 +150,30 @@ describe('ProdutoService', () => {
       http.expectOne(URL_LOCAL).flush(PRODUTOS_API);
 
       expect(recebido?.nome).toBe('SanDisk SSD PLUS 1TB');
+    });
+
+    it('não muda o aviso do catálogo: a origem continua sendo a da lista', () => {
+      // Catálogo veio da cópia local...
+      service.listar().subscribe();
+      http.expectOne(URL_API).error(new ProgressEvent('network error'));
+      http.expectOne(URL_LOCAL).flush(PRODUTOS_API);
       expect(service.origem()).toBe('local');
+
+      // ...e depois um detalhe carrega pela API: a lista continua sendo a local.
+      service.buscarPorId(5).subscribe();
+      http.expectOne(`${URL_API}/5`).flush(PRODUTOS_API[1]);
+      expect(service.origem()).toBe('local');
+    });
+
+    it('detalhe vindo da cópia local também não muda a origem da lista', () => {
+      service.listar().subscribe();
+      http.expectOne(URL_API).flush(PRODUTOS_API);
+
+      service.buscarPorId(10).subscribe();
+      http.expectOne(`${URL_API}/10`).error(new ProgressEvent('network error'));
+      http.expectOne(URL_LOCAL).flush(PRODUTOS_API);
+
+      expect(service.origem()).toBe('api');
     });
   });
 

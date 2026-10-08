@@ -11,6 +11,9 @@ export type OrigemCatalogo = 'api' | 'local';
 /** Tempo máximo de espera pela API antes de usar a cópia local. */
 const TEMPO_LIMITE_MS = 8000;
 
+/** Depois de cair na cópia local, por quanto tempo reaproveitá-la antes de tentar a API de novo. */
+export const NOVA_TENTATIVA_API_MS = 60_000;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,22 +23,27 @@ export class ProdutoService {
 
   private readonly urlProdutos = `${environment.apiUrl}/products`;
 
+  /** De onde veio a lista do catálogo (só `listar()` muda este valor). */
   private readonly _origem = signal<OrigemCatalogo>('api');
   /** Somente leitura para os componentes: quem muda a origem é o service. */
   readonly origem = this._origem.asReadonly();
 
   /** Lista guardada depois da primeira busca: home, catálogo e cadastro reaproveitam. */
   private catalogo$?: Observable<Produto[]>;
+  /** Até quando (Date.now) a cópia local pode ser reaproveitada sem tentar a API. */
+  private usarCopiaLocalAte = 0;
 
   /**
    * Lista os produtos da API. Se a API falhar, usa o catálogo local (`assets/produtos.json`).
    * Se o arquivo local também falhar, o erro chega ao componente, que mostra a tela de erro.
    *
    * O resultado fica guardado (shareReplay): trocar de página não faz outra requisição.
-   * `recarregar = true` força uma busca nova (botão "Tentar de novo").
+   * Se a lista guardada for a cópia local, ela vale por 1 minuto; depois disso a próxima
+   * chamada tenta a API de novo. `recarregar = true` força uma busca nova ("Tentar de novo").
    */
   listar(recarregar = false): Observable<Produto[]> {
-    if (!this.catalogo$ || recarregar) {
+    const copiaLocalVencida = this._origem() === 'local' && Date.now() > this.usarCopiaLocalAte;
+    if (!this.catalogo$ || recarregar || copiaLocalVencida) {
       this.logger.info('[ProdutoService] Buscando a lista de produtos');
       this.catalogo$ = this.http.get<ProdutoApi[]>(this.urlProdutos).pipe(
         timeout(TEMPO_LIMITE_MS),
@@ -43,7 +51,12 @@ export class ProdutoService {
         tap(() => this._origem.set('api')),
         catchError((erro: unknown) => {
           this.logger.warn('[ProdutoService] API indisponível, usando o catálogo local', erro);
-          return this.listarLocal();
+          return this.buscarCopiaLocal().pipe(
+            tap(() => {
+              this._origem.set('local');
+              this.usarCopiaLocalAte = Date.now() + NOVA_TENTATIVA_API_MS;
+            }),
+          );
         }),
         // Guarda a última lista para quem se inscrever depois. Em caso de erro, não guarda:
         // a próxima chamada tenta de novo.
@@ -53,16 +66,16 @@ export class ProdutoService {
     return this.catalogo$;
   }
 
+  /** Busca um produto. Não mexe em `origem`: o aviso do catálogo fala só da lista. */
   buscarPorId(id: number): Observable<Produto | undefined> {
     this.logger.info(`[ProdutoService] Buscando o produto ${id}`);
     // Para um id que não existe, a Fake Store API responde 200 com corpo vazio.
     return this.http.get<ProdutoApi | null>(`${this.urlProdutos}/${id}`).pipe(
       timeout(TEMPO_LIMITE_MS),
       map((json) => (json ? ProdutoMapper.fromApi(json) : undefined)),
-      tap(() => this._origem.set('api')),
       catchError((erro: unknown) => {
         this.logger.warn(`[ProdutoService] API indisponível ao buscar o produto ${id}`, erro);
-        return this.listarLocal().pipe(map((lista) => lista.find((p) => p.id === id)));
+        return this.buscarCopiaLocal().pipe(map((lista) => lista.find((p) => p.id === id)));
       }),
     );
   }
@@ -74,10 +87,10 @@ export class ProdutoService {
       .pipe(timeout(TEMPO_LIMITE_MS));
   }
 
-  private listarLocal(): Observable<Produto[]> {
-    return this.http.get<ProdutoApi[]>(environment.catalogoLocalUrl).pipe(
-      map((lista) => lista.map((json) => ProdutoMapper.fromApi(json))),
-      tap(() => this._origem.set('local')),
-    );
+  /** Lê a cópia local do catálogo. Sem efeitos colaterais: quem chama decide o que fazer. */
+  private buscarCopiaLocal(): Observable<Produto[]> {
+    return this.http
+      .get<ProdutoApi[]>(environment.catalogoLocalUrl)
+      .pipe(map((lista) => lista.map((json) => ProdutoMapper.fromApi(json))));
   }
 }
