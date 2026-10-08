@@ -1,0 +1,85 @@
+/* Wireframes v1: baixa fidelidade, só cinza.
+   De propósito sem cor e sem fonte especial: aqui eu decido estrutura e fluxo, não aparência. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 32px 16px 64px;
+  background: #f1f1f1;
+  color: #222;
+  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.cabecalho-pagina { max-width: 1200px; margin: 0 auto 32px; }
+.cabecalho-pagina h1 { margin: 0 0 8px; font-size: 24px; }
+.cabecalho-pagina p { margin: 0; max-width: 70ch; }
+
+.grade { display: flex; flex-wrap: wrap; gap: 40px 32px; max-width: 1400px; margin: 0 auto; }
+
+figure { margin: 0; }
+figcaption { margin-top: 8px; font-size: 13px; font-weight: 600; }
+
+/* Moldura de celular (390 x 844) e de computador (1280 x 800) */
+.frame { background: #fff; border: 2px solid #222; overflow: hidden; position: relative; }
+.celular { width: 390px; height: 844px; border-radius: 24px; padding: 20px 16px; }
+.computador { width: 1280px; height: 800px; border-radius: 6px; display: flex; flex-direction: column; }
+
+/* Peças do rascunho */
+.wf-barra { height: 12px; background: #ccc; border-radius: 2px; margin: 8px 0; }
+.wf-barra.curta { width: 40%; }
+.wf-barra.media { width: 65%; }
+.wf-imagem {
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), #aaa 50%, transparent calc(50% + 1px)),
+    linear-gradient(to top left, transparent calc(50% - 1px), #aaa 50%, transparent calc(50% + 1px)),
+    #e8e8e8;
+  border: 1px solid #aaa;
+}
+.wf-titulo { font-size: 20px; font-weight: 700; margin: 12px 0; }
+.wf-subtitulo { font-size: 15px; font-weight: 700; margin: 16px 0 8px; }
+.wf-texto { font-size: 14px; margin: 4px 0; color: #444; }
+.wf-pequeno { font-size: 12px; color: #666; }
+.wf-botao {
+  display: block; width: 100%; padding: 14px; margin-top: 16px;
+  border: 2px solid #222; background: #444; color: #fff;
+  text-align: center; font-weight: 700; border-radius: 4px;
+}
+.wf-botao.claro { background: #fff; color: #222; }
+.wf-botao.rodape { position: absolute; left: 16px; right: 16px; bottom: 24px; width: auto; }
+.wf-lista { list-style: none; margin: 0; padding: 0; }
+.wf-lista li { display: flex; align-items: center; gap: 12px; padding: 14px 4px; border-bottom: 1px solid #ccc; }
+.wf-radio { width: 18px; height: 18px; border: 2px solid #444; border-radius: 50%; flex: none; }
+.wf-avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; }
+.wf-campo { border: 1px solid #999; border-radius: 4px; padding: 12px; margin: 10px 0; color: #888; }
+.wf-check { display: flex; gap: 8px; align-items: center; margin: 12px 0; font-size: 13px; }
+.wf-check span { width: 16px; height: 16px; border: 2px solid #444; flex: none; }
+.wf-alerta { border: 1px dashed #777; background: #eee; padding: 8px; font-size: 13px; margin: 8px 0; }
+
+/* Calendário do mês (W4) */
+.wf-mes { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-size: 13px; }
+.wf-mes span { padding: 9px 0; border: 1px solid #ddd; }
+.wf-mes .cab { border: 0; font-weight: 700; color: #666; }
+.wf-mes .off { color: #bbb; background: #f6f6f6; }
+.wf-mes .sel { background: #444; color: #fff; }
+
+/* Horários (W5) */
+.wf-horas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.wf-horas span { border: 1px solid #999; padding: 8px 0; text-align: center; font-size: 13px; }
+.wf-horas .off { color: #bbb; border-color: #ddd; }
+
+/* Painel (W8, W9) */
+.wf-topo { display: flex; align-items: center; gap: 24px; padding: 16px 24px; border-bottom: 2px solid #222; }
+.wf-topo .logo { width: 120px; height: 28px; }
+.wf-topo nav { display: flex; gap: 20px; font-size: 14px; }
+.wf-topo nav b { text-decoration: underline; }
+.wf-conteudo { padding: 24px; flex: 1; overflow: hidden; }
+.wf-tabela { width: 100%; border-collapse: collapse; font-size: 14px; }
+.wf-tabela th, .wf-tabela td { border-bottom: 1px solid #ccc; padding: 12px 8px; text-align: left; }
+.wf-tabela th { color: #666; font-weight: 600; }
+.wf-ponto { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #333; }
+.wf-ponto.claro { background: #bbb; }
+.wf-icone { display: inline-block; width: 22px; height: 22px; border: 1px solid #777; border-radius: 3px; margin-right: 6px; text-align: center; font-size: 12px; line-height: 20px; }
+.wf-colunas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.wf-linha-form { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 8px; align-items: center; font-size: 13px; }
+.wf-linha-form .wf-campo { margin: 4px 0; padding: 8px; }
