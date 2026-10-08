@@ -30,7 +30,7 @@ export class ProdutoDetalhe {
       }
 
       this.carregando.set(true);
-      this.produtoService.getById(id).subscribe(p=>{
+      this.produtoService.buscarPorId(id).subscribe(p=>{
         this.produto.set(p);
         this.carregando.set(false);
       });
