@@ -1,33 +1,100 @@
-<section class="catalogo">
-    <header class="barradetarefas">
-        <h2>Catálogo</h2>
-        <div class="acoes-header">
-            <button class="btn sopromo" [class.ativo]="apenasPromo()" (click)="alternarPromo()">
-                @if(apenasPromo()){
-                    Mostrar todos
-                }
-                @else {
-                    Promoções
-                }
-            </button>
+<section class="catalogo largura-pagina">
+  <header class="catalogo__topo">
+    <div>
+      <p class="sobretitulo">Catálogo</p>
+      <h1>{{ tituloCategoria() }}</h1>
+    </div>
+    <a class="botao botao--texto" routerLink="/produtos/novo">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /></svg>
+      Cadastrar produto
+    </a>
+  </header>
 
-            <button type="button" class="btn primary" (click)="onCreateProduct('/produtos/novo')"> + Novo Produto</button>
+  <div class="filtros" role="search" aria-label="Filtrar produtos">
+    <div class="campo filtros__busca">
+      <label class="campo__rotulo" for="busca">Buscar</label>
+      <input
+        #campoBusca
+        id="busca"
+        class="campo__controle"
+        type="search"
+        placeholder="Ex.: jacket, SSD, joias"
+        autocomplete="off"
+        enterkeyhint="search"
+        [value]="busca() ?? ''"
+        (input)="aoDigitar(campoBusca.value)"
+      />
+    </div>
+
+    <div class="campo filtros__ordem">
+      <label class="campo__rotulo" for="ordem">Ordenar por</label>
+      <select #seletorOrdem id="ordem" class="campo__controle" (change)="alterarOrdem(seletorOrdem.value)">
+        @for (opcao of opcoesOrdenacao; track opcao.valor) {
+          <option [value]="opcao.valor" [selected]="opcao.valor === ordemAtual()">{{ opcao.rotulo }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filtros__chips" role="group" aria-label="Categoria e promoções">
+      <a class="chip" routerLink="." [queryParams]="{ categoria: null }" queryParamsHandling="merge" [attr.aria-current]="!categoria() ? 'true' : null">Todas</a>
+      @for (cat of categorias; track cat.slug) {
+        <a class="chip" routerLink="." [queryParams]="{ categoria: cat.slug }" queryParamsHandling="merge" [attr.aria-current]="categoria() === cat.slug ? 'true' : null">{{ cat.rotulo }}</a>
+      }
+      <button type="button" class="chip chip--promo" [attr.aria-pressed]="apenasPromo()" (click)="alternarPromo()">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l8-8h8v8l-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" /></svg>
+        Só promoções
+      </button>
+    </div>
+  </div>
+
+  @switch (estado()) {
+    @case ('carregando') {
+      <p class="apenas-leitor" role="status">Carregando produtos…</p>
+      <div class="grade" aria-hidden="true">
+        @for (i of esqueletos; track i) {
+          <div class="esqueleto-card">
+            <div class="esqueleto esqueleto-card__foto"></div>
+            <div class="esqueleto esqueleto-card__linha"></div>
+            <div class="esqueleto esqueleto-card__linha esqueleto-card__linha--curta"></div>
+            <div class="esqueleto esqueleto-card__botao"></div>
+          </div>
+        }
+      </div>
+    }
+
+    @case ('erro') {
+      <div class="aviso aviso--erro" role="alert">
+        <p><strong>Não foi possível carregar os produtos.</strong> A API e a cópia local não responderam. Verifique sua conexão e tente de novo.</p>
+        <button type="button" class="botao botao--secundario" (click)="carregar()">Tentar de novo</button>
+      </div>
+    }
+
+    @case ('pronto') {
+      @if (origem() === 'local') {
+        <div class="aviso catalogo__aviso">
+          <p>A Fake Store API não respondeu, então você está vendo a cópia local do catálogo.</p>
+          <button type="button" class="botao botao--texto" (click)="carregar()">Tentar a API de novo</button>
         </div>
-    </header>
+      }
 
-    @if(carregando()){
-        <p>Carregando Produtos...</p>
-    }
-    @else if(produtosExibidos().length ===0){
-        <p class="vazio">Nenhum produto em promoção encontrado</p>
-    }
+      <p class="catalogo__contagem" role="status">
+        {{ resultado().length }} {{ resultado().length === 1 ? 'produto encontrado' : 'produtos encontrados' }}
+      </p>
 
-    @else {
-        <div class="grid">
-            @for (prod of produtosExibidos(); track prod.id) {
-                <app-card-produto [produto]="prod" (add)="onAddProduct(($event))" (view)="onViewProduct($event)"></app-card-produto>
-            }
-
-        </div>
+      @if (resultado().length === 0) {
+        <app-estado-vazio titulo="Nenhum produto com esses filtros">
+          <p>Tente outra palavra na busca ou escolha outra categoria.</p>
+          <a acoes class="botao botao--primario" routerLink="/produtos">Limpar filtros</a>
+        </app-estado-vazio>
+      } @else {
+        <ul class="grade" role="list">
+          @for (produto of resultado(); track produto.id) {
+            <li>
+              <app-card-produto [produto]="produto" [prioridade]="idsPrioritarios.has(produto.id)" (adicionar)="onAdicionar($event)" />
+            </li>
+          }
+        </ul>
+      }
     }
+  }
 </section>

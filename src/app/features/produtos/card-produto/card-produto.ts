@@ -1,30 +1,34 @@
-import { Component, input, output, signal } from '@angular/core';
-import { Produto } from '../../../model/produto';
-import { QuantidadeControle } from "../../../shared/quantidade-controle/quantidade-controle";
-import { CurrencyPipe } from '@angular/common';
-import { DescontoPipe } from "../../../shared/pipes/desconto-pipe";
-import { Truncar } from '../../../shared/pipes/truncar-pipe';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Produto, rotuloCategoria } from '../../../model/produto';
+import { ImagemReserva, IMAGEM_RESERVA } from '../../../shared/diretivas/imagem-reserva';
+import { EtiquetaPreco } from '../../../shared/etiqueta-preco/etiqueta-preco';
 
+/**
+ * Card de apresentação: recebe o produto por input() e avisa o pai por output().
+ * Ele não sabe que existe um carrinho; quem decide o que fazer é a página.
+ */
 @Component({
   selector: 'app-card-produto',
-  imports: [QuantidadeControle, CurrencyPipe, DescontoPipe, Truncar],
+  imports: [NgOptimizedImage, RouterLink, EtiquetaPreco, ImagemReserva],
   templateUrl: './card-produto.html',
   styleUrl: './card-produto.css',
 })
 export class CardProduto {
   produto = input.required<Produto>();
+  /** Modo prévia (tela de cadastro): sem link e sem botão ativo. */
+  previa = input(false);
+  /** Imagens visíveis logo ao abrir a página carregam com prioridade (melhora o LCP). */
+  prioridade = input(false);
 
-  quantidade = signal<number>(1);
+  adicionar = output<Produto>();
 
-  add = output<{id:number, qtd: number}>();
-  view = output<number>();
+  protected readonly esgotado = computed(() => this.produto().estado === 'esgotado');
+  protected readonly categoria = computed(() => rotuloCategoria(this.produto().categoria));
+  protected readonly imagem = computed(() => this.produto().imageUrl || IMAGEM_RESERVA);
 
-  onAdd(){
-    this.add.emit({id: this.produto().id, qtd: this.quantidade()});
+  onAdicionar(): void {
+    this.adicionar.emit(this.produto());
   }
-
-  onView(){
-    this.view.emit(this.produto().id);
-  }
-
 }

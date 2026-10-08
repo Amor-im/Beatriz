@@ -1,58 +1,41 @@
-<article class="card" [class.promo]="produto().promo">
-    <img class="thumb" [src]="produto().imageUrl"/>
+<article class="card" [class.card--esgotado]="esgotado()">
+  <div class="card__foto">
+    <img [ngSrc]="imagem()" fill sizes="(min-width: 1100px) 25vw, (min-width: 768px) 33vw, 50vw" [priority]="prioridade()" alt="" appImagemReserva />
+    @if (esgotado()) {
+      <span class="card__selo card__selo--esgotado">Esgotado</span>
+    } @else if (produto().promo) {
+      <span class="card__selo card__selo--promo">Promoção</span>
+    } @else if (produto().estado === 'novo') {
+      <span class="card__selo">Novidade</span>
+    }
+  </div>
 
-    <div class="conteudo">
+  <div class="card__info">
+    <p class="sobretitulo">{{ categoria() }}</p>
+    <h3 class="card__nome" [attr.lang]="previa() ? null : 'en'">
+      @if (previa()) {
+        {{ produto().nome || 'Nome do produto' }}
+      } @else {
+        <a class="card__link" [routerLink]="['/produtos', produto().id]">{{ produto().nome }}</a>
+      }
+    </h3>
+    <app-etiqueta-preco class="card__preco" [produto]="produto()" />
 
-        <header class="cabecalho">
-            <h3 class="titulo">{{produto().nome}}</h3>
-
-            @switch (produto().estado) {
-                @case ('novo') {
-                    <span class="selo novo">Novo</span>
-                }
-                @case('esgotado'){
-                    <span class="selo esgotado">Esgotado</span>
-                }
-            }
-
-            @if(produto().promo){
-                <span class="selo promo">Aproveite</span>
-            }
-        </header>
-      
-
-        <p class="desc">{{produto().descricao | truncar:25}}</p>
-
-        <!--<div class="linhapreco">
-            <span class="preco"> {{produto().preco | currency:'BRL': 'symbol': '1.2-2'}}</span>
-
-            <app-quantidade-controle [(contador)]="quantidade"></app-quantidade-controle>
-        </div>-->
-        
-        <div class="preco-container">
-            @if(produto().promo){
-                <div class="preco-group">
-                    <span class="preco desconto">{{produto().preco | desconto:10 | currency: 'BRL': 'symbol': '1.2-2'}}</span>
-                    <span class="preco original">{{produto().preco | currency: 'BRL': 'symbol': '1.2-2'}}</span>
-                </div>
-            }@else {
-                <span class="preco">{{produto().preco | currency: 'BRL': 'symbol': '1.2-2'}}</span>
-            }
-
-            @if(produto().estado != 'esgotado'){
-                <app-quantidade-controle [(contador)]="quantidade"></app-quantidade-controle>
-            }
-
-        </div>
-
-            <div class="acoes">
-                @if(produto().estado !='esgotado' && quantidade()>0){
-                    <button type="button" class="btn primary" (click)="onAdd()">Adicionar</button>
-                } 
-                
-                <button type="button" class="btn ghost" (click)="onView()">Detalhes</button>
-            </div>
-        
-    </div>
-
+    <button
+      type="button"
+      class="botao botao--primario botao--largo card__botao"
+      [disabled]="esgotado() || previa()"
+      [attr.aria-label]="esgotado() ? null : 'Adicionar ao carrinho: ' + produto().nome"
+      (click)="onAdicionar()"
+    >
+      @if (esgotado()) {
+        Esgotado
+      } @else {
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+        </svg>
+        Adicionar
+      }
+    </button>
+  </div>
 </article>
