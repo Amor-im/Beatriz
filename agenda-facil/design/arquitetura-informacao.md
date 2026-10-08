@@ -48,7 +48,7 @@ Retângulo de borda dupla é janela (diálogo) ou painel lateral dentro da Agend
 | Profissional | Cliente | "Com quem?" | "Sem preferência" primeiro; depois cada profissional com o próximo horário livre | Tocar numa opção | só aparece se houver mais de 1 profissional |
 | Dia e horário | Cliente | "Quando?" | Faixa de dias; horários livres em manhã, tarde e noite | Tocar num horário | dia fechado, dia sem horário (estado vazio), carregando |
 | Seus dados | Cliente | "Está tudo certo? Quem é você?" | Resumo com "Alterar"; nome; WhatsApp | Confirmar agendamento | erro de campo, enviando, horário acabou de ser ocupado |
-| Horário marcado | Cliente | "Deu certo? E agora?" | Cartão do horário; endereço; como remarcar ou cancelar | Salvar na agenda do celular | — |
+| Horário marcado | Cliente | "Deu certo? E agora?" | Cartão do horário; endereço; como remarcar ou cancelar | Salvar na agenda do celular | nenhum |
 | Meu horário | Cliente | "Preciso mudar, como faço?" | Cartão do horário; regra de cancelamento do negócio | Remarcar / Cancelar | fora do prazo de cancelamento, já cancelado |
 | Criar sua agenda | Dono | "Começo por onde?" | Nome do negócio, tipo, e-mail, senha | Continuar | erro de campo, e-mail já cadastrado |
 | Serviços (painel) | Dono | "O que eu ofereço?" | Lista editável com duração e preço, já sugerida pelo tipo de negócio | Continuar / Salvar | lista vazia |
