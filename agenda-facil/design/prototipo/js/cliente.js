@@ -54,6 +54,19 @@ document.querySelectorAll('a[data-leva]').forEach((link) => {
   link.href = destino.href;
 });
 
+// Vindo do "Alterar" do resumo: depois de trocar, volta direto para o resumo,
+// com o resto das escolhas mantido (requisito C-05)
+if (escolhas.has('alterar')) {
+  document.querySelectorAll('a[data-leva]:not(.voltar)').forEach((link) => {
+    const destino = new URL(link.href);
+    if (/(profissional|horario)\.html$/.test(destino.pathname)) {
+      destino.pathname = destino.pathname.replace(/[^/]+$/, 'dados.html');
+    }
+    destino.searchParams.delete('alterar');
+    link.href = destino.href;
+  });
+}
+
 // ---------- 2. Mostrar as escolhas na tela ----------
 const { semana, dia: diaMes } = formatarDia(dia);
 const textos = {

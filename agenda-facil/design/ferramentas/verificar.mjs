@@ -54,6 +54,12 @@ async function fluxoCliente() {
   assert.equal(await pagina.locator('#nome').getAttribute('aria-invalid'), 'true');
   assert.equal(await pagina.evaluate(() => document.activeElement.id), 'nome');
 
+  // "Alterar" o serviço no resumo volta direto para o resumo, sem perder dia e hora
+  await pagina.getByRole('link', { name: 'Alterar serviço' }).click();
+  await pagina.getByRole('link', { name: /^Barba 30 min/ }).click();
+  await pagina.waitForURL(/dados\.html.*servico=barba/);
+  assert.match(await pagina.locator('.resumo').innerText(), /Barba[\s\S]*16:20 às 16:50/);
+
   // Regressão: com o WhatsApp pela metade, tocar em Confirmar tem que mostrar os dois erros
   // (antes, o erro do blur empurrava o botão e o toque se perdia)
   await pagina.reload();

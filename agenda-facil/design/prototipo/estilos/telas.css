@@ -500,6 +500,11 @@ button.bloco { font: inherit; font-size: var(--texto-pequeno); }
   .tabela-servicos__cabeca { display: none; }
   .linha-servico { grid-template-columns: 1fr 1fr 48px; }
   .linha-servico > :first-child { grid-column: 1 / -1; }
+  /* 320 px (zoom de 400%): nada pode rolar para o lado */
+  .linha-dia__horas .campo__entrada { width: 0; flex: 1 1 0; min-width: 0; padding: var(--esp-8); }
+  .link-pronto { flex-wrap: wrap; }
+  .link-pronto .botao { width: 100%; }
+  .qr { flex-wrap: wrap; }
 }
 
 /* Agenda no celular: "mais cedo hoje" recolhido e marcador do agora */
