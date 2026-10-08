@@ -1,5 +1,42 @@
-.sobre{
-    max-width: 900px;
-    margin: 24px auto;
-    padding: 16px;
+.sobre {
+  max-width: 760px;
+  display: grid;
+  gap: var(--espaco-3);
+  padding-top: var(--espaco-4);
+}
+
+.sobre h1 {
+  font-size: var(--texto-grande);
+  max-width: 20ch;
+}
+
+.sobre__lead {
+  font-size: 1.125rem;
+  color: var(--cor-tinta-suave);
+}
+
+.sobre__bloco {
+  display: grid;
+  gap: var(--espaco-1);
+}
+
+.sobre__bloco h2 {
+  font-size: var(--texto-medio);
+}
+
+.sobre__bloco ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: var(--espaco-1);
+}
+
+.sobre code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--cor-vidro);
+}
+
+.sobre__aviso {
+  font-size: var(--texto-base);
 }

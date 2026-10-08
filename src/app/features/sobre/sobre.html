@@ -1,4 +1,35 @@
-<section class="sobre">
-    <h2>Sobre a loja</h2>
-    <p>Desenvolvido durante a disciplna de Técnicas da Progrmação 1</p>
-</section>
+<article class="sobre largura-pagina">
+  <p class="sobretitulo">Sobre o projeto</p>
+  <h1>Uma loja de verdade no código, de mentira no pagamento.</h1>
+
+  <p class="sobre__lead">
+    A Vitrine é um projeto de portfólio da Beatriz Campos Alves. Começou como trabalho da disciplina de
+    Técnicas de Programação 1 no IFSP e depois foi reformado para parecer um produto real.
+  </p>
+  <!-- TODO(Beatriz): confirmar o nome exato da disciplina e o câmpus do IFSP. -->
+
+  <section class="sobre__bloco" aria-labelledby="titulo-o-que-tem">
+    <h2 id="titulo-o-que-tem">O que dá para fazer</h2>
+    <ul>
+      <li>Buscar, filtrar por categoria e ordenar produtos; os filtros ficam no endereço da página.</li>
+      <li>Ver o detalhe de cada produto, ampliar a foto e escolher a quantidade.</li>
+      <li>Montar um carrinho que continua salvo depois de fechar o navegador.</li>
+      <li>Finalizar a compra num checkout simulado, com validação de formulário.</li>
+      <li>Cadastrar um produto e ver a prévia do card antes de enviar.</li>
+    </ul>
+  </section>
+
+  <section class="sobre__bloco" aria-labelledby="titulo-tecnologia">
+    <h2 id="titulo-tecnologia">Como foi feito</h2>
+    <ul>
+      <li>Angular 20 com componentes standalone, signals e o novo controle de fluxo (<code>&#64;if</code>, <code>&#64;for</code>).</li>
+      <li>Dados da <a href="https://fakestoreapi.com" target="_blank" rel="noopener">Fake Store API</a>, com uma cópia local caso ela saia do ar.</li>
+      <li>Formulários reativos, rotas com carregamento sob demanda e testes com Jasmine e Karma.</li>
+    </ul>
+  </section>
+
+  <div class="sobre__aviso aviso">
+    <p>Nenhuma compra é real: não existe cobrança, entrega nem envio de e-mail.</p>
+    <a class="botao botao--primario" routerLink="/produtos">Ver produtos</a>
+  </div>
+</article>
