@@ -48,9 +48,18 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: end;
   gap: var(--espaco-1);
-  padding-bottom: var(--espaco-3);
-  border-bottom: 12px solid #c4d5ce;
-  box-shadow: 0 14px 0 -2px rgb(20 32 28 / 0.08);
+  padding-bottom: var(--espaco-2);
+}
+
+/* A base da vitrine: ocupa a largura toda do painel, com a borda de cima clara (luz batendo)
+   e uma sombra suave por cima, para os produtos parecerem apoiados nela. */
+.vitrine::after {
+  content: '';
+  display: block;
+  height: 22px;
+  margin-inline: calc(var(--espaco-2) * -1);
+  background: linear-gradient(to bottom, #f6faf8 0 3px, #c9dad3 3px 60%, #b7cbc3 100%);
+  box-shadow: 0 -10px 16px -12px rgb(20 32 28 / 0.35);
 }
 
 .vitrine__item {
@@ -103,6 +112,10 @@
 
   .vitrine {
     padding: var(--espaco-4) var(--espaco-3) 0;
+  }
+
+  .vitrine::after {
+    margin-inline: calc(var(--espaco-3) * -1);
   }
 
   .vitrine__prateleira {
