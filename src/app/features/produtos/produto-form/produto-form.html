@@ -15,7 +15,7 @@
       </div>
     } @else if (e.estado === 'erro') {
       <div class="aviso aviso--erro" role="alert">
-        <p><strong>Não foi possível cadastrar agora.</strong> A Fake Store API não respondeu. Seus dados continuam no formulário: tente salvar de novo.</p>
+        <p><strong>Não foi possível cadastrar agora.</strong> A Fake Store API não respondeu. Seus dados continuam no formulário: tente cadastrar de novo.</p>
       </div>
     }
   }
@@ -98,7 +98,7 @@
 
       <div class="cadastro__acoes">
         <button type="submit" class="botao botao--primario" [disabled]="envio().estado === 'enviando'">
-          {{ envio().estado === 'enviando' ? 'Salvando…' : 'Salvar produto' }}
+          {{ envio().estado === 'enviando' ? 'Cadastrando…' : 'Cadastrar produto' }}
         </button>
         <a class="botao botao--texto" routerLink="/produtos">Cancelar</a>
       </div>

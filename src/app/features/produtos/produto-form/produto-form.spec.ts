@@ -67,7 +67,7 @@ describe('ProdutoForm', () => {
     digitar('#descricao', 'Caneca de 300 ml, pode ir ao micro-ondas.');
     enviar();
 
-    expect(el.querySelector('button[type="submit"]')?.textContent).toContain('Salvando');
+    expect(el.querySelector('button[type="submit"]')?.textContent).toContain('Cadastrando');
     const req = http.expectOne(`${environment.apiUrl}/products`);
     expect(req.request.body.title).toBe('Caneca de cerâmica');
     req.flush({ id: 21, ...req.request.body });
