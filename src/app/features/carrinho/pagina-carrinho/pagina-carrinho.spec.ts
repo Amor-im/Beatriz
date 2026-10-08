@@ -1,6 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { produtoFake } from '../../../../testing/produtos-fake';
+import { environment } from '../../../../environments/environment';
+import { PRODUTOS_API, produtoFake } from '../../../../testing/produtos-fake';
 import { CarrinhoService } from '../carrinho.service';
 import { PaginaCarrinho } from './pagina-carrinho';
 
@@ -11,7 +14,11 @@ describe('PaginaCarrinho', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    TestBed.configureTestingModule({ imports: [PaginaCarrinho], providers: [provideRouter([])] });
+    spyOn(console, 'info');
+    TestBed.configureTestingModule({
+      imports: [PaginaCarrinho],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    });
     carrinho = TestBed.inject(CarrinhoService);
     fixture = TestBed.createComponent(PaginaCarrinho);
     el = fixture.nativeElement;
@@ -46,4 +53,18 @@ describe('PaginaCarrinho', () => {
     expect(carrinho.vazio()).toBeTrue();
     expect(el.textContent).toContain('Seu carrinho está vazio');
   });
+
+  it('atualiza o preço salvo com o catálogo atual ao abrir', () => {
+    // Salvo com preço antigo; no catálogo da API o produto 1 custa 109,95.
+    carrinho.adicionar(produtoFake({ id: 1, preco: 50 }), 1);
+    fixture.detectChanges();
+
+    TestBed.inject(HttpTestingController)
+      .expectOne(`${environment.apiUrl}/products`)
+      .flush(PRODUTOS_API);
+    fixture.detectChanges();
+
+    expect(carrinho.subtotal()).toBe(109.95);
+  });
 });
+

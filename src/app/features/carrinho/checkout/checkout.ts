@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MascaraCep } from '../../../shared/diretivas/mascara-cep';
+import { atualizarCarrinhoComCatalogo } from '../atualizar-carrinho';
 import { CarrinhoService } from '../carrinho.service';
 import { FormaPagamento, PedidoService } from '../pedido.service';
 import { ResumoPedido } from '../resumo-pedido/resumo-pedido';
@@ -62,6 +63,11 @@ export class Checkout {
   });
 
   protected readonly enviando = signal(false);
+
+  constructor() {
+    // Quem chega direto no checkout também vê preço e estoque atualizados.
+    atualizarCarrinhoComCatalogo();
+  }
 
   /** Mostra o erro depois que a pessoa sai do campo (touched). Ao confirmar, todos viram touched. */
   protected mostrarErro(controle: AbstractControl): boolean {

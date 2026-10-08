@@ -6,6 +6,7 @@ import { precoFinal, rotuloCategoria } from '../../../model/produto';
 import { ImagemReserva } from '../../../shared/diretivas/imagem-reserva';
 import { EstadoVazio } from '../../../shared/estado-vazio/estado-vazio';
 import { QuantidadeControle } from '../../../shared/quantidade-controle/quantidade-controle';
+import { atualizarCarrinhoComCatalogo } from '../atualizar-carrinho';
 import { CarrinhoService, ItemCarrinho, QUANTIDADE_MAXIMA } from '../carrinho.service';
 import { FRETE_GRATIS_A_PARTIR_DE } from '../frete';
 import { ResumoPedido } from '../resumo-pedido/resumo-pedido';
@@ -24,6 +25,11 @@ export class PaginaCarrinho {
   protected readonly quantidadeMaxima = QUANTIDADE_MAXIMA;
   protected readonly precoFinal = precoFinal;
   protected readonly rotuloCategoria = rotuloCategoria;
+
+  constructor() {
+    // O carrinho salvo pode ter preço antigo: atualiza com o catálogo atual.
+    atualizarCarrinhoComCatalogo();
+  }
 
   /** Progresso até o frete grátis (0 a 100), para a barra. floor: só enche quando atingir de verdade. */
   protected readonly progressoFrete = computed(() =>

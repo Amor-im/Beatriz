@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { produtoFake } from '../../../../testing/produtos-fake';
@@ -22,7 +24,11 @@ describe('Checkout', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    TestBed.configureTestingModule({ imports: [Checkout], providers: [provideRouter([])] });
+    spyOn(console, 'info');
+    TestBed.configureTestingModule({
+      imports: [Checkout],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    });
     TestBed.inject(CarrinhoService).adicionar(produtoFake({ preco: 100 }), 1);
     fixture = TestBed.createComponent(Checkout);
     el = fixture.nativeElement;

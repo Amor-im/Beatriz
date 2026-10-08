@@ -86,6 +86,28 @@ export class CarrinhoService {
   limpar(): void {
     this._itens.set([]);
   }
+
+  /**
+   * O carrinho salvo guarda uma cópia de cada produto, com o preço da hora em que foi adicionado.
+   * As páginas de carrinho e checkout chamam este método com o catálogo atual: preço, promoção
+   * e estoque são atualizados, e produtos que esgotaram saem. Devolve quantos itens saíram.
+   */
+  atualizarProdutos(catalogo: readonly Produto[]): number {
+    let removidos = 0;
+    const atualizados = this._itens().flatMap((item) => {
+      const atual = catalogo.find((p) => p.id === item.produto.id);
+      if (!atual) {
+        return [item];
+      }
+      if (atual.estado === 'esgotado') {
+        removidos++;
+        return [];
+      }
+      return [{ ...item, produto: atual }];
+    });
+    this._itens.set(atualizados);
+    return removidos;
+  }
 }
 
 function lerDoStorage(): ItemCarrinho[] {

@@ -93,7 +93,7 @@ describe('CarrinhoService', () => {
   });
 
   describe('totais (computed)', () => {
-    it('calcula o subtotal com o desconto da promoção e cobra frete abaixo de R$ 299', () => {
+    it('calcula o subtotal com o desconto da promoção e cobra frete abaixo de US$ 299', () => {
       carrinho.adicionar(mochila, 1); // 100,00
       carrinho.adicionar(pulseira, 1); // 200,00 com 10% de desconto = 180,00
 
@@ -103,7 +103,7 @@ describe('CarrinhoService', () => {
       expect(carrinho.faltaParaFreteGratis()).toBe(19);
     });
 
-    it('dá frete grátis a partir de R$ 299', () => {
+    it('dá frete grátis a partir de US$ 299', () => {
       carrinho.adicionar(mochila, 3); // 300,00
 
       expect(carrinho.frete()).toBe(0);
@@ -164,4 +164,38 @@ describe('CarrinhoService', () => {
     expect(mensagemAdicao(3)).toBe('3 unidades adicionadas ao carrinho');
     expect(mensagemAdicao(0)).toContain(`máximo de ${QUANTIDADE_MAXIMA} unidades`);
   });
+
+  describe('atualizarProdutos (catálogo atual)', () => {
+    it('troca a cópia salva pelo produto atual: preço e promoção novos', () => {
+      carrinho.adicionar(mochila, 2); // salvo com preço 100
+      const catalogo = [produtoFake({ id: 1, preco: 80, promo: true })];
+
+      expect(carrinho.atualizarProdutos(catalogo)).toBe(0);
+
+      expect(carrinho.itens()[0].produto.preco).toBe(80);
+      expect(carrinho.subtotal()).toBe(144); // 2 × (80 com 10% de desconto)
+    });
+
+    it('tira do carrinho o que esgotou e diz quantos saíram', () => {
+      carrinho.adicionar(mochila, 1);
+      carrinho.adicionar(pulseira, 1);
+
+      const removidos = carrinho.atualizarProdutos([
+        produtoFake({ id: 1, preco: 100 }),
+        produtoFake({ id: 5, preco: 200, estado: 'esgotado' }),
+      ]);
+
+      expect(removidos).toBe(1);
+      expect(carrinho.itens().map((i) => i.produto.id)).toEqual([1]);
+    });
+
+    it('mantém o item que não está no catálogo', () => {
+      carrinho.adicionar(mochila, 1);
+
+      carrinho.atualizarProdutos([]);
+
+      expect(carrinho.quantidadeTotal()).toBe(1);
+    });
+  });
 });
+
