@@ -1,0 +1,31 @@
+.vazio {
+  display: grid;
+  justify-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-4) var(--espaco-2);
+  text-align: center;
+}
+
+.vazio__ilustracao {
+  margin-bottom: var(--espaco-1);
+}
+
+.vazio__titulo {
+  font-size: var(--texto-medio);
+}
+
+.vazio__texto {
+  max-width: 44ch;
+  color: var(--cor-tinta-suave);
+}
+
+.vazio__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--espaco-1);
+}
+
+.vazio__acoes:empty {
+  display: none;
+}

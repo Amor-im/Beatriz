@@ -1,0 +1,54 @@
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+/* A etiqueta: ponta à esquerda e um "furo", como as de papel penduradas nos produtos. */
+.etiqueta {
+  display: inline-block;
+  padding: 0.25em 0.85em 0.25em 1.45em;
+  background: var(--cor-etiqueta);
+  color: var(--cor-tinta);
+  font-family: var(--fonte-display);
+  font-stretch: 112%;
+  font-weight: 800;
+  /* Quem usa a etiqueta pode ajustar o tamanho com a variável --etiqueta-fonte. */
+  font-size: var(--etiqueta-fonte, 1.0625rem);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+  -webkit-mask: radial-gradient(circle at 13px 50%, transparent 3.5px, #000 4px);
+  mask: radial-gradient(circle at 13px 50%, transparent 3.5px, #000 4px);
+}
+
+.antes {
+  display: var(--etiqueta-antes, inline-flex);
+  align-items: center;
+  gap: 6px;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-tinta-suave);
+}
+
+.selo-desconto {
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--cor-vitrine);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+:host(.grande) .etiqueta {
+  padding: 8px 20px 8px 34px;
+  font-size: 1.75rem;
+  clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 50%);
+  -webkit-mask: radial-gradient(circle at 19px 50%, transparent 5px, #000 5.5px);
+  mask: radial-gradient(circle at 19px 50%, transparent 5px, #000 5.5px);
+}
+
+:host(.grande) .antes {
+  font-size: var(--texto-base);
+}

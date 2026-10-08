@@ -1,27 +1,35 @@
-.contador{
-    display: inline-flex    ;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 6px 10px;
+.contador {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--cor-linha-forte);
+  border-radius: var(--raio-pilula);
+  background: var(--cor-superficie);
 }
 
-.contador button{
-    border: none;
-    background: #2f9e41;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
+.contador button {
+  display: grid;
+  place-items: center;
+  width: var(--alvo-toque);
+  height: var(--alvo-toque);
+  border: 0;
+  border-radius: var(--raio-pilula);
+  background: transparent;
+  color: var(--cor-vitrine);
+  cursor: pointer;
 }
 
-.contador button:hover{
-    opacity: .9;
+.contador button:hover:not(:disabled) {
+  background: var(--cor-vidro);
 }
 
-.valor{
-    min-width: 24px;
-    text-align: center;
-    font-weight: bold;
+.contador button:disabled {
+  color: #9aa9a3;
+  cursor: not-allowed;
+}
+
+.valor {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }

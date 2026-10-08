@@ -1,5 +1,9 @@
-<div class="contador">
-    <button type="button" (click)="decrementar()" aria-label="Diminuir">-</button>
-    <span class="valor">{{contador()}}</span>
-    <button type="button" (click)="incrementar()" aria-label="Aumentar">+</button>
+<div class="contador" role="group" [attr.aria-label]="rotulo() ? 'Quantidade de ' + rotulo() : 'Quantidade'">
+  <button type="button" (click)="decrementar()" [disabled]="contador() <= min()" [attr.aria-label]="'Diminuir quantidade' + (rotulo() ? ' de ' + rotulo() : '')">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+  </button>
+  <output class="valor" aria-live="polite">{{ contador() }}</output>
+  <button type="button" (click)="incrementar()" [disabled]="contador() >= max()" [attr.aria-label]="'Aumentar quantidade' + (rotulo() ? ' de ' + rotulo() : '')">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+  </button>
 </div>

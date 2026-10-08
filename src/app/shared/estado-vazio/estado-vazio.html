@@ -1,0 +1,19 @@
+<div class="vazio">
+  <!-- Ilustração: uma prateleira de vitrine vazia, só com a etiqueta. -->
+  <svg class="vazio__ilustracao" width="180" height="120" viewBox="0 0 180 120" aria-hidden="true">
+    <rect x="10" y="6" width="160" height="96" rx="12" fill="var(--cor-vidro)" />
+    <path d="M10 30h160" stroke="#fff" stroke-width="2" opacity="0.7" />
+    <rect x="22" y="84" width="136" height="8" rx="4" fill="#b9cbc4" />
+    <path d="M118 84v-26" stroke="#9db3ab" stroke-width="2" stroke-dasharray="3 4" />
+    <path d="M104 48h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-30l-10-11z" fill="var(--cor-etiqueta)" />
+    <circle cx="104" cy="59" r="2.6" fill="var(--cor-vidro)" />
+    <path d="M60 112h60" stroke="#c9d6d1" stroke-width="4" stroke-linecap="round" />
+  </svg>
+  @if (nivel() === 1) {
+    <h1 class="vazio__titulo">{{ titulo() }}</h1>
+  } @else {
+    <h2 class="vazio__titulo">{{ titulo() }}</h2>
+  }
+  <div class="vazio__texto"><ng-content /></div>
+  <div class="vazio__acoes"><ng-content select="[acoes]" /></div>
+</div>
