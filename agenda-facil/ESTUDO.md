@@ -277,3 +277,14 @@ Ideia da resposta: o horário é do negócio. Se o cliente estiver em outro fuso
 
 **Pergunta para treinar.** *"Validar na tela não basta?"*
 Ideia da resposta: não. As duas telas podem mostrar o horário livre no mesmo segundo. Quem decide é o servidor, e de preferência com uma regra no próprio banco.
+
+### 25. Variáveis e componentes no Figma
+
+**O que é.** No Figma, variável é o token de design (a mesma ideia do item 9) e componente é uma peça reutilizável. Variante é uma versão do mesmo componente (botão principal, secundário, desabilitado). Propriedade é o que muda a cada uso sem mudar o desenho (o texto do botão, mostrar ou não um ícone).
+
+**Por que usei.** As cores, os espaços e os raios das telas vêm das variáveis, e as telas usam os componentes. Se eu mudar o azul-caneta na variável, ele muda em todas as telas, igual ao CSS. Cada variável mostra o nome no código (`var(--caneta)`), então quem programa sabe qual token usar.
+
+**Onde.** No arquivo "Agenda Fácil · Case UX", página "Wireframes · UI", seção do design system.
+
+**Pergunta para treinar.** *"Qual a diferença entre variante e propriedade de componente?"*
+Ideia da resposta: variante é para tipos e estados que mudam o desenho (principal, secundário, foco, erro); propriedade é para o que muda de um uso para outro (o texto, um ícone ligado ou desligado). Assim o botão é um componente só, e não vinte cópias.
