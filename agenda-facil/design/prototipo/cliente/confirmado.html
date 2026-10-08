@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horário marcado · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <div class="cliente">
+    <main class="conteudo-fluxo" id="conteudo">
+      <div class="confirmado-topo">
+        <span class="selo-ok" aria-hidden="true"><span class="icone icone-check"></span></span>
+        <h1>Horário marcado</h1>
+        <p class="texto-suave">Te esperamos, <span data-mostra="nome">Lucas</span>.</p>
+      </div>
+
+      <!-- Cartão do horário: a peça de assinatura do Agenda Fácil -->
+      <article class="cartao" aria-labelledby="cartao-titulo">
+        <div class="cartao__corpo">
+          <p class="cartao__negocio"><span id="cartao-titulo">Barbearia Exemplo</span><span>Seu horário</span></p>
+          <p class="cartao__quando">
+            <span class="cartao__semana" data-mostra="dia-semana">quinta-feira</span>
+            <span class="cartao__dia" data-mostra="dia-mes">8 de outubro</span>
+            <span class="cartao__hora"><span data-mostra="hora">16:20</span> <span class="cartao__as">às</span> <span data-mostra="hora-fim">17:00</span></span>
+          </p>
+          <p class="cartao__servico">
+            <span><span class="icone icone-tesoura" aria-hidden="true"></span><span data-mostra="servico-nome">Corte</span></span>
+            <span><span class="icone icone-pessoas" aria-hidden="true"></span><span>com <span data-mostra="profissional">Rafa</span></span></span>
+            <span data-mostra="servico-preco">R$ 45</span>
+          </p>
+        </div>
+        <div class="cartao__picote" aria-hidden="true"></div>
+        <div class="cartao__canhoto">
+          <p class="cartao__canhoto-linha">
+            <span class="icone icone-local" aria-hidden="true"></span>
+            <span>Rua Exemplo, 123 · Centro<br><a href="#" data-toast="No produto, abre o mapa com o endereço da barbearia.">Como chegar</a></span>
+          </p>
+        </div>
+      </article>
+
+      <div class="acoes-empilhadas">
+        <button type="button" class="botao botao--largo" data-baixar-ics><span class="icone icone-calendario" aria-hidden="true"></span>Salvar na agenda do celular</button>
+        <a class="botao botao--secundario botao--largo" href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp-comprovante><span class="icone icone-mensagem" aria-hidden="true"></span>Mandar o comprovante no WhatsApp</a>
+      </div>
+
+      <section class="bloco-mudar" aria-labelledby="mudar-titulo">
+        <h2 id="mudar-titulo" class="texto-h3">Precisa mudar?</h2>
+        <p class="texto-suave">Remarque ou cancele até 2 horas antes, sem precisar mandar mensagem. O link também vai no comprovante.</p>
+        <a class="botao botao--secundario" href="meu-horario.html" data-leva><span class="icone icone-remarcar" aria-hidden="true"></span>Remarcar ou cancelar</a>
+      </section>
+    </main>
+
+    <footer class="rodape-cliente">
+      <p>Agenda feita com <span class="logo">Agenda <span class="logo__facil">Fácil</span></span></p>
+      <p>Protótipo com dados de exemplo: negócio, endereço e valores não são reais.</p>
+    </footer>
+  </div>
+</body>
+</html>

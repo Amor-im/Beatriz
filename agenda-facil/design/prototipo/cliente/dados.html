@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confira e confirme · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <div class="cliente">
+    <header class="topo-fluxo">
+      <div class="topo-fluxo__linha">
+        <a class="voltar" href="horario.html" data-leva><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+        <span class="topo-fluxo__negocio">Barbearia Exemplo</span>
+      </div>
+      <div class="passos">
+        <p class="passos__texto">Passo <strong>4 de 4</strong> · Seus dados</p>
+        <ol class="passos__barra" aria-hidden="true"><li class="feito"></li><li class="feito"></li><li class="feito"></li><li class="atual"></li></ol>
+      </div>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <h1>Confira e confirme</h1>
+
+      <section class="resumo" aria-label="Resumo do agendamento">
+        <div class="resumo__item">
+          <span class="icone icone-tesoura" aria-hidden="true"></span>
+          <p class="resumo__texto">
+            <span class="resumo__rotulo">Serviço</span>
+            <span class="resumo__valor"><span data-mostra="servico-nome">Corte</span> · <span data-mostra="servico-info">40 min · R$ 45</span></span>
+          </p>
+          <a class="resumo__alterar" href="index.html" data-leva>Alterar<span class="visualmente-oculto"> serviço</span></a>
+        </div>
+        <div class="resumo__item">
+          <span class="icone icone-pessoas" aria-hidden="true"></span>
+          <p class="resumo__texto">
+            <span class="resumo__rotulo">Com</span>
+            <span class="resumo__valor" data-mostra="profissional">Rafa</span>
+            <span class="texto-pequeno texto-suave" data-se-sem-preferencia hidden>Estava livre nesse horário</span>
+          </p>
+          <a class="resumo__alterar" href="profissional.html" data-leva>Alterar<span class="visualmente-oculto"> profissional</span></a>
+        </div>
+        <div class="resumo__item">
+          <span class="icone icone-calendario" aria-hidden="true"></span>
+          <p class="resumo__texto">
+            <span class="resumo__rotulo">Quando</span>
+            <span class="resumo__valor"><span data-mostra="dia-completo">quinta-feira, 8 de outubro</span></span>
+            <span class="resumo__valor"><span class="hora" data-mostra="hora">16:20</span> às <span class="hora" data-mostra="hora-fim">17:00</span></span>
+          </p>
+          <a class="resumo__alterar" href="horario.html" data-leva>Alterar<span class="visualmente-oculto"> dia e horário</span></a>
+        </div>
+        <div class="resumo__item">
+          <span class="icone icone-local" aria-hidden="true"></span>
+          <p class="resumo__texto">
+            <span class="resumo__rotulo">Onde</span>
+            <span class="resumo__valor">Rua Exemplo, 123 · Centro</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Sem JavaScript, o navegador valida os campos "required" e o formulário vai para confirmado.html -->
+      <form id="form-dados" class="form-dados" action="confirmado.html" method="get">
+        <h2>Seus dados</h2>
+
+        <div class="campo">
+          <label class="campo__rotulo" for="nome">Seu nome</label>
+          <input class="campo__entrada" id="nome" name="nome" type="text" autocomplete="name" required aria-describedby="nome-erro">
+          <p class="campo__erro" id="nome-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite seu nome. É assim que a barbearia vai te chamar.</p>
+        </div>
+
+        <div class="campo">
+          <label class="campo__rotulo" for="whatsapp">WhatsApp</label>
+          <p class="campo__dica" id="whatsapp-dica">Só para falar sobre este horário. Sem senha e sem criar conta.</p>
+          <input class="campo__entrada" id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(00) 00000-0000" required aria-describedby="whatsapp-dica whatsapp-erro">
+          <p class="campo__erro" id="whatsapp-erro"><span class="icone icone-alerta" aria-hidden="true"></span>Digite o número com DDD, no formato (00) 00000-0000.</p>
+        </div>
+
+        <button type="submit" class="botao botao--largo">Confirmar agendamento</button>
+
+        <p class="letra-miuda">Dá para remarcar ou cancelar até 2 horas antes, pelo link que aparece depois de confirmar. <a href="#" data-toast="No produto, abre a página que explica quais dados guardamos e por quanto tempo (LGPD).">Como usamos seus dados</a></p>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

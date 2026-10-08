@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agende seu horário · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <div class="cliente">
+    <header class="negocio">
+      <div class="negocio__marca">
+        <span class="negocio__logo" aria-hidden="true">BE</span>
+        <h1 class="negocio__nome">Barbearia Exemplo</h1>
+      </div>
+      <ul class="negocio__dados">
+        <li><span class="icone icone-local" aria-hidden="true"></span>Rua Exemplo, 123 · Centro</li>
+        <li><span class="icone icone-relogio" aria-hidden="true"></span><span><span class="aberto">Aberto agora</span> · fecha às 19:00</span></li>
+      </ul>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <div class="passos">
+        <p class="passos__texto">Passo <strong>1 de 4</strong> · Serviço</p>
+        <ol class="passos__barra" aria-hidden="true"><li class="atual"></li><li></li><li></li><li></li></ol>
+      </div>
+
+      <div class="cabecalho-passo">
+        <h2>Escolha o serviço</h2>
+        <p class="texto-suave">Você marca em 4 passos, sem criar conta.</p>
+      </div>
+
+      <ul class="lista-opcoes">
+        <li>
+          <a class="opcao" href="profissional.html?servico=corte" data-leva>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Corte</span>
+              <span class="opcao__info">40 min</span>
+            </span>
+            <span class="opcao__preco">R$ 45</span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="opcao" href="profissional.html?servico=barba" data-leva>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Barba</span>
+              <span class="opcao__info">30 min</span>
+            </span>
+            <span class="opcao__preco">R$ 35</span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="opcao" href="profissional.html?servico=corte-barba" data-leva>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Corte e barba</span>
+              <span class="opcao__info">1 h 10 min</span>
+            </span>
+            <span class="opcao__preco">R$ 70</span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="opcao" href="profissional.html?servico=sobrancelha" data-leva>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Sobrancelha</span>
+              <span class="opcao__info">20 min</span>
+            </span>
+            <span class="opcao__preco">R$ 20</span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+    </main>
+
+    <footer class="rodape-cliente">
+      <p>Dúvidas? <a href="#" data-toast="No produto, este link abre o WhatsApp da barbearia.">Fale com a barbearia no WhatsApp</a></p>
+      <p>Agenda feita com <span class="logo">Agenda <span class="logo__facil">Fácil</span></span></p>
+      <p>Protótipo com dados de exemplo: negócio, endereço e valores não são reais.</p>
+    </footer>
+  </div>
+</body>
+</html>

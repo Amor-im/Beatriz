@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Com quem? · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <div class="cliente">
+    <header class="topo-fluxo">
+      <div class="topo-fluxo__linha">
+        <a class="voltar" href="index.html" data-leva><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+        <span class="topo-fluxo__negocio">Barbearia Exemplo</span>
+      </div>
+      <div class="passos">
+        <p class="passos__texto">Passo <strong>2 de 4</strong> · Profissional</p>
+        <ol class="passos__barra" aria-hidden="true"><li class="feito"></li><li class="atual"></li><li></li><li></li></ol>
+      </div>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <div class="cabecalho-passo">
+        <h1>Com quem?</h1>
+        <p class="escolhas"><strong data-mostra="servico-nome">Corte</strong><span data-mostra="servico-info">40 min · R$ 45</span></p>
+      </div>
+
+      <ul class="lista-opcoes">
+        <li>
+          <a class="opcao" href="horario.html?profissional=sem-preferencia" data-leva>
+            <span class="avatar avatar--neutro" aria-hidden="true"><span class="icone icone-pessoas"></span></span>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Sem preferência</span>
+              <span class="opcao__info">Mostra os horários livres de todo mundo</span>
+            </span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="opcao" href="horario.html?profissional=rafa" data-leva>
+            <span class="avatar" aria-hidden="true">RA</span>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Rafa</span>
+              <span class="opcao__info">Próximo horário livre: hoje, 15:00</span>
+            </span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="opcao" href="horario.html?profissional=julia" data-leva>
+            <span class="avatar" aria-hidden="true">JU</span>
+            <span class="opcao__corpo">
+              <span class="opcao__titulo">Júlia</span>
+              <span class="opcao__info">Próximo horário livre: hoje, 15:20</span>
+            </span>
+            <span class="icone icone-chevron-direita opcao__seta" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+    </main>
+  </div>
+</body>
+</html>

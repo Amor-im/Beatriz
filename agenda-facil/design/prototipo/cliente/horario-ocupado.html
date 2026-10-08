@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horário acabou de ser reservado · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <!-- Estado de erro: duas pessoas tentaram o mesmo horário e a outra confirmou antes (requisito C-06) -->
+  <div class="cliente">
+    <header class="topo-fluxo">
+      <div class="topo-fluxo__linha">
+        <a class="voltar" href="horario.html?servico=corte&amp;profissional=rafa"><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+        <span class="topo-fluxo__negocio">Barbearia Exemplo</span>
+      </div>
+      <div class="passos">
+        <p class="passos__texto">Passo <strong>4 de 4</strong> · Seus dados</p>
+        <ol class="passos__barra" aria-hidden="true"><li class="feito"></li><li class="feito"></li><li class="feito"></li><li class="atual"></li></ol>
+      </div>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <h1>Confira e confirme</h1>
+
+      <div class="aviso aviso--atencao" role="alert">
+        <span class="icone icone-alerta" aria-hidden="true"></span>
+        <div class="sugestoes">
+          <p class="aviso__titulo">O horário das 16:20 acabou de ser reservado</p>
+          <p>Outra pessoa confirmou um pouco antes. Seu nome e WhatsApp continuam aqui. Escolha outro horário com Rafa hoje:</p>
+          <div class="grade-horarios">
+            <a class="horario" href="dados.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=17:00">17:00</a>
+            <a class="horario" href="dados.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=18:20">18:20</a>
+          </div>
+          <p><a href="horario.html?servico=corte&amp;profissional=rafa">Ver outros dias</a></p>
+        </div>
+      </div>
+
+      <section class="resumo" aria-label="Resumo do agendamento">
+        <div class="resumo__item">
+          <span class="icone icone-tesoura" aria-hidden="true"></span>
+          <p class="resumo__texto"><span class="resumo__rotulo">Serviço</span><span class="resumo__valor">Corte · 40 min · R$ 45</span></p>
+        </div>
+        <div class="resumo__item">
+          <span class="icone icone-pessoas" aria-hidden="true"></span>
+          <p class="resumo__texto"><span class="resumo__rotulo">Com</span><span class="resumo__valor">Rafa</span></p>
+        </div>
+        <div class="resumo__item">
+          <span class="icone icone-calendario" aria-hidden="true"></span>
+          <p class="resumo__texto"><span class="resumo__rotulo">Quando</span><span class="resumo__valor">quinta-feira, 8 de outubro</span><span class="resumo__valor texto-suave">Escolha um novo horário acima</span></p>
+        </div>
+      </section>
+
+      <form class="form-dados" action="confirmado.html" method="get">
+        <h2>Seus dados</h2>
+        <div class="campo">
+          <label class="campo__rotulo" for="nome">Seu nome</label>
+          <input class="campo__entrada" id="nome" name="nome" type="text" autocomplete="name" value="Lucas" required>
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="whatsapp">WhatsApp</label>
+          <input class="campo__entrada" id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" value="(11) 90000-0000" required>
+        </div>
+        <button type="submit" class="botao botao--largo" disabled>Confirmar agendamento</button>
+        <p class="letra-miuda">O botão volta a funcionar quando você escolher um novo horário.</p>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meu horário · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <!-- Página que o cliente abre pelo link do comprovante. Sem login: o link é a "chave". -->
+  <div class="cliente">
+    <header class="negocio">
+      <div class="negocio__marca">
+        <span class="negocio__logo" aria-hidden="true">BE</span>
+        <div>
+          <p class="texto-suave texto-pequeno">Barbearia Exemplo</p>
+          <h1 class="negocio__nome">Meu horário</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <article class="cartao" aria-labelledby="cartao-titulo">
+        <div class="cartao__corpo">
+          <p class="cartao__negocio"><span id="cartao-titulo">Seu horário</span><span id="estado-horario"><span class="status status--confirmado"><span class="icone icone-check" aria-hidden="true"></span>Marcado</span></span></p>
+          <p class="cartao__quando">
+            <span class="cartao__semana" data-mostra="dia-semana">quinta-feira</span>
+            <span class="cartao__dia" data-mostra="dia-mes">8 de outubro</span>
+            <span class="cartao__hora"><span data-mostra="hora">16:20</span> <span class="cartao__as">às</span> <span data-mostra="hora-fim">17:00</span></span>
+          </p>
+          <p class="cartao__servico">
+            <span><span class="icone icone-tesoura" aria-hidden="true"></span><span data-mostra="servico-nome">Corte</span></span>
+            <span><span class="icone icone-pessoas" aria-hidden="true"></span><span>com <span data-mostra="profissional">Rafa</span></span></span>
+            <span data-mostra="servico-preco">R$ 45</span>
+          </p>
+        </div>
+        <div class="cartao__picote" aria-hidden="true"></div>
+        <div class="cartao__canhoto">
+          <p class="cartao__canhoto-linha"><span class="icone icone-local" aria-hidden="true"></span><span>Rua Exemplo, 123 · Centro</span></p>
+        </div>
+      </article>
+
+      <div class="acoes-empilhadas" id="acoes-horario">
+        <a class="botao botao--secundario botao--largo" href="horario.html" data-leva><span class="icone icone-remarcar" aria-hidden="true"></span>Remarcar</a>
+        <button type="button" class="botao botao--perigo botao--largo" data-abre="cancelar-horario"><span class="icone icone-x" aria-hidden="true"></span>Cancelar agendamento</button>
+        <p class="letra-miuda">Regra da barbearia: dá para remarcar ou cancelar até 2 horas antes. Depois disso, fale com a barbearia.</p>
+      </div>
+
+      <div class="vazio" id="horario-cancelado" hidden>
+        <span class="vazio__icone" aria-hidden="true"><span class="icone icone-calendario"></span></span>
+        <h2 class="vazio__titulo">Horário cancelado</h2>
+        <p>O horário ficou livre para outra pessoa. Quer marcar outro dia?</p>
+        <a class="botao" href="index.html">Ver horários livres</a>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="janela" id="cancelar-horario" aria-labelledby="cancelar-titulo">
+    <div class="janela__cabecalho">
+      <h2 id="cancelar-titulo">Cancelar este horário?</h2>
+      <button type="button" class="botao-icone" data-fecha aria-label="Fechar"><span class="icone icone-x" aria-hidden="true"></span></button>
+    </div>
+    <div class="janela__corpo">
+      <p><span data-mostra="servico-nome">Corte</span> com <span data-mostra="profissional">Rafa</span>, <span data-mostra="dia-completo">quinta-feira, 8 de outubro</span>, às <span data-mostra="hora">16:20</span>. A barbearia recebe o aviso na hora.</p>
+    </div>
+    <div class="janela__rodape">
+      <button type="button" class="botao botao--secundario" data-fecha>Manter horário</button>
+      <button type="button" class="botao botao--perigo-cheio" id="confirmar-cancelamento">Cancelar agendamento</button>
+    </div>
+  </dialog>
+</body>
+</html>

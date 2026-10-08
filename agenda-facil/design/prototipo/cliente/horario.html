@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quando? · Barbearia Exemplo</title>
+  <link rel="stylesheet" href="../estilos/tokens.css">
+  <link rel="stylesheet" href="../estilos/icones.css">
+  <link rel="stylesheet" href="../estilos/componentes.css">
+  <link rel="stylesheet" href="../estilos/telas.css">
+  <script src="../js/comum.js" defer></script>
+  <script src="../js/cliente.js" defer></script>
+</head>
+<body>
+  <div class="cliente">
+    <header class="topo-fluxo">
+      <div class="topo-fluxo__linha">
+        <a class="voltar" href="profissional.html" data-leva><span class="icone icone-chevron-esquerda" aria-hidden="true"></span>Voltar</a>
+        <span class="topo-fluxo__negocio">Barbearia Exemplo</span>
+      </div>
+      <div class="passos">
+        <p class="passos__texto">Passo <strong>3 de 4</strong> · Dia e horário</p>
+        <ol class="passos__barra" aria-hidden="true"><li class="feito"></li><li class="feito"></li><li class="atual"></li><li></li></ol>
+      </div>
+    </header>
+
+    <main class="conteudo-fluxo" id="conteudo">
+      <div class="cabecalho-passo">
+        <h1>Quando?</h1>
+        <p class="escolhas"><strong data-mostra="servico-nome">Corte</strong><span>com <strong data-mostra="profissional">Rafa</strong></span></p>
+      </div>
+
+      <!-- Os dias são rádios: o CSS mostra só o painel do dia marcado (telas.css, :has) -->
+      <div class="horarios-do-dia">
+        <fieldset class="dias">
+          <legend class="visualmente-oculto">Escolha o dia</legend>
+          <div class="dias__lista">
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-08" checked>
+              <label for="dia-08"><span class="visualmente-oculto">Hoje, quinta-feira, 8 de outubro</span><span class="dia__semana" aria-hidden="true">qui</span><span class="dia__numero" aria-hidden="true">8</span><span class="dia__nota dia__nota--hoje" aria-hidden="true">hoje</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-09">
+              <label for="dia-09"><span class="visualmente-oculto">Sexta-feira, 9 de outubro, lotado</span><span class="dia__semana" aria-hidden="true">sex</span><span class="dia__numero" aria-hidden="true">9</span><span class="dia__nota" aria-hidden="true">lotado</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-10">
+              <label for="dia-10"><span class="visualmente-oculto">Sábado, 10 de outubro</span><span class="dia__semana" aria-hidden="true">sáb</span><span class="dia__numero" aria-hidden="true">10</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-11" disabled>
+              <label for="dia-11"><span class="visualmente-oculto">Domingo, 11 de outubro, fechado</span><span class="dia__semana" aria-hidden="true">dom</span><span class="dia__numero" aria-hidden="true">11</span><span class="dia__nota" aria-hidden="true">fechado</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-12" disabled>
+              <label for="dia-12"><span class="visualmente-oculto">Segunda-feira, 12 de outubro, fechado</span><span class="dia__semana" aria-hidden="true">seg</span><span class="dia__numero" aria-hidden="true">12</span><span class="dia__nota" aria-hidden="true">fechado</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-13">
+              <label for="dia-13"><span class="visualmente-oculto">Terça-feira, 13 de outubro</span><span class="dia__semana" aria-hidden="true">ter</span><span class="dia__numero" aria-hidden="true">13</span></label>
+            </div>
+            <div class="dia">
+              <input type="radio" name="dia" id="dia-14">
+              <label for="dia-14"><span class="visualmente-oculto">Quarta-feira, 14 de outubro</span><span class="dia__semana" aria-hidden="true">qua</span><span class="dia__numero" aria-hidden="true">14</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Hoje, quinta 8 -->
+        <div class="painel-dia" id="painel-08">
+          <section class="turno" aria-labelledby="t08-tarde">
+            <h2 class="visualmente-oculto">Horários livres hoje, quinta-feira, 8 de outubro</h2>
+            <h3 id="t08-tarde">Tarde</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-08&amp;hora=15:00&amp;com=rafa" data-leva>15:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-08&amp;hora=16:20&amp;com=rafa" data-leva>16:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-08&amp;hora=17:00&amp;com=rafa" data-leva>17:00</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t08-noite">
+            <h3 id="t08-noite">Noite <small>depois das 18h</small></h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-08&amp;hora=18:20&amp;com=rafa" data-leva>18:20</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Sexta 9: lotada (estado vazio com saída) -->
+        <div class="painel-dia" id="painel-09">
+          <div class="vazio">
+            <span class="vazio__icone" aria-hidden="true"><span class="icone icone-calendario"></span></span>
+            <h2 class="vazio__titulo">Sexta está lotada</h2>
+            <p>Todos os horários de sexta-feira, 9 de outubro, já foram marcados.</p>
+            <label for="dia-10" class="botao botao--secundario">Ver sábado, 10 de outubro</label>
+          </div>
+        </div>
+
+        <!-- Sábado 10 -->
+        <div class="painel-dia" id="painel-10">
+          <section class="turno" aria-labelledby="t10-manha">
+            <h2 class="visualmente-oculto">Horários livres no sábado, 10 de outubro</h2>
+            <h3 id="t10-manha">Manhã</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=09:00&amp;com=rafa" data-leva>09:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=09:40&amp;com=julia" data-leva>09:40</a>
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=11:00&amp;com=rafa" data-leva>11:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=11:40&amp;com=julia" data-leva>11:40</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t10-tarde">
+            <h3 id="t10-tarde">Tarde <small>fecha às 14h no sábado</small></h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=12:20&amp;com=rafa" data-leva>12:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-10&amp;hora=13:20&amp;com=julia" data-leva>13:20</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Terça 13 -->
+        <div class="painel-dia" id="painel-13">
+          <section class="turno" aria-labelledby="t13-manha">
+            <h2 class="visualmente-oculto">Horários livres na terça-feira, 13 de outubro</h2>
+            <h3 id="t13-manha">Manhã</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=09:00&amp;com=rafa" data-leva>09:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=09:40&amp;com=rafa" data-leva>09:40</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=10:20&amp;com=julia" data-leva>10:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=11:00&amp;com=rafa" data-leva>11:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=11:40&amp;com=julia" data-leva>11:40</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t13-tarde">
+            <h3 id="t13-tarde">Tarde</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=13:00&amp;com=rafa" data-leva>13:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=13:40&amp;com=rafa" data-leva>13:40</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=14:20&amp;com=julia" data-leva>14:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=15:00&amp;com=rafa" data-leva>15:00</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=16:20&amp;com=rafa" data-leva>16:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=17:00&amp;com=julia" data-leva>17:00</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t13-noite">
+            <h3 id="t13-noite">Noite <small>depois das 18h</small></h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-13&amp;hora=18:20&amp;com=rafa" data-leva>18:20</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Quarta 14 -->
+        <div class="painel-dia" id="painel-14">
+          <section class="turno" aria-labelledby="t14-manha">
+            <h2 class="visualmente-oculto">Horários livres na quarta-feira, 14 de outubro</h2>
+            <h3 id="t14-manha">Manhã</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=09:40&amp;com=rafa" data-leva>09:40</a>
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=10:20&amp;com=julia" data-leva>10:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=11:00&amp;com=rafa" data-leva>11:00</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t14-tarde">
+            <h3 id="t14-tarde">Tarde</h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=14:20&amp;com=rafa" data-leva>14:20</a>
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=15:40&amp;com=julia" data-leva>15:40</a>
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=16:20&amp;com=rafa" data-leva>16:20</a>
+            </div>
+          </section>
+          <section class="turno" aria-labelledby="t14-noite">
+            <h3 id="t14-noite">Noite <small>depois das 18h</small></h3>
+            <div class="grade-horarios">
+              <a class="horario" href="dados.html?dia=2026-10-14&amp;hora=18:20&amp;com=julia" data-leva>18:20</a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <p class="letra-miuda">Aparecem só os horários livres com tempo para o serviço escolhido (<span data-mostra="servico-duracao">40 min</span>). Horário de Brasília.</p>
+    </main>
+  </div>
+</body>
+</html>

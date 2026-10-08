@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protótipo · Agenda Fácil</title>
+  <link rel="stylesheet" href="estilos/tokens.css">
+  <link rel="stylesheet" href="estilos/icones.css">
+  <link rel="stylesheet" href="estilos/componentes.css">
+  <link rel="stylesheet" href="estilos/telas.css">
+  <link rel="stylesheet" href="estilos/indice.css">
+</head>
+<body>
+  <main class="indice" id="conteudo">
+    <header class="indice__topo">
+      <span class="logo">Agenda <span class="logo__facil">Fácil</span></span>
+      <h1>Protótipo navegável</h1>
+      <p>Agendamento online para pequenos negócios de serviço. O cliente marca pelo celular, por um link, sem baixar app e sem criar conta. O dono configura serviços e horários e cuida do dia num painel.</p>
+      <p class="texto-pequeno texto-suave">HTML e CSS estáticos, com um pouco de JavaScript. Abre com dois cliques, sem internet. Negócio, nomes, telefones e valores são <strong>dados de exemplo</strong>.</p>
+    </header>
+
+    <section class="indice__fluxos" aria-label="Começar">
+      <a class="indice__card" href="cliente/index.html">
+        <span class="indice__etiqueta">Celular · 390 px</span>
+        <span class="indice__titulo">Cliente marca um horário</span>
+        <span class="texto-suave">Serviço, profissional, dia e horário, nome e WhatsApp, confirmação.</span>
+        <span class="indice__comecar">Começar pelo link do negócio <span class="icone icone-chevron-direita" aria-hidden="true"></span></span>
+      </a>
+      <a class="indice__card" href="painel/cadastro.html">
+        <span class="indice__etiqueta">Computador · 1440 px</span>
+        <span class="indice__titulo">Dono configura a agenda</span>
+        <span class="texto-suave">Cadastro, serviços, horários e equipe, link pronto para divulgar.</span>
+        <span class="indice__comecar">Começar pelo cadastro <span class="icone icone-chevron-direita" aria-hidden="true"></span></span>
+      </a>
+      <a class="indice__card" href="painel/agenda.html">
+        <span class="indice__etiqueta">Computador · 1440 px</span>
+        <span class="indice__titulo">Dono cuida do dia</span>
+        <span class="texto-suave">Agenda por profissional, confirmar, cancelar, bloquear horário, novo agendamento.</span>
+        <span class="indice__comecar">Abrir a agenda de hoje <span class="icone icone-chevron-direita" aria-hidden="true"></span></span>
+      </a>
+    </section>
+
+    <section class="indice__lista" aria-labelledby="todas">
+      <h2 id="todas">Todas as telas e estados</h2>
+      <div class="indice__colunas">
+        <div>
+          <h3>Cliente (celular)</h3>
+          <ol>
+            <li><a href="cliente/index.html">1. Serviços (página do negócio)</a></li>
+            <li><a href="cliente/profissional.html?servico=corte">2. Profissional</a></li>
+            <li><a href="cliente/horario.html?servico=corte&amp;profissional=rafa">3. Dia e horário</a></li>
+            <li><a href="cliente/dados.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=16:20">4. Seus dados</a></li>
+            <li><a href="cliente/confirmado.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=16:20&amp;nome=Lucas">Horário marcado</a></li>
+            <li><a href="cliente/meu-horario.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=16:20">Meu horário (remarcar ou cancelar)</a></li>
+          </ol>
+          <h4>Estados</h4>
+          <ul>
+            <li><a href="cliente/horario.html?servico=corte&amp;profissional=rafa">Dia lotado: toque em "sex 9"</a></li>
+            <li><a href="cliente/dados.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=16:20">Erro nos campos: toque em "Confirmar agendamento" com os campos vazios</a></li>
+            <li><a href="cliente/horario-ocupado.html">Horário reservado por outra pessoa no último segundo</a></li>
+            <li><a href="cliente/meu-horario.html?servico=corte&amp;profissional=rafa&amp;dia=2026-10-08&amp;hora=16:20#cancelar-horario">Confirmar cancelamento</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Dono (computador)</h3>
+          <ol>
+            <li><a href="painel/cadastro.html">1. Criar a agenda do negócio</a></li>
+            <li><a href="painel/servicos.html">2. Serviços</a></li>
+            <li><a href="painel/horarios.html">3. Horários e equipe</a></li>
+            <li><a href="painel/link.html">Seu link está pronto</a></li>
+            <li><a href="painel/agenda.html">Agenda do dia</a></li>
+          </ol>
+          <h4>Estados</h4>
+          <ul>
+            <li><a href="painel/agenda.html#cancelar">Cancelar agendamento</a></li>
+            <li><a href="painel/agenda.html#bloquear">Bloquear horário com conflito</a></li>
+            <li><a href="painel/agenda.html#novo">Novo agendamento</a></li>
+            <li><a href="painel/agenda-vazia.html">Dia sem agendamentos</a></li>
+          </ul>
+          <h3>Dono (celular)</h3>
+          <ul>
+            <li><a href="painel/agenda-celular.html">Agenda do dia no celular</a></li>
+            <li><a href="painel/agenda-celular.html#detalhe">Detalhes de um agendamento</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Antes</h3>
+          <ul>
+            <li><a href="../wireframes/index.html">Wireframes v1 (antes da avaliação heurística)</a></li>
+          </ul>
+          <h3>Documentação</h3>
+          <ul>
+            <li><a href="../README.md">Case completo</a></li>
+            <li><a href="componentes.html">Componentes e estados</a></li>
+            <li><a href="../design-system.md">Design system</a></li>
+            <li><a href="../avaliacao-heuristica.md">Avaliação heurística</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
