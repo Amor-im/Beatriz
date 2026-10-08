@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, effect, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { ImagemReserva, IMAGEM_RESERVA } from '../../../shared/diretivas/imagem-reserva';
 
 /**
@@ -8,6 +8,7 @@ import { ImagemReserva, IMAGEM_RESERVA } from '../../../shared/diretivas/imagem-
  */
 @Component({
   selector: 'app-galeria-produto',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgOptimizedImage, ImagemReserva],
   templateUrl: './galeria-produto.html',
   styleUrl: './galeria-produto.css',
@@ -24,15 +25,6 @@ export class GaleriaProduto {
   protected readonly imagemAtual = computed(
     () => this.imagens()[this.indiceAtual()] || IMAGEM_RESERVA,
   );
-
-  constructor() {
-    // Trocou de produto: volta para a primeira foto e tira o zoom.
-    effect(() => {
-      this.imagens();
-      this.indiceAtual.set(0);
-      this.ampliada.set(false);
-    });
-  }
 
   selecionar(indice: number): void {
     this.indiceAtual.set(indice);

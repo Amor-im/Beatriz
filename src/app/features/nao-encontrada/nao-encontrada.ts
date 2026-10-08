@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { EstadoVazio } from '../../shared/estado-vazio/estado-vazio';
 
 /** Página 404: aparece para qualquer endereço que não existe (rota '**'). */
 @Component({
   selector: 'app-nao-encontrada',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, EstadoVazio],
   template: `
     <div class="largura-pagina">

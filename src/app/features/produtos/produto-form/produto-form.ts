@@ -1,9 +1,16 @@
-import { Component, computed, DestroyRef, ElementRef, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { startWith } from 'rxjs';
-import { CATEGORIAS, Produto } from '../../../model/produto';
+import { CATEGORIAS, DESCONTO_PROMO, Produto } from '../../../model/produto';
 import { CardProduto } from '../card-produto/card-produto';
 import { ProdutoService } from '../produto.service';
 
@@ -18,6 +25,7 @@ type Envio =
 
 @Component({
   selector: 'app-produto-form',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, CardProduto],
   templateUrl: './produto-form.html',
   styleUrl: './produto-form.css',
@@ -31,6 +39,7 @@ export class ProdutoForm {
   protected readonly categorias = CATEGORIAS;
   protected readonly categoriaOutra = CATEGORIA_OUTRA;
   protected readonly limiteDescricao = 500;
+  protected readonly desconto = DESCONTO_PROMO;
 
   /** nonNullable: ao resetar, os campos voltam para o valor inicial, e não para null. */
   protected readonly form = this.fb.nonNullable.group({
@@ -44,13 +53,11 @@ export class ProdutoForm {
   });
 
   protected readonly envio = signal<Envio>({ estado: 'parado' });
-  protected readonly tentouEnviar = signal(false);
 
   /** Valores do formulário como signal, para a prévia do card se atualizar enquanto a pessoa digita. */
-  private readonly valores = toSignal(
-    this.form.valueChanges.pipe(startWith(this.form.getRawValue())),
-    { initialValue: this.form.getRawValue() },
-  );
+  private readonly valores = toSignal(this.form.valueChanges, {
+    initialValue: this.form.getRawValue(),
+  });
 
   protected readonly mostrarNovaCategoria = computed(
     () => this.valores().categoria === CATEGORIA_OUTRA,
@@ -75,9 +82,9 @@ export class ProdutoForm {
       });
   }
 
-  /** Mostra o erro depois que a pessoa sai do campo ou tenta salvar. */
+  /** Mostra o erro depois que a pessoa sai do campo (touched). Ao enviar, todos viram touched. */
   protected mostrarErro(controle: AbstractControl): boolean {
-    return controle.invalid && (controle.touched || this.tentouEnviar());
+    return controle.invalid && controle.touched;
   }
 
   protected erroNome(): string {
@@ -102,7 +109,6 @@ export class ProdutoForm {
   }
 
   salvar(): void {
-    this.tentouEnviar.set(true);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.focarPrimeiroErro();
@@ -118,7 +124,6 @@ export class ProdutoForm {
         next: (resposta) => {
           this.envio.set({ estado: 'sucesso', id: resposta.id, nome: produto.nome });
           this.form.reset();
-          this.tentouEnviar.set(false);
         },
         error: () => this.envio.set({ estado: 'erro' }),
       });

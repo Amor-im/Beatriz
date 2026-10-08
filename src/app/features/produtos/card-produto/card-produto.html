@@ -19,7 +19,7 @@
         <a class="card__link" [routerLink]="['/produtos', produto().id]">{{ produto().nome }}</a>
       }
     </h3>
-    <app-etiqueta-preco class="card__preco" [produto]="produto()" />
+    <app-etiqueta-preco class="card__preco" [preco]="produto().preco" [promo]="produto().promo" />
 
     <button
       type="button"

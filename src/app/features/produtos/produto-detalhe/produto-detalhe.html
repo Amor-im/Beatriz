@@ -51,7 +51,7 @@
               </p>
             }
 
-            <app-etiqueta-preco [produto]="produto" tamanho="grande" />
+            <app-etiqueta-preco [preco]="produto.preco" [promo]="produto.promo" tamanho="grande" />
             @if (produto.promo) {
               <p class="produto__nota">Promoção: {{ desconto }}% de desconto já aplicado no preço.</p>
             }

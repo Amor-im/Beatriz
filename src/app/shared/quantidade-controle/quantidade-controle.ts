@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 
 /**
  * Seletor de quantidade (− 1 +).
@@ -6,6 +6,7 @@ import { Component, input, model } from '@angular/core';
  */
 @Component({
   selector: 'app-quantidade-controle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './quantidade-controle.html',
   styleUrl: './quantidade-controle.css',

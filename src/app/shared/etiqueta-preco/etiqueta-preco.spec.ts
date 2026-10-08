@@ -19,7 +19,7 @@ describe('EtiquetaPreco', () => {
   });
 
   it('mostra o preço em reais', () => {
-    fixture.componentRef.setInput('produto', { preco: 1299.9 });
+    fixture.componentRef.setInput('preco', 1299.9);
     fixture.detectChanges();
 
     expect(texto('.etiqueta')).toBe('R$ 1.299,90');
@@ -27,7 +27,8 @@ describe('EtiquetaPreco', () => {
   });
 
   it('em promoção, risca o preço antigo e mostra o preço com desconto', () => {
-    fixture.componentRef.setInput('produto', { preco: 109.95, promo: true });
+    fixture.componentRef.setInput('preco', 109.95);
+    fixture.componentRef.setInput('promo', true);
     fixture.detectChanges();
 
     expect(texto('s')).toBe('R$ 109,95');

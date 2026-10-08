@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** Bloco para telas sem conteúdo (carrinho vazio, busca sem resultado, 404). O texto e os botões vêm por <ng-content>. */
 @Component({
   selector: 'app-estado-vazio',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './estado-vazio.html',
   styleUrl: './estado-vazio.css',
 })

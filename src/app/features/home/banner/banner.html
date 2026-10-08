@@ -26,7 +26,7 @@
               <img [ngSrc]="produto.imageUrl || imagemReserva" fill sizes="(min-width: 900px) 15vw, 30vw" [priority]="i === 0" alt="" appImagemReserva />
             </span>
             <span class="apenas-leitor" lang="en">{{ produto.nome }}</span>
-            <app-etiqueta-preco class="vitrine__etiqueta" [produto]="produto" />
+            <app-etiqueta-preco class="vitrine__etiqueta" [preco]="produto.preco" [promo]="produto.promo" />
           </a>
         }
       }

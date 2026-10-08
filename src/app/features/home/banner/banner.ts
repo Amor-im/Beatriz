@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Produto } from '../../../model/produto';
 import { ImagemReserva, IMAGEM_RESERVA } from '../../../shared/diretivas/imagem-reserva';
@@ -8,6 +8,7 @@ import { EtiquetaPreco } from '../../../shared/etiqueta-preco/etiqueta-preco';
 /** Abertura da home: o texto da loja e uma "vitrine" com três produtos na prateleira. */
 @Component({
   selector: 'app-banner',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgOptimizedImage, RouterLink, EtiquetaPreco, ImagemReserva],
   templateUrl: './banner.html',
   styleUrl: './banner.css',

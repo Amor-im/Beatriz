@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Produto, rotuloCategoria } from '../../../model/produto';
 import { ImagemReserva, IMAGEM_RESERVA } from '../../../shared/diretivas/imagem-reserva';
@@ -11,6 +11,7 @@ import { EtiquetaPreco } from '../../../shared/etiqueta-preco/etiqueta-preco';
  */
 @Component({
   selector: 'app-card-produto',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgOptimizedImage, RouterLink, EtiquetaPreco, ImagemReserva],
   templateUrl: './card-produto.html',
   styleUrl: './card-produto.css',
