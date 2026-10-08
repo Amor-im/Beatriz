@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
 import { CarrinhoService } from '../../features/carrinho/carrinho.service';
 
 @Component({
@@ -12,6 +12,14 @@ export class Header {
   private readonly carrinho = inject(CarrinhoService);
 
   protected readonly quantidade = this.carrinho.quantidadeTotal;
+
+  /** "Produtos" fica ativo em /produtos com qualquer filtro (?categoria=...), mas não em /produtos/novo. */
+  protected readonly opcoesLinkProdutos: IsActiveMatchOptions = {
+    paths: 'exact',
+    queryParams: 'ignored',
+    matrixParams: 'ignored',
+    fragment: 'ignored',
+  };
 
   /** Texto lido pelo leitor de tela no botão do carrinho. */
   protected readonly rotuloCarrinho = computed(() => {
