@@ -9,12 +9,10 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import {
-  PreloadAllModules,
   provideRouter,
   TitleStrategy,
   withComponentInputBinding,
   withInMemoryScrolling,
-  withPreloading,
 } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -33,9 +31,6 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding(),
       // Ao trocar de página, volta para o topo.
       withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
-      // Depois que a primeira página abre, baixa as outras em segundo plano:
-      // o lazy loading deixa a abertura leve e a navegação continua instantânea.
-      withPreloading(PreloadAllModules),
     ),
     { provide: TitleStrategy, useClass: TituloPaginaStrategy },
     provideHttpClient(withFetch()),

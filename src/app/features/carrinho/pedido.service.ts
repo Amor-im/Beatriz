@@ -29,7 +29,11 @@ export interface Pedido {
 /** Tempo fingindo uma chamada ao servidor, para a tela mostrar o estado "Confirmando…". */
 export const ATRASO_SIMULADO_MS = 800;
 
-/** Checkout simulado: monta o pedido a partir do carrinho, sem servidor e sem pagamento. */
+/**
+ * Checkout simulado: monta o pedido a partir do carrinho, sem servidor e sem pagamento.
+ * Quem esvazia o carrinho é a tela de checkout, depois de abrir a confirmação
+ * (assim o resumo não "pisca" com R$ 0,00 enquanto a próxima página carrega).
+ */
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
   private readonly carrinho = inject(CarrinhoService);
@@ -50,10 +54,7 @@ export class PedidoService {
 
     return of(pedido).pipe(
       delay(ATRASO_SIMULADO_MS),
-      tap((p) => {
-        this._ultimoPedido.set(p);
-        this.carrinho.limpar();
-      }),
+      tap((p) => this._ultimoPedido.set(p)),
     );
   }
 }

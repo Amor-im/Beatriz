@@ -94,6 +94,9 @@ export class Checkout {
       .finalizar(this.form.getRawValue())
       .pipe(takeUntilDestroyed(this.destroyRef))
       // `enviando` continua true: o botão fica desabilitado até a página de confirmação abrir.
-      .subscribe(() => this.router.navigate(['/pedido-confirmado']));
+      // O carrinho só é esvaziado depois de sair do checkout.
+      .subscribe(() =>
+        this.router.navigate(['/pedido-confirmado']).then(() => this.carrinho.limpar()),
+      );
   }
 }
