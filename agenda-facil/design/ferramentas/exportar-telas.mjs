@@ -35,4 +35,11 @@ for (const tela of TELAS) {
   await pagina.close();
 }
 
+// Capa do README e do card do portfólio (usa os prints que acabaram de ser tirados)
+const capa = await navegador.newPage({ viewport: { width: 1600, height: 900 } });
+await capa.goto(pathToFileURL(path.join(aqui, 'capa.html')).href);
+await capa.evaluate(() => document.fonts.ready);
+await capa.screenshot({ path: path.join(aqui, '..', '..', 'docs', 'capa.png') });
+console.log('ok  docs/capa.png');
+
 await navegador.close();

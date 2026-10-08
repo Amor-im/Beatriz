@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Capa · Agenda Fácil</title>
+  <!-- Capa do README e do card do portfólio. O exportar-telas.mjs tira o print em 1600 x 900 e salva em docs/capa.png -->
+  <link rel="stylesheet" href="../prototipo/estilos/tokens.css">
+  <link rel="stylesheet" href="../prototipo/estilos/componentes.css">
+  <style>
+    body { margin: 0; width: 1600px; height: 900px; overflow: hidden; background: var(--papel); }
+    .capa { position: relative; height: 100%; display: grid; grid-template-columns: 560px 1fr; align-items: center; padding: 0 0 0 96px; }
+    .texto { display: grid; gap: var(--esp-24); }
+    .texto .logo { font-size: 2.25rem; }
+    .texto h1 { font-size: 3.25rem; line-height: 1.05; letter-spacing: -0.02em; }
+    .texto p { font-size: 1.25rem; color: var(--tinta-suave); max-width: 30ch; }
+    .etiquetas { display: flex; flex-wrap: wrap; gap: var(--esp-8); }
+    .etiquetas span { padding: 6px 14px; border-radius: var(--raio-total); background: var(--superficie); border: 1.5px solid var(--linha); font-weight: 700; font-size: 0.9375rem; }
+    .telas { position: relative; height: 100%; }
+    .computador {
+      position: absolute; right: -180px; top: 70px; width: 980px; height: 612px;
+      border-radius: 16px; overflow: hidden; border: 10px solid var(--tinta); box-shadow: var(--sombra-2);
+    }
+    .computador img { width: 100%; display: block; }
+    .celular {
+      position: absolute; width: 270px; height: 584px; border-radius: 36px; overflow: hidden;
+      border: 9px solid var(--tinta); background: var(--superficie); box-shadow: 0 24px 48px rgb(19 26 46 / 28%);
+    }
+    .celular img { width: 100%; display: block; }
+    .c1 { left: 10px; top: 210px; }
+    .c2 { left: 250px; top: 120px; }
+    .c3 { left: 490px; top: 250px; }
+  </style>
+</head>
+<body>
+  <div class="capa">
+    <div class="texto">
+      <span class="logo">Agenda <span class="logo__facil">Fácil</span></span>
+      <h1>Marcar horário sem trocar mensagem</h1>
+      <p>Agendamento online para pequenos negócios de serviço. O cliente marca pelo celular, sem app e sem conta.</p>
+      <div class="etiquetas"><span>Case de UX</span><span>Protótipo navegável</span><span>Meta: WCAG 2.2 AA</span></div>
+    </div>
+    <div class="telas">
+      <div class="computador"><img src="../telas/painel-5-agenda.png" alt=""></div>
+      <div class="celular c1"><img src="../telas/cliente-1-servicos.png" alt=""></div>
+      <div class="celular c2"><img src="../telas/cliente-3-horario.png" alt=""></div>
+      <div class="celular c3"><img src="../telas/cliente-5-confirmado.png" alt=""></div>
+    </div>
+  </div>
+</body>
+</html>
