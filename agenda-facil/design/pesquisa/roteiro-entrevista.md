@@ -17,6 +17,8 @@ Entender como pequenos negócios de serviço marcam horário **hoje** e onde iss
 **Caso real:** se o cliente do meu freela tiver um negócio de serviço, ele é um ótimo primeiro entrevistado (Dono A). Não escrevo o nome dele, nem do negócio, em nenhum arquivo até ele autorizar por escrito.
 TODO(Beatriz): perguntar ao cliente do freela se ele topa participar e se autoriza citar o negócio no case.
 
+**Cuidado com o viés:** quem já tem relação comigo (como o cliente do freela, ou amigos) tende a responder com educação. Por isso: entrevista primeiro e protótipo só no fim, nunca o contrário; na síntese, anotar quais participantes são conhecidos; e "nada mudou" também é um resultado válido, que vai para o case do jeito que veio.
+
 ## Como conduzir
 
 - **Duração:** 30 minutos. Presencial (melhor: dá para ver o caderno, o celular, o balcão) ou chamada de vídeo.

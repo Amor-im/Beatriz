@@ -2,7 +2,7 @@
 
 Data das buscas: 2026-10-08.
 
-**Como ler esta tabela.** O WebFetch foi bloqueado pelo proxy em todos os domínios, então nenhuma página foi aberta direto. A ferramenta WebSearch devolve uma resposta resumida por um modelo, com trechos das páginas indexadas embutidos. A coluna "Trecho exato" traz só o texto que a busca devolveu entre aspas ou como citação literal, copiado sem alterações. Mesmo assim, esses trechos não foram conferidos contra a página ao vivo: a Beatriz deve abrir cada URL e confirmar. Quando a busca devolveu só paráfrase ou tradução, a linha diz isso. Quando não há trecho literal, a linha diz "não reencontrado". Para evitar travessão neste arquivo, cortei duas citações no ponto em que a fonte usava esse sinal (marcado com [...]).
+**Como ler esta tabela.** Nenhuma página foi aberta direto: o assistente de IA que montou o rascunho só conseguiu usar uma ferramenta de busca, que devolve uma resposta resumida por um modelo, com trechos das páginas indexadas embutidos. A coluna "Trecho exato" traz só o texto que a busca devolveu entre aspas ou como citação literal, copiado sem alterações. Mesmo assim, esses trechos não foram conferidos contra a página ao vivo: a Beatriz deve abrir cada URL e confirmar. Quando a busca devolveu só paráfrase ou tradução, a linha diz isso. Quando não há trecho literal, a linha diz "não reencontrado". Para evitar travessão neste arquivo, duas citações foram cortadas no ponto em que a fonte usava esse sinal (marcado com [...]).
 
 Há uma linha por URL citada em `benchmark.md` (45 URLs).
 

@@ -9,6 +9,13 @@ Agendamento online para pequenos negócios de serviço. O dono configura serviç
 
 **Neste case, o que é fato e o que é hipótese:** ainda não entrevistei ninguém. Tudo o que digo sobre as pessoas é hipótese, e está marcado assim. O que tem fonte pública (o benchmark e um dado do Sebrae) tem link. Nada aqui é depoimento, número ou resultado inventado.
 
+## Como este case foi feito
+
+O rascunho foi montado com um assistente de IA (Claude Code), numa sessão só, a partir de um briefing: textos, wireframes, avaliação heurística, protótipo e scripts de verificação. Os commits trazem a linha `Co-Authored-By: Claude`. Ninguém foi entrevistado e ninguém testou o protótipo ainda.
+
+O que falta para o case contar só o que aconteceu de verdade está nos `TODO(Beatriz)`. Os principais: refazer a avaliação heurística sem ler a da IA, reproduzir o bug do botão, entrevistar 3 donos e 3 clientes e testar o protótipo com 5 pessoas.
+TODO(Beatriz): quando fizer cada uma dessas coisas, reescrever esta seção dizendo o que eu fiz sozinha e o que veio da IA.
+
 | Peça | Onde |
 |---|---|
 | Protótipo navegável (abre com dois cliques) | [`prototipo/index.html`](prototipo/index.html) |
@@ -63,7 +70,7 @@ No roteiro, as perguntas são sobre **o que a pessoa fez da última vez**, não 
 
 ### Benchmark
 
-Olhei Trinks, Booksy, AppBarber e Playtomic usando só informação pública (central de ajuda, página de preços, loja de apps, Reclame Aqui), com a fonte em cada linha. Uma ressalva honesta: no ambiente em que montei este rascunho, as páginas não abriam direto, então conferi cada afirmação no trecho que a busca devolvia. Os trechos estão no [apêndice de evidências](pesquisa/benchmark-evidencias.md).
+O benchmark de Trinks, Booksy, AppBarber e Playtomic usa só informação pública (central de ajuda, página de preços, loja de apps, Reclame Aqui), com a fonte em cada linha. Ressalva: as páginas não foram abertas, e cada afirmação foi conferida só no trecho que a busca devolveu. Os trechos estão no [apêndice de evidências](pesquisa/benchmark-evidencias.md).
 TODO(Beatriz): abrir cada link do benchmark e confirmar antes de publicar.
 
 O que mais pesou nas minhas decisões (é interpretação minha, os fatos com fonte estão no benchmark):
@@ -104,14 +111,15 @@ Três fluxos cobrem o MVP. Os diagramas em Mermaid estão em [fluxos.md](fluxos.
 
 ## Wireframes
 
-Comecei com [wireframes em baixa fidelidade](wireframes/index.html): 7 telas do cliente e 2 do painel. Depois avaliei os meus próprios wireframes com as 10 heurísticas de Nielsen, mais celular, fricção e acessibilidade básica. Achei 12 problemas. Os mais graves:
+A primeira versão é um [wireframe em baixa fidelidade](wireframes/index.html) ingênuo de propósito, no jeito mais comum de app de agendamento (7 telas do cliente e 2 do painel), feito para servir de base a uma avaliação. A avaliação, com as 10 heurísticas de Nielsen, mais celular, fricção e acessibilidade básica, foi feita com o assistente de IA e apontou 12 problemas. Os mais graves:
 
 - horário ocupado diferente do livre só pela cor, e dia escolhido antes de saber se tinha vaga;
 - erro genérico no topo do formulário e rótulo que sumia ao digitar;
 - cancelar no painel com um ícone de lixeira, sem confirmação e sem desfazer;
 - 11 toques e 4 campos para marcar um corte.
 
-A [avaliação completa](avaliacao-heuristica.md) tem cada achado com o antes e o depois. Pela minha nota (que é opinião, não medida), a média foi de 2,2 para 4,0 de 5.
+A [avaliação completa](avaliacao-heuristica.md) tem cada achado com o antes e o depois.
+TODO(Beatriz): avaliar a v1 sozinha com a mesma lista, antes de ler a avaliação, e comparar o que cada uma achou.
 
 | Antes (v1) | Depois (v2) |
 |---|---|
@@ -120,7 +128,7 @@ A [avaliação completa](avaliacao-heuristica.md) tem cada achado com o antes e 
 
 ## Protótipo
 
-Construí o protótipo em **HTML e CSS estáticos**, com um pouco de JavaScript, em [`prototipo/`](prototipo/). Abre com dois cliques, sem internet e sem instalar nada. Negócio, nomes, telefones e valores são dados de exemplo.
+O protótipo é em **HTML e CSS estáticos**, com um pouco de JavaScript, em [`prototipo/`](prototipo/). Abre com dois cliques, sem internet e sem instalar nada. Negócio, nomes, telefones e valores são dados de exemplo.
 
 **Cliente, no celular:** serviço → profissional → dia e horário → seus dados → horário marcado → meu horário.
 
@@ -138,9 +146,10 @@ Construí o protótipo em **HTML e CSS estáticos**, com um pouco de JavaScript,
 |---|---|---|
 | ![](telas/painel-5-agenda.png) | ![](telas/painel-5d-bloquear-conflito.png) | ![](telas/painel-6-agenda-celular.png) |
 
-Estados que também desenhei: dia lotado, erro nos campos, horário reservado por outra pessoa no último segundo, cancelamento com "Desfazer", dia sem agendamentos. Todos estão em [`telas/`](telas/) e listados no [índice do protótipo](prototipo/index.html).
+Estados que também estão desenhados: dia lotado, erro nos campos, horário reservado por outra pessoa no último segundo, cancelamento com "Desfazer", dia sem agendamentos. Todos estão em [`telas/`](telas/) e listados no [índice do protótipo](prototipo/index.html).
 
-**Como verifiquei:** um script ([`ferramentas/verificar.mjs`](ferramentas/verificar.mjs)) percorre os fluxos do cliente e do dono do início ao fim, roda o axe-core (WCAG 2.2 A e AA) nas 24 telas e estados e mede os alvos de toque. Hoje passa sem nenhum problema. Ele achou um bug real: ao tocar em "Confirmar agendamento", a mensagem de erro do campo aparecia, empurrava o botão para baixo e o toque se perdia. Corrigi e deixei um teste para o bug não voltar.
+**Como foi verificado:** um script ([`ferramentas/verificar.mjs`](ferramentas/verificar.mjs)) percorre os fluxos do cliente e do dono do início ao fim, roda o axe-core (WCAG 2.2 A e AA) nas 24 telas e estados e mede os alvos de toque. Hoje passa sem nenhum problema. Ele pegou um bug real: ao tocar em "Confirmar agendamento", a mensagem de erro do campo aparecia, empurrava o botão para baixo e o toque se perdia. O bug foi corrigido e ganhou um teste para não voltar.
+TODO(Beatriz): reproduzir esse bug sozinha (o passo a passo está no item 13 do [ESTUDO.md](../ESTUDO.md)) antes de contar essa história numa entrevista.
 
 ### Figma
 
@@ -165,7 +174,7 @@ As imagens em [`telas/`](telas/) são prints do protótipo HTML, que tem o mesmo
 Os quatro apps do benchmark descrevem algum cadastro do cliente para marcar, e minha hipótese H5 é que isso faz o cliente desistir. O risco é o dono não confiar num agendamento tão simples (H6). Para isso, o dono pode pedir a confirmação pelo WhatsApp com um toque, e deixei "aprovar cada pedido" como opção futura (Could).
 
 **2. Escolher já avança.**
-Tocar num serviço, num profissional ou num horário leva direto ao passo seguinte, sem botão "Próximo". São 3 ou 4 toques e 2 campos, contra 11 toques e 4 campos na v1. O risco é um toque sem querer; a defesa é o resumo com "Alterar" em cada item antes de confirmar, e "Alterar" volta para o resumo sem perder o resto.
+Tocar num serviço, num profissional ou num horário leva direto ao passo seguinte, sem botão "Próximo". São 3 ou 4 toques e 2 campos até confirmar. O risco é um toque sem querer; a defesa é o resumo com "Alterar" em cada item antes de confirmar, e "Alterar" volta para o resumo sem perder o resto.
 
 **3. "Sem preferência" vem primeiro, e o passo some quando há uma pessoa só.**
 Suspeito que escolher o profissional importa para parte dos clientes, mas não para todos (H8). Quem liga escolhe; quem não liga toca na primeira opção. Cada profissional mostra o próximo horário livre, para a pessoa decidir sem abrir um por um.

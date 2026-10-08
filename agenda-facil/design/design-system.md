@@ -39,7 +39,7 @@ Os nomes das variáveis são palavras do mundo do produto (tinta, papel, caneta,
 
 ### Contraste conferido
 
-Calculei a razão de contraste de cada combinação usada nas telas com a fórmula da WCAG 2.2 (luminância relativa). AA pede **4,5:1** para texto normal, **3:1** para texto grande (24 px, ou 19 px em negrito) e **3:1** para bordas de controles e ícones que passam informação.
+A razão de contraste de cada combinação usada nas telas foi calculada com a fórmula da WCAG 2.2 (luminância relativa). AA pede **4,5:1** para texto normal, **3:1** para texto grande (24 px, ou 19 px em negrito) e **3:1** para bordas de controles e ícones que passam informação.
 
 | Texto ou elemento | Fundo | Razão | Resultado |
 |---|---|---|---|

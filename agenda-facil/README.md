@@ -11,6 +11,7 @@ Agenda Fácil: case de UX + produto full stack, em construção. Agendamento onl
 - **Deploy:** em breve
 - **Código:** [github.com/beatrizcampos-dev/agenda-facil](https://github.com/beatrizcampos-dev/agenda-facil)
 - **Autora:** Beatriz Campos Alves
+- **Como foi feito:** rascunho montado com um assistente de IA (Claude Code), sem entrevistas nem testes com usuário ainda; detalhes no [case](design/README.md#como-este-case-foi-feito)
 
 ---
 

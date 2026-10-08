@@ -1,7 +1,7 @@
 # Benchmark: agendamento online para pequenos negócios de serviço
 
-> **Status: verificação parcial.** Todas as fontes são públicas e cada linha tem link. Mas, no ambiente em que este rascunho foi montado, as páginas não abriam direto (o acesso era bloqueado), então cada afirmação foi conferida no trecho que a busca devolveu, não na página inteira. Os trechos usados estão em [benchmark-evidencias.md](benchmark-evidencias.md).
-> TODO(Beatriz): abrir cada link, confirmar se o texto continua igual e corrigir o que mudou antes de publicar o case. Dois itens estão marcados com "(conferir)" porque não reencontrei o trecho original na segunda checagem.
+> **Status: verificação parcial.** Todas as fontes são públicas e cada linha tem link. Mas as páginas não foram abertas: cada afirmação foi conferida só no trecho que a busca devolveu, não na página inteira. Os trechos usados estão em [benchmark-evidencias.md](benchmark-evidencias.md).
+> TODO(Beatriz): abrir cada link, confirmar se o texto continua igual e corrigir o que mudou antes de publicar o case. Dois itens estão marcados com "(conferir)" porque o trecho original não apareceu de novo na segunda checagem.
 
 Data de acesso de todas as fontes: 8 de outubro de 2026. Boa parte da ajuda do Booksy e da Playtomic é de centrais de outros países (EUA, Reino Unido, Portugal); isso está sinalizado onde importa.
 
@@ -154,4 +154,4 @@ O que tentei verificar e não entrou (ou entrou sem o detalhe):
 - **Indicadores do Reclame Aqui (nota, % resolvidas, contagem por categoria):** os trechos mostravam versões diferentes da página com números que não batem; citei apenas reclamações específicas.
 - **Trinks: número de estabelecimentos atendidos:** páginas da própria empresa citam números diferentes; não usei.
 - **Trinks: lembrete por SMS ("Lembrete Premium"):** apareceu num resumo de busca, mas não confirmei no artigo específico.
-- **AgendaPro, Fresha, Avec, Simples Agenda e Gendo:** não entraram. A AgendaPro tem material sobre agendamento por link e lembretes por WhatsApp, mas as páginas com caminho /br/ estavam em espanhol e não achei detalhes específicos do Brasil; as demais não foram pesquisadas a fundo porque os domínios estavam bloqueados.
+- **AgendaPro, Fresha, Avec, Simples Agenda e Gendo:** não entraram. A AgendaPro tem material sobre agendamento por link e lembretes por WhatsApp, mas as páginas com caminho /br/ estavam em espanhol e a busca não trouxe detalhes específicos do Brasil; as demais não foram pesquisadas a fundo.

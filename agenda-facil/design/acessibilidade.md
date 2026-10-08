@@ -2,7 +2,7 @@
 
 Meta: **WCAG 2.2, nível AA**, desde o protótipo. Prefiro decidir isso no design a corrigir depois no código.
 
-## Como verifiquei
+## Como foi verificado
 
 | Verificação | Ferramenta | Resultado |
 |---|---|---|
@@ -12,7 +12,7 @@ Meta: **WCAG 2.2, nível AA**, desde o protótipo. Prefiro decidir isso no desig
 | Ordem de foco com Tab | Script aperta Tab e anota cada parada (lista abaixo) | Segue a ordem visual |
 | Tela de 320 px (equivale a zoom de 400%) | Script compara a largura da página com a da tela | 12 de 12 páginas sem rolagem lateral (2 corrigidas na hora) |
 
-O que **ainda não** verifiquei: navegação real com leitor de tela (NVDA no Windows, TalkBack no Android, VoiceOver no iPhone). Ferramenta automática pega só uma parte dos problemas.
+O que **ainda não** foi verificado: navegação real com leitor de tela (NVDA no Windows, TalkBack no Android, VoiceOver no iPhone). Ferramenta automática pega só uma parte dos problemas.
 TODO(Beatriz): fazer o fluxo do cliente inteiro com o TalkBack ligado e anotar o que for estranho.
 
 ---

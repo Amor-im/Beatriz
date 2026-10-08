@@ -4,6 +4,8 @@ Este arquivo é o meu roteiro para explicar o projeto numa entrevista. Para cada
 
 Por enquanto cobre a Parte 1 (o case de UX e o protótipo). A Parte 2 (o produto full stack) entra aqui quando começar.
 
+**Como este arquivo foi feito.** Foi rascunhado com um assistente de IA (Claude Code), como o resto do case. Onde algo foi achado ou feito pela IA, está escrito assim, com um jeito de eu refazer sozinha. Só conto como meu numa entrevista o que eu refiz.
+
 > TODO(Beatriz): ler tudo em voz alta e reescrever com as suas palavras o que soar artificial. Numa entrevista, vale mais a sua explicação do que uma frase decorada.
 
 ---
@@ -36,7 +38,7 @@ Ideia da resposta: perguntar sobre comportamento real e recente, não sobre inte
 
 **O que é.** Comparar como outros apps resolvem o mesmo problema.
 
-**Por que usei.** Para não reinventar o óbvio e achar onde os concorrentes deixam a desejar. Coloquei a fonte em cada linha porque é fácil "lembrar" de um recurso que o app nem tem. No ambiente onde montei o rascunho, os sites não abriam direto, então conferi cada afirmação no trecho da busca e guardei esses trechos num apêndice.
+**Por que usei.** Para não reinventar o óbvio e achar onde os concorrentes deixam a desejar. Coloquei a fonte em cada linha porque é fácil "lembrar" de um recurso que o app nem tem. Os sites não foram abertos: cada afirmação foi conferida só no trecho que a busca devolveu, e esses trechos estão num apêndice. Abrir cada link ainda é um TODO meu.
 
 **Onde.** `design/pesquisa/benchmark.md` e `benchmark-evidencias.md`.
 
@@ -47,7 +49,9 @@ Ideia da resposta: que todos pedem algum cadastro do cliente e que remarcar rara
 
 **O que é.** Uma lista de 10 princípios de usabilidade (mostrar o status do sistema, prevenir erros, deixar desfazer...). A pessoa avalia cada tela com a lista e dá uma nota.
 
-**Por que usei.** Para criticar meus próprios wireframes com método, não só "achei feio". Achei 12 problemas, e os mais graves foram corrigidos na versão de alta fidelidade.
+**Por que usei.** Para criticar wireframes com método, não só "achei feio". A v1 foi feita ingênua de propósito e avaliada com o assistente de IA: saíram 12 problemas, e os mais graves foram corrigidos na versão de alta fidelidade.
+
+**Como refazer sozinha.** Avaliar a v1 com a lista antes de ler a avaliação da IA e comparar o que cada uma achou.
 
 **Onde.** `design/avaliacao-heuristica.md`.
 
@@ -142,20 +146,22 @@ Ideia da resposta: o estado do fluxo é pequeno e pertence àquela navegação. 
 **Onde.** `design/prototipo/cliente/dados.html` e `js/cliente.js`.
 
 **Pergunta para treinar.** *"Quando você mostra o erro de um campo?"*
-Ideia da resposta: quando a pessoa sai do campo, não a cada tecla. Depois que o erro apareceu, ele some assim que ela corrige. E tem uma exceção, que eu aprendi com um bug (próximo item).
+Ideia da resposta: quando a pessoa sai do campo, não a cada tecla. Depois que o erro apareceu, ele some assim que ela corrige. E tem uma exceção, que veio de um bug (próximo item).
 
 ### 13. O bug do botão que fugia do dedo
 
 **O que é.** Ao tocar em "Confirmar agendamento" com o WhatsApp pela metade, o campo perdia o foco, a mensagem de erro aparecia, o botão descia uns pixels e o toque caía fora dele. Nada acontecia.
 
-**Como achei.** O script de prints tentou exatamente isso e o resultado veio errado. Investigando, vi que o clique nunca chegava ao botão.
+**Como foi achado.** O script de prints, escrito pelo assistente de IA, tentou exatamente isso e o resultado veio errado. Investigando, a IA viu que o clique nunca chegava ao botão.
 
-**Como resolvi.** Quando a pessoa encosta no botão (`pointerdown`, que acontece antes do campo perder o foco), eu marco que ela está indo enviar. Nesse caso, a validação do campo espera o envio, que mostra todos os erros de uma vez. Deixei um teste para o bug não voltar.
+**Como foi resolvido.** Quando a pessoa encosta no botão (`pointerdown`, que acontece antes do campo perder o foco), o código marca que ela está indo enviar. Nesse caso, a validação do campo espera o envio, que mostra todos os erros de uma vez. Ficou um teste para o bug não voltar.
+
+**Como refazer sozinha.** Apagar a linha `botao.addEventListener('pointerdown', ...)` em `js/cliente.js`, rodar `npm run verificar` e ver o fluxo do cliente falhar. Depois, desfazer a mudança com `git checkout` e ver o teste passar de novo. Depois, no celular, abrir `cliente/dados.html`, digitar meio WhatsApp e tocar em "Confirmar agendamento".
 
 **Onde.** `js/cliente.js` (busque `indoEnviar`) e `ferramentas/verificar.mjs`.
 
-**Pergunta para treinar.** *"Me conta um bug que você encontrou e como resolveu."*
-Ideia da resposta: esta história inteira. Mostra que eu testo, investigo a causa (mudança de layout no meio do clique) e não só o sintoma.
+**Pergunta para treinar.** *"Como um teste automático pode achar um bug de interface?"*
+Ideia da resposta: este caso. O script fez o caminho de uma pessoa de verdade e mostrou um toque que se perdia por causa de uma mudança de layout no meio do clique. Só conto como "um bug que eu encontrei" depois de reproduzir sozinha; antes disso, digo que o script e o assistente acharam.
 
 ### 14. Janelas com o elemento `<dialog>`
 
@@ -205,7 +211,9 @@ Ideia da resposta: o texto aparece logo com uma fonte do sistema e troca quando 
 
 **O que é.** A WCAG define uma fórmula de contraste entre duas cores (baseada na luminância de cada uma). AA pede 4,5:1 para texto normal e 3:1 para borda de controle.
 
-**Por que usei.** Calculei cada par usado e descobri, por exemplo, que o verde marca-texto tem 1,23:1 sobre branco. Por isso ele nunca é texto, só fundo atrás do texto escuro (14:1).
+**Por que usei.** Cada par usado foi calculado (a tabela está no design system). Por exemplo, o verde marca-texto tem 1,23:1 sobre branco. Por isso ele nunca é texto, só fundo atrás do texto escuro (14:1).
+
+**Como refazer sozinha.** Conferir dois ou três pares num verificador de contraste (o do WebAIM, por exemplo) e ver se bate com a tabela.
 
 **Onde.** Tabela em `design/design-system.md`.
 
@@ -243,7 +251,7 @@ Ideia da resposta: não. Ela pega uma parte dos problemas (contraste, rótulo fa
 **Onde.** `design/fluxos.md`, `design/arquitetura-informacao.md`.
 
 **Pergunta para treinar.** *"Por que desenhar o fluxo antes da tela?"*
-Ideia da resposta: o fluxo mostra os caminhos de erro (dia lotado, horário ocupado no último segundo) que a tela bonita esconde. Foi desenhando o fluxo que eu percebi que precisava da tela "horário acabou de ser reservado".
+Ideia da resposta: o fluxo mostra os caminhos de erro (dia lotado, horário ocupado no último segundo) que a tela bonita esconde. Neste projeto, foi o fluxo que mostrou a necessidade da tela "horário acabou de ser reservado".
 
 ### 22. WhatsApp pelo link `wa.me`, sem API
 
