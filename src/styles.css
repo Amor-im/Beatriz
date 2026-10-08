@@ -1,15 +1,74 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
+/* =========================================================
+   Vitrine: tokens de design e estilos globais
+   Os componentes usam só estas variáveis (cor, espaço, raio, sombra).
+   ========================================================= */
+
+:root {
+  /* Cores */
+  --cor-tinta: #14201c; /* texto principal */
+  --cor-tinta-suave: #4a5a54; /* texto secundário (7:1 sobre branco) */
+  --cor-vitrine: #0f5c4d; /* verde da marca: botões, links, foco */
+  --cor-vitrine-escura: #0a4337;
+  --cor-vidro: #e7f0ec; /* fundo "de vidro" atrás das fotos */
+  --cor-etiqueta: #f6c445; /* amarelo das etiquetas de preço */
+  --cor-papel: #f7f9f8; /* fundo da página */
+  --cor-superficie: #ffffff;
+  --cor-linha: #d3dfda;
+  --cor-linha-forte: #7d968d; /* bordas de campos (3:1 sobre branco) */
+  --cor-erro: #b42318;
+  --cor-erro-fundo: #fef3f2;
+  --cor-aviso-fundo: #fff6dc;
+
+  /* Tipografia */
+  --fonte-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --fonte-texto: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --texto-pequeno: 0.875rem;
+  --texto-base: 1rem;
+  --texto-medio: 1.25rem;
+  --texto-grande: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+
+  /* Espaços: 8 / 16 / 24 / 40 / 64 */
+  --espaco-1: 8px;
+  --espaco-2: 16px;
+  --espaco-3: 24px;
+  --espaco-4: 40px;
+  --espaco-5: 64px;
+
+  /* Forma */
+  --raio: 12px;
+  --raio-pequeno: 8px;
+  --raio-pilula: 999px;
+  --sombra: 0 1px 2px rgb(20 32 28 / 0.06), 0 8px 24px -12px rgb(20 32 28 / 0.2);
+  --sombra-elevada: 0 16px 40px -16px rgb(20 32 28 / 0.35);
+
+  /* Layout e interação */
+  --largura-maxima: 1200px;
+  --alvo-toque: 44px;
+  --transicao: 160ms ease;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: #f9fafb;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cor-papel);
+  color: var(--cor-tinta);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  line-height: 1.5;
 }
 
 app-root {
@@ -18,8 +77,292 @@ app-root {
   flex: 1;
 }
 
-app-footer {
-  margin-top: auto;
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--fonte-display);
+  font-stretch: 112%;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--cor-vitrine);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--cor-vitrine-escura);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-vitrine);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Utilitários ---------- */
+
+.largura-pagina {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin-inline: auto;
+  padding-inline: var(--espaco-2);
+}
+
+@media (min-width: 768px) {
+  .largura-pagina {
+    padding-inline: var(--espaco-3);
+  }
+}
+
+.apenas-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sobretitulo {
+  font-family: var(--fonte-display);
+  font-stretch: 125%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-tinta-suave);
+}
+
+/* ---------- Botões ---------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-1);
+  min-height: var(--alvo-toque);
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: var(--raio-pilula);
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao),
+    border-color var(--transicao),
+    color var(--transicao);
+}
+
+.botao svg {
+  flex-shrink: 0;
+}
+
+.botao--primario {
+  background: var(--cor-vitrine);
   color: #fff;
-  text-align: center;
+}
+
+.botao--primario:hover {
+  background: var(--cor-vitrine-escura);
+  color: #fff;
+}
+
+.botao--secundario {
+  background: var(--cor-superficie);
+  border-color: var(--cor-vitrine);
+  color: var(--cor-vitrine);
+}
+
+.botao--secundario:hover {
+  background: var(--cor-vidro);
+  color: var(--cor-vitrine-escura);
+}
+
+.botao--texto {
+  background: transparent;
+  color: var(--cor-vitrine);
+  padding-inline: 12px;
+}
+
+.botao--texto:hover {
+  background: var(--cor-vidro);
+}
+
+.botao--largo {
+  width: 100%;
+}
+
+.botao:disabled,
+.botao[aria-disabled='true'] {
+  background: #e3e8e6;
+  border-color: transparent;
+  color: #5d6b66;
+  cursor: not-allowed;
+}
+
+/* ---------- Campos de formulário ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo__rotulo {
+  font-weight: 700;
+}
+
+.campo__opcional {
+  font-weight: 400;
+  color: var(--cor-tinta-suave);
+}
+
+.campo__dica {
+  font-size: var(--texto-pequeno);
+  color: var(--cor-tinta-suave);
+}
+
+.campo__controle {
+  width: 100%;
+  min-height: var(--alvo-toque);
+  padding: 10px 12px;
+  border: 1.5px solid var(--cor-linha-forte);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  transition: border-color var(--transicao);
+}
+
+.campo__controle:hover {
+  border-color: var(--cor-tinta-suave);
+}
+
+.campo__controle:focus-visible {
+  outline-offset: 0;
+  border-color: var(--cor-vitrine);
+}
+
+textarea.campo__controle {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.campo__controle[aria-invalid='true'] {
+  border-color: var(--cor-erro);
+}
+
+.campo__erro {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  font-size: var(--texto-pequeno);
+  font-weight: 700;
+  color: var(--cor-erro);
+}
+
+.campo__erro::before {
+  content: '!';
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--cor-erro);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+/* ---------- Cartão (superfície) ---------- */
+
+.cartao {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+}
+
+/* ---------- Aviso em faixa ---------- */
+
+.aviso {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-1) var(--espaco-2);
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--espaco-2);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-aviso-fundo);
+  border: 1px solid #ecd48a;
+  font-size: var(--texto-pequeno);
+}
+
+.aviso--erro {
+  background: var(--cor-erro-fundo);
+  border-color: #f4c7c3;
+}
+
+.aviso--sucesso {
+  background: var(--cor-vidro);
+  border-color: #a9c7bc;
+}
+
+/* Na página do carrinho (celular), os avisos sobem para não cobrir a barra fixa do total. */
+@media (max-width: 899px) {
+  body:has(.barra-fixa) .toasts {
+    bottom: 96px;
+  }
+}
+
+/* ---------- Esqueleto de carregamento ---------- */
+
+.esqueleto {
+  background: linear-gradient(90deg, #e6ecea 0%, #f1f5f3 50%, #e6ecea 100%);
+  background-size: 200% 100%;
+  border-radius: var(--raio-pequeno);
+  animation: esqueleto-brilho 1.4s ease-in-out infinite;
+}
+
+@keyframes esqueleto-brilho {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
 }
