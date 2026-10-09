@@ -1,12 +1,21 @@
 # ESTUDO.md · as decisões do Agenda Fácil, explicadas por mim
 
-Este arquivo é o meu roteiro para explicar o projeto numa entrevista. Para cada decisão: **o que é**, **por que usei aqui**, **onde está** e **uma pergunta para treinar** (com a ideia principal da resposta).
+Este arquivo é o meu roteiro para explicar o projeto numa entrevista. Para cada decisão: **o que é**, **por que usei aqui**, **onde está** e **uma pergunta para treinar**. As respostas ficam fora do repositório: numa entrevista, vale a minha explicação, não uma frase decorada.
 
 Por enquanto cobre a Parte 1 (o case de UX e o protótipo). A Parte 2 (o produto full stack) entra aqui quando começar.
 
 **Como este arquivo foi feito.** Foi rascunhado com um assistente de IA (Claude Code), como o resto do case. Onde algo foi achado ou feito pela IA, está escrito assim, com um jeito de eu refazer sozinha. Só conto como meu numa entrevista o que eu refiz.
 
-> TODO(Beatriz): ler tudo em voz alta e reescrever com as suas palavras o que soar artificial. Numa entrevista, vale mais a sua explicação do que uma frase decorada.
+<!-- TODO(Beatriz): ler tudo em voz alta e reescrever com as minhas palavras o que soar artificial. -->
+
+## Como uso IA neste projeto (proposta)
+
+<!-- TODO(Beatriz): decidir esta regra e reescrevê-la com as minhas palavras. -->
+
+- **Faço sozinha:** as entrevistas e a síntese, o texto final do case, a avaliação heurística refeita, a reprodução do bug do botão, os dois achados em aberto da avaliação e a explicação do projeto em 3 minutos.
+- **A IA pode ajudar a:** explicar um conceito, revisar o que eu escrevi, sugerir casos de teste e revisar código.
+- **Nos commits:** o que foi feito com ajuda de IA leva a linha `Co-Authored-By`; o que eu fiz sozinha não leva.
+- **Na entrevista:** só conto como meu o que eu fiz ou refiz.
 
 ---
 
@@ -21,7 +30,6 @@ Por enquanto cobre a Parte 1 (o case de UX e o protótipo). A Parte 2 (o produto
 **Onde.** `design/pesquisa/proto-personas.md` e `design/pesquisa/hipoteses.md`.
 
 **Pergunta para treinar.** *"Como você criou as personas do projeto?"*
-Ideia da resposta: não criei personas, criei proto-personas, e explico a diferença. Cada uma está marcada como hipótese e ligada às perguntas de entrevista que vão confirmar ou derrubar o que eu supus. Mostra que eu sei separar suposição de dado.
 
 ### 2. Perguntas sobre o passado na entrevista
 
@@ -32,18 +40,16 @@ Ideia da resposta: não criei personas, criei proto-personas, e explico a difere
 **Onde.** `design/pesquisa/roteiro-entrevista.md`.
 
 **Pergunta para treinar.** *"Como você evita viés numa entrevista com usuário?"*
-Ideia da resposta: perguntar sobre comportamento real e recente, não sobre intenção; não mostrar o protótipo na entrevista; não completar a frase da pessoa; anotar a citação exata.
 
 ### 3. Benchmark só com fonte pública
 
 **O que é.** Comparar como outros apps resolvem o mesmo problema.
 
-**Por que usei.** Para não reinventar o óbvio e achar onde os concorrentes deixam a desejar. Coloquei a fonte em cada linha porque é fácil "lembrar" de um recurso que o app nem tem. Os sites não foram abertos: cada afirmação foi conferida só no trecho que a busca devolveu, e esses trechos estão num apêndice. Abrir cada link ainda é um TODO meu.
+**Por que usei.** Para não reinventar o óbvio e achar onde os concorrentes deixam a desejar. Coloquei a fonte em cada linha porque é fácil "lembrar" de um recurso que o app nem tem. Os sites não foram abertos: cada afirmação foi conferida só no trecho que a busca devolveu, e esses trechos estão num apêndice. Abrir cada link ainda é uma tarefa minha.
 
 **Onde.** `design/pesquisa/benchmark.md` e `benchmark-evidencias.md`.
 
 **Pergunta para treinar.** *"O que você aprendeu com os concorrentes?"*
-Ideia da resposta: que todos pedem algum cadastro do cliente e que remarcar raramente é simples. Por isso o Agenda Fácil não pede conta e tem "Meu horário" no link do comprovante. E que benchmark diz o que o mercado oferece, não o que o usuário precisa: isso só a entrevista responde.
 
 ### 4. Avaliação heurística (as 10 heurísticas de Nielsen)
 
@@ -56,7 +62,6 @@ Ideia da resposta: que todos pedem algum cadastro do cliente e que remarcar rara
 **Onde.** `design/avaliacao-heuristica.md`.
 
 **Pergunta para treinar.** *"Avaliação heurística substitui teste com usuário?"*
-Ideia da resposta: não. Ela pega problemas óbvios de forma barata, mas é a opinião de quem avalia. O ideal são 3 a 5 avaliadores, e depois teste com usuário de verdade. Por isso deixei o roteiro do teste pronto.
 
 ### 5. MoSCoW e histórias de usuário
 
@@ -67,7 +72,6 @@ Ideia da resposta: não. Ela pega problemas óbvios de forma barata, mas é a op
 **Onde.** `design/requisitos.md`.
 
 **Pergunta para treinar.** *"Como você decidiu o que entra no MVP?"*
-Ideia da resposta: Must é o que fecha o ciclo "cliente marca, dono vê, ninguém fica com o mesmo horário". O resto entra depois, e cada Won't tem o motivo escrito.
 
 ### 6. Menos passos: "escolher já avança"
 
@@ -78,7 +82,6 @@ Ideia da resposta: Must é o que fecha o ciclo "cliente marca, dono vê, ningué
 **Onde.** `design/prototipo/cliente/` e a tabela de fricção em `design/avaliacao-heuristica.md`.
 
 **Pergunta para treinar.** *"Tirar o botão 'Próximo' não deixa o usuário inseguro?"*
-Ideia da resposta: pode deixar, e por isso é uma das coisas que o teste de usabilidade observa (tarefa 2). A defesa no design é o resumo antes de confirmar.
 
 ### 7. Cliente sem conta, identificado pelo WhatsApp
 
@@ -87,7 +90,6 @@ Ideia da resposta: pode deixar, e por isso é uma das coisas que o teste de usab
 **Por que usei.** Criar conta para cortar o cabelo é atrito (hipótese H5), e os apps do benchmark pedem cadastro. O link funciona como uma "chave" do agendamento.
 
 **Pergunta para treinar.** *"E se alguém marcar com um número falso?"*
-Ideia da resposta: é o risco dessa escolha (hipótese H6). O dono pode pedir confirmação pelo WhatsApp com um toque e marcar quem confirmou; se as entrevistas mostrarem que isso não basta, "aprovar cada pedido" e "sinal por Pix" estão no backlog como Could.
 
 ---
 
@@ -102,7 +104,6 @@ Ideia da resposta: é o risco dessa escolha (hipótese H6). O dono pode pedir co
 **Onde.** `design/prototipo/`.
 
 **Pergunta para treinar.** *"Por que não fez o protótipo só no Figma?"*
-Ideia da resposta: Figma é ótimo para explorar e mostrar; HTML me deixa testar com teclado, leitor de tela e celular de verdade, e os tokens e componentes já servem de base para o código.
 
 ### 9. Tokens em variáveis CSS
 
@@ -113,7 +114,6 @@ Ideia da resposta: Figma é ótimo para explorar e mostrar; HTML me deixa testar
 **Onde.** `design/prototipo/estilos/tokens.css`.
 
 **Pergunta para treinar.** *"O que é um design token?"*
-Ideia da resposta: é uma decisão de design com nome (cor, espaço, fonte) guardada num lugar só. Design e código usam o mesmo nome, então "a cor de ação" é a mesma coisa no Figma e no CSS.
 
 ### 10. Mostrar o dia escolhido só com CSS (`:has()`)
 
@@ -124,7 +124,6 @@ Ideia da resposta: é uma decisão de design com nome (cor, espaço, fonte) guar
 **Onde.** `design/prototipo/estilos/telas.css` (busque por `horarios-do-dia`).
 
 **Pergunta para treinar.** *"Por que rádio e não botões comuns para os dias?"*
-Ideia da resposta: escolher um dia entre vários é exatamente o que um grupo de rádios faz. O navegador já resolve teclado, foco e o que o leitor de tela anuncia (qual dia está marcado e quantos são).
 
 ### 11. As escolhas viajam no endereço da página
 
@@ -135,7 +134,6 @@ Ideia da resposta: escolher um dia entre vários é exatamente o que um grupo de
 **Onde.** `design/prototipo/js/cliente.js`, parte 1.
 
 **Pergunta para treinar.** *"Por que não usar localStorage?"*
-Ideia da resposta: o estado do fluxo é pequeno e pertence àquela navegação. Na URL ele é visível, compartilhável e não fica "preso" no navegador depois.
 
 ### 12. Validação de formulário acessível
 
@@ -146,7 +144,6 @@ Ideia da resposta: o estado do fluxo é pequeno e pertence àquela navegação. 
 **Onde.** `design/prototipo/cliente/dados.html` e `js/cliente.js`.
 
 **Pergunta para treinar.** *"Quando você mostra o erro de um campo?"*
-Ideia da resposta: quando a pessoa sai do campo, não a cada tecla. Depois que o erro apareceu, ele some assim que ela corrige. E tem uma exceção, que veio de um bug (próximo item).
 
 ### 13. O bug do botão que fugia do dedo
 
@@ -161,7 +158,6 @@ Ideia da resposta: quando a pessoa sai do campo, não a cada tecla. Depois que o
 **Onde.** `js/cliente.js` (busque `indoEnviar`) e `ferramentas/verificar.mjs`.
 
 **Pergunta para treinar.** *"Como um teste automático pode achar um bug de interface?"*
-Ideia da resposta: este caso. O script fez o caminho de uma pessoa de verdade e mostrou um toque que se perdia por causa de uma mudança de layout no meio do clique. Só conto como "um bug que eu encontrei" depois de reproduzir sozinha; antes disso, digo que o script e o assistente acharam.
 
 ### 14. Janelas com o elemento `<dialog>`
 
@@ -172,7 +168,6 @@ Ideia da resposta: este caso. O script fez o caminho de uma pessoa de verdade e 
 **Onde.** Janelas de cancelar, bloquear e novo agendamento em `design/prototipo/painel/agenda.html`; abrir e fechar em `js/comum.js`.
 
 **Pergunta para treinar.** *"O que uma janela modal precisa ter para ser acessível?"*
-Ideia da resposta: foco vai para dentro ao abrir, fica preso nela, Esc fecha, o foco volta para quem abriu, e ela tem um título ligado por `aria-labelledby`. O `<dialog>` dá quase tudo isso pronto.
 
 ### 15. Toast com `role="status"` e "Desfazer"
 
@@ -183,7 +178,6 @@ Ideia da resposta: foco vai para dentro ao abrir, fica preso nela, Esc fecha, o 
 **Onde.** `js/comum.js`, função `mostrarToast`.
 
 **Pergunta para treinar.** *"Confirmação ou desfazer: quando usar cada um?"*
-Ideia da resposta: desfazer para ações reversíveis e frequentes; confirmação quando a ação tem efeito fora do sistema (avisar o cliente) ou não dá para voltar.
 
 ### 16. Ícones como máscara CSS
 
@@ -194,7 +188,6 @@ Ideia da resposta: desfazer para ações reversíveis e frequentes; confirmaçã
 **Onde.** `design/prototipo/estilos/icones.css`.
 
 **Pergunta para treinar.** *"Por que o ícone tem `aria-hidden`?"*
-Ideia da resposta: porque o texto ao lado já diz o que é. Se o ícone fosse lido, o leitor de tela falaria duas vezes. Botão só com ícone leva `aria-label`.
 
 ### 17. Fontes no próprio projeto
 
@@ -205,7 +198,6 @@ Ideia da resposta: porque o texto ao lado já diz o que é. Se o ícone fosse li
 **Onde.** `design/prototipo/estilos/tokens.css` (início) e `prototipo/fontes/LICENCAS.txt`.
 
 **Pergunta para treinar.** *"Para que serve `font-display: swap`?"*
-Ideia da resposta: o texto aparece logo com uma fonte do sistema e troca quando a fonte do projeto carrega, em vez de ficar invisível esperando.
 
 ### 18. Contraste calculado, não "no olho"
 
@@ -218,7 +210,6 @@ Ideia da resposta: o texto aparece logo com uma fonte do sistema e troca quando 
 **Onde.** Tabela em `design/design-system.md`.
 
 **Pergunta para treinar.** *"Como você garante que um texto é legível?"*
-Ideia da resposta: contraste AA calculado, texto de 16 px nos campos, uma fonte feita para legibilidade e nada que dependa só de cor.
 
 ### 19. Alvos de toque de 44 px
 
@@ -229,7 +220,6 @@ Ideia da resposta: contraste AA calculado, texto de 16 px nos campos, uma fonte 
 **Onde.** `--alvo-minimo` em `tokens.css`; o script mede.
 
 **Pergunta para treinar.** *"Link no meio de um texto também precisa ter 44 px?"*
-Ideia da resposta: a WCAG deixa de fora links dentro de uma frase, porque aumentar a área deles quebraria o texto. Meu script segue essa regra.
 
 ### 20. Playwright e axe-core para verificar
 
@@ -240,7 +230,6 @@ Ideia da resposta: a WCAG deixa de fora links dentro de uma frase, porque aument
 **Onde.** `design/ferramentas/` (`npm run verificar`, `npm run telas`).
 
 **Pergunta para treinar.** *"Ferramenta automática garante acessibilidade?"*
-Ideia da resposta: não. Ela pega uma parte dos problemas (contraste, rótulo faltando, ARIA errado). Ordem de foco faz sentido? O leitor de tela fala algo compreensível? Isso precisa de teste manual, e está na minha lista de TODO.
 
 ### 21. Fluxos em Mermaid
 
@@ -251,7 +240,6 @@ Ideia da resposta: não. Ela pega uma parte dos problemas (contraste, rótulo fa
 **Onde.** `design/fluxos.md`, `design/arquitetura-informacao.md`.
 
 **Pergunta para treinar.** *"Por que desenhar o fluxo antes da tela?"*
-Ideia da resposta: o fluxo mostra os caminhos de erro (dia lotado, horário ocupado no último segundo) que a tela bonita esconde. Neste projeto, foi o fluxo que mostrou a necessidade da tela "horário acabou de ser reservado".
 
 ### 22. WhatsApp pelo link `wa.me`, sem API
 
@@ -262,7 +250,6 @@ Ideia da resposta: o fluxo mostra os caminhos de erro (dia lotado, horário ocup
 **Onde.** `js/cliente.js` (comprovante) e a ação "Pedir confirmação" no painel.
 
 **Pergunta para treinar.** *"Por que o lembrete automático não está no MVP?"*
-Ideia da resposta: porque depende de um serviço pago e eu ainda não sei se o problema das faltas é grande (hipótese H3). Primeiro entrevisto; o `wa.me` resolve sem custo enquanto isso.
 
 ### 23. Arquivo `.ics` para salvar na agenda do celular
 
@@ -273,7 +260,6 @@ Ideia da resposta: porque depende de um serviço pago e eu ainda não sei se o p
 **Onde.** `js/cliente.js`, parte 4: o arquivo é montado no navegador com `Blob`.
 
 **Pergunta para treinar.** *"Por que o horário no .ics tem o fuso de São Paulo?"*
-Ideia da resposta: o horário é do negócio. Se o cliente estiver em outro fuso, o celular converte certo. Isso também está nos requisitos (N-04).
 
 ### 24. Dois clientes no mesmo horário (para a Parte 2)
 
@@ -284,7 +270,6 @@ Ideia da resposta: o horário é do negócio. Se o cliente estiver em outro fuso
 **Onde.** `design/prototipo/cliente/horario-ocupado.html` e o requisito N-05.
 
 **Pergunta para treinar.** *"Validar na tela não basta?"*
-Ideia da resposta: não. As duas telas podem mostrar o horário livre no mesmo segundo. Quem decide é o servidor, e de preferência com uma regra no próprio banco.
 
 ### 25. Variáveis e componentes no Figma
 
@@ -295,4 +280,3 @@ Ideia da resposta: não. As duas telas podem mostrar o horário livre no mesmo s
 **Onde.** No arquivo "Agenda Fácil · Case UX", página "Wireframes · UI", seção do design system.
 
 **Pergunta para treinar.** *"Qual a diferença entre variante e propriedade de componente?"*
-Ideia da resposta: variante é para tipos e estados que mudam o desenho (principal, secundário, foco, erro); propriedade é para o que muda de um uso para outro (o texto, um ícone ligado ou desligado). Assim o botão é um componente só, e não vinte cópias.
