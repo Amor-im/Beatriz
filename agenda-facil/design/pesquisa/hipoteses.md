@@ -1,7 +1,10 @@
 # Hipóteses e como validar cada uma
 
 > **Status geral: nenhuma hipótese validada ainda.** Todas vêm da minha suposição, não de pesquisa com usuário.
-> TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes, e rodar o teste de usabilidade com o protótipo. Depois, trocar o status de cada linha.
+
+<!-- TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes, e rodar o teste de usabilidade com o protótipo. Depois, trocar o status de cada linha. -->
+
+**Validar primeiro H1 e H7.** Se H1 cair, o produto perde o motivo de existir; se H7 se confirmar, o painel deixa de ser pensado primeiro para o computador. As duas se checam nas primeiras entrevistas com donos (perguntas D2, D3, D8 e D10).
 
 Uso três status: **não validada** (ainda não testei), **confirmada** e **refutada**. Uma hipótese só muda de status com evidência anotada na [planilha de síntese](sintese.csv) ou no relatório do [teste de usabilidade](../testes-usabilidade.md).
 
