@@ -1,7 +1,8 @@
 # Roteiro de entrevista
 
 > **Status: entrevistas ainda não feitas.**
-> TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes.
+
+<!-- TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes. -->
 
 ## Objetivo
 
@@ -15,7 +16,8 @@ Entender como pequenos negócios de serviço marcam horário **hoje** e onde iss
 | Clientes | 3 | Pessoas que marcaram horário em algum desses lugares nos últimos 2 meses. |
 
 **Caso real:** se o cliente do meu freela tiver um negócio de serviço, ele é um ótimo primeiro entrevistado (Dono A). Não escrevo o nome dele, nem do negócio, em nenhum arquivo até ele autorizar por escrito.
-TODO(Beatriz): perguntar ao cliente do freela se ele topa participar e se autoriza citar o negócio no case.
+
+<!-- TODO(Beatriz): perguntar ao cliente do freela se ele topa participar e se autoriza citar o negócio no case. -->
 
 **Cuidado com o viés:** quem já tem relação comigo (como o cliente do freela, ou amigos) tende a responder com educação. Por isso: entrevista primeiro e protótipo só no fim, nunca o contrário; na síntese, anotar quais participantes são conhecidos; e "nada mudou" também é um resultado válido, que vai para o case do jeito que veio.
 

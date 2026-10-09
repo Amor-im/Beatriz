@@ -1,7 +1,8 @@
 # Teste de usabilidade
 
 > **Status: roteiro pronto, teste ainda não feito. Nenhum resultado abaixo é real.**
-> TODO(Beatriz): rodar o teste com 5 pessoas (3 clientes e 2 donos de negócio) e preencher a seção "Resultados".
+
+<!-- TODO(Beatriz): rodar o teste com 5 pessoas (3 clientes e 2 donos de negócio) e preencher a seção "Resultados". -->
 
 ## Objetivo
 
@@ -92,14 +93,18 @@ Para comparar entre as pessoas, peço também uma nota de 1 a 7 para "Foi fácil
 
 ## Resultados
 
-TODO(Beatriz): preencher depois do teste. Não preencher com estimativa.
+O teste ainda não foi feito.
+
+<!-- TODO(Beatriz): preencher depois do teste. Não preencher com estimativa. -->
 
 | Tarefa | Sucesso (de 5) | Tempo médio | Nota SEQ média | Principais problemas |
 |---|---|---|---|---|
-| 1. Marcar | TODO | TODO | TODO | TODO |
-| 2. Corrigir escolha | TODO | TODO | TODO | TODO |
-| 3. Cancelar | TODO | TODO | TODO | TODO |
-| 4. Confirmar e cancelar (dono) | TODO | TODO | TODO | TODO |
-| 5. Bloquear (dono) | TODO | TODO | TODO | TODO |
+| 1. Marcar | a preencher | a preencher | a preencher | a preencher |
+| 2. Corrigir escolha | a preencher | a preencher | a preencher | a preencher |
+| 3. Cancelar | a preencher | a preencher | a preencher | a preencher |
+| 4. Confirmar e cancelar (dono) | a preencher | a preencher | a preencher | a preencher |
+| 5. Bloquear (dono) | a preencher | a preencher | a preencher | a preencher |
 
-**O que mudou no design por causa do teste:** TODO(Beatriz).
+**O que mudou no design por causa do teste:** ainda não há teste.
+
+<!-- TODO(Beatriz): contar o que mudou no design por causa do teste. -->

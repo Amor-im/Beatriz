@@ -1,9 +1,9 @@
 # Proto-personas
 
 > **Hipótese, validar em entrevista.**
-> Nenhuma das duas pessoas abaixo existe. Escrevi estas proto-personas com o que eu *acho* que sei sobre quem usa agendamento em pequenos negócios de serviço, para ter um ponto de partida e saber o que perguntar. Cada crença tem uma pergunta do [roteiro de entrevista](roteiro-entrevista.md) que a testa. Depois das entrevistas, o que for confirmado vira persona, e o que não for confirmado sai daqui.
->
-> TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes e reescrever este arquivo com o que ouvir.
+> Nenhuma das duas pessoas abaixo existe. Estas proto-personas foram escritas com suposições sobre quem usa agendamento em pequenos negócios de serviço, para ter um ponto de partida e saber o que perguntar. Cada crença tem uma pergunta do [roteiro de entrevista](roteiro-entrevista.md) que a testa. Depois das entrevistas, o que for confirmado vira persona, e o que não for confirmado sai daqui.
+
+<!-- TODO(Beatriz): entrevistar 3 donos de negócio e 3 clientes e reescrever este arquivo com o que ouvir. -->
 
 Os nomes são fictícios e não têm foto de propósito: foto de banco de imagem faz uma suposição parecer gente de verdade.
 
@@ -64,4 +64,4 @@ Os nomes são fictícios e não têm foto de propósito: foto de banco de imagem
 
 Suspeito que quadra funciona diferente de salão: o cliente aluga **a quadra por hora** (não escolhe profissional), muitas vezes **toda semana no mesmo horário** (os "mensalistas") e marca **em grupo**. Por isso o passo "profissional" do fluxo foi pensado como um passo genérico ("com quem" ou "onde"), que o dono pode renomear para "quadra" ou desligar.
 
-TODO(Beatriz): incluir pelo menos 1 dono de quadra ou espaço esportivo entre as entrevistas, se conseguir.
+<!-- TODO(Beatriz): incluir pelo menos 1 dono de quadra ou espaço esportivo entre as entrevistas, se conseguir. -->

@@ -1,7 +1,8 @@
 # Jornada atual: marcar horário pelo WhatsApp e anotar no caderno
 
 > **Hipótese, validar em entrevista.** Esta é a jornada que eu *imagino* que acontece hoje, montada a partir das [proto-personas](proto-personas.md). Ainda não observei nenhum negócio de verdade.
-> TODO(Beatriz): depois das entrevistas, corrigir cada etapa com o que os donos e clientes contarem (perguntas D2, D3, D4, D5 e C1, C3, C7).
+
+<!-- TODO(Beatriz): depois das entrevistas, corrigir cada etapa com o que os donos e clientes contarem (perguntas D2, D3, D4, D5 e C1, C3, C7). -->
 
 ## A conversa de ida e volta
 

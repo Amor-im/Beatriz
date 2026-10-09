@@ -1,7 +1,8 @@
 # Requisitos priorizados (MoSCoW)
 
 Este é o backlog da Parte 2 (o produto full stack). A prioridade é **provisória**: saiu das [hipóteses](pesquisa/hipoteses.md), do [benchmark](pesquisa/benchmark.md) e da avaliação dos meus wireframes, não de entrevistas. Quando as entrevistas acontecerem, revejo a ordem.
-TODO(Beatriz): revisar as prioridades depois das 6 entrevistas.
+
+<!-- TODO(Beatriz): revisar as prioridades depois das 6 entrevistas. -->
 
 - **Must**: sem isso o MVP não resolve o problema.
 - **Should**: importante, mas o MVP funciona sem; entra logo depois.

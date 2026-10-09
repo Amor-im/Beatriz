@@ -1,7 +1,8 @@
 # Benchmark: agendamento online para pequenos negócios de serviço
 
 > **Status: verificação parcial.** Todas as fontes são públicas e cada linha tem link. Mas as páginas não foram abertas: cada afirmação foi conferida só no trecho que a busca devolveu, não na página inteira. Os trechos usados estão em [benchmark-evidencias.md](benchmark-evidencias.md).
-> TODO(Beatriz): abrir cada link, confirmar se o texto continua igual e corrigir o que mudou antes de publicar o case. Dois itens estão marcados com "(conferir)" porque o trecho original não apareceu de novo na segunda checagem.
+
+<!-- TODO(Beatriz): abrir cada link, confirmar se o texto continua igual e corrigir o que mudou antes de publicar o case. Dois itens estão marcados com "(conferir)" porque o trecho original não apareceu de novo na segunda checagem. -->
 
 Data de acesso de todas as fontes: 8 de outubro de 2026. Boa parte da ajuda do Booksy e da Playtomic é de centrais de outros países (EUA, Reino Unido, Portugal); isso está sinalizado onde importa.
 
