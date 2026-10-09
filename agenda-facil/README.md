@@ -6,12 +6,19 @@ Agenda Fácil: case de UX + produto full stack, em construção. Agendamento onl
 
 - **Case de UX (Parte 1):** [design/README.md](design/README.md)
 - **Protótipo navegável:** [design/prototipo/index.html](design/prototipo/index.html) (abre com dois cliques)
-- **Figma (rascunho):** [Agenda Fácil · Case UX](https://www.figma.com/design/MpVoEKY4sBXdY5LbL2sO0d) · TODO(Beatriz): duplicar o arquivo para a conta Figma dela e trocar este link
-- **Produto (Parte 2):** em breve
-- **Deploy:** em breve
+- **Figma:** [Agenda Fácil · Case UX](https://www.figma.com/design/KzXCAfLG2xE3x8FT3fQGRR) (pesquisa, fluxos, wireframes, UI e protótipo clicável)
+- **Produto (Parte 2) e deploy:** em breve
 - **Código:** [github.com/beatrizcampos-dev/agenda-facil](https://github.com/beatrizcampos-dev/agenda-facil)
 - **Autora:** Beatriz Campos Alves
 - **Como foi feito:** rascunho montado com um assistente de IA (Claude Code), sem entrevistas nem testes com usuário ainda; detalhes no [case](design/README.md#como-este-case-foi-feito)
+
+<!-- TODO(Beatriz): conferir se o arquivo do Figma está na minha conta e tirar o "(Copy)" do nome. -->
+
+**Destaques**
+
+- Protótipo navegável com 24 estados, incluindo o horário tomado por outra pessoa no último segundo.
+- Playwright percorre os dois fluxos e o axe-core não acha nenhuma violação WCAG 2.2 A ou AA; o script pegou um bug real de toque, corrigido com teste.
+- A regra "dois clientes nunca no mesmo horário" começa como tela no protótipo e vira regra no banco de dados na Parte 2.
 
 ---
 
