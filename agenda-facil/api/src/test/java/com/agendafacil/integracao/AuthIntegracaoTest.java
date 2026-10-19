@@ -92,6 +92,15 @@ class AuthIntegracaoTest extends TesteDeIntegracao {
     }
 
     @Test
+    void corsSoLiberaOFrontConfigurado() throws Exception {
+        mvc.perform(get("/api/publico/negocios/qualquer").header(HttpHeaders.ORIGIN, "http://localhost:3000"))
+            .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:3000"))
+            .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"));
+        mvc.perform(get("/api/publico/negocios/qualquer").header(HttpHeaders.ORIGIN, "https://site-de-outra-pessoa.example"))
+            .andExpect(status().isForbidden());
+    }
+
+    @Test
     void sairApagaOCookie() throws Exception {
         mvc.perform(post("/api/auth/sair"))
             .andExpect(status().isNoContent())

@@ -132,8 +132,11 @@ public class SegurancaConfig {
         };
     }
 
-    /** CORS: só o front configurado em CORS_ORIGENS pode chamar a API pelo navegador, com cookie. */
-    @Bean
+    /**
+     * CORS: só o front configurado em CORS_ORIGENS pode chamar a API pelo navegador, com cookie.
+     * O nome do bean precisa ser "corsConfigurationSource": é por ele que o Spring Security procura.
+     */
+    @Bean(name = "corsConfigurationSource")
     public CorsConfigurationSource configuracaoCors(PropriedadesApp propriedades) {
         CorsConfiguration cors = new CorsConfiguration();
         cors.setAllowedOrigins(propriedades.cors().origens());
