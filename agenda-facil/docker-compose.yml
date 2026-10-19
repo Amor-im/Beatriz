@@ -1,0 +1,22 @@
+# Banco de dados local do Agenda Fácil (PostgreSQL 16).
+# Uso: copie .env.example para .env e rode `docker compose up -d`.
+services:
+  banco:
+    image: postgres:16-alpine
+    container_name: agenda-facil-banco
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-agenda_facil}
+      POSTGRES_USER: ${POSTGRES_USER:-agenda}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no arquivo .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - dados-banco:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-agenda} -d ${POSTGRES_DB:-agenda_facil}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  dados-banco:

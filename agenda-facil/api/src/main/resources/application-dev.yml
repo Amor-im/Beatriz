@@ -1,0 +1,5 @@
+# Perfil de desenvolvimento: carrega o negócio de exemplo (Studio Exemplo) para a demonstração.
+# Uso: ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+logging:
+  level:
+    com.agendafacil: DEBUG

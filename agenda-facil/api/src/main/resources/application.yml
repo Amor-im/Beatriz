@@ -1,0 +1,40 @@
+# Configuração da API. Valores sensíveis vêm do arquivo .env na raiz do projeto (veja .env.example).
+spring:
+  application:
+    name: agenda-facil-api
+  config:
+    # Lê o .env da raiz do monorepo (rodando de dentro de api/) ou da pasta atual.
+    import: optional:file:../.env[.properties],optional:file:.env[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/agenda_facil}
+    username: ${POSTGRES_USER:agenda}
+    password: ${POSTGRES_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate   # quem cria e altera tabelas é o Flyway, nunca o Hibernate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+
+app:
+  jwt:
+    segredo: ${JWT_SEGREDO:}
+    validade: 8h
+  cookie:
+    seguro: ${COOKIE_SEGURO:false}   # true quando a API estiver em HTTPS
+    dominio: ${COOKIE_DOMINIO:}      # vazio no ambiente local
+  cors:
+    origens: ${CORS_ORIGENS:http://localhost:3000}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /v3/api-docs

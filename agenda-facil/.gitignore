@@ -1,1 +1,26 @@
+# Segredos: o .env nunca vai para o Git (o modelo versionado é o .env.example)
+.env
+.env.local
+.env.*.local
+
+# Dependências e builds
 node_modules/
+api/target/
+web/.next/
+web/out/
+web/next-env.d.ts
+*.tsbuildinfo
+
+# Testes
+web/test-results/
+web/playwright-report/
+web/blob-report/
+web/coverage/
+
+# Editores e sistema
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
