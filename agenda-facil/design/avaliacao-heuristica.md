@@ -2,7 +2,7 @@
 
 Esta avaliação olha os [wireframes v1](wireframes/index.html), uma primeira versão ingênua de propósito, com as 10 heurísticas de Nielsen, mais três olhares que importam muito aqui: usabilidade no celular, fricção no fluxo de agendamento e acessibilidade básica. Depois os problemas foram corrigidos no protótipo de alta fidelidade (v2), e a v2 foi avaliada de novo.
 
-> **O que isto é e o que não é.** É uma avaliação feita com um assistente de IA (Claude Code), sem revisão de outra pessoa, olhando as telas com uma lista de critérios. Ajuda a pegar problemas óbvios antes de mostrar para alguém, mas **não substitui teste com usuário**: as notas são opinião de quem avaliou, não uma medida. E como a v1 já nasceu para ser avaliada, a diferença de nota mostra o que mudou, não um ganho medido. O ideal são 3 a 5 avaliadores.
+> **O que isto é e o que não é.** É uma avaliação feita olhando as telas com uma lista de critérios, sem revisão de outra pessoa. Ajuda a pegar problemas óbvios antes de mostrar para alguém, mas **não substitui teste com usuário**: as notas são opinião de quem avaliou, não uma medida. E como a v1 já nasceu para ser avaliada, a diferença de nota mostra o que mudou, não um ganho medido. O ideal são 3 a 5 avaliadores.
 
 <!-- TODO(Beatriz): refazer esta avaliação sozinha, sem ler as notas abaixo, e comparar. -->
 

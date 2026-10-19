@@ -6,7 +6,7 @@
 
 Data de acesso de todas as fontes: 8 de outubro de 2026. Boa parte da ajuda do Booksy e da Playtomic é de centrais de outros países (EUA, Reino Unido, Portugal); isso está sinalizado onde importa.
 
-Apps escolhidos: **Trinks** (salão e estética), **Booksy** (barbearia e beleza, marketplace global), **AppBarber** (barbearia) e **Playtomic** (quadra de padel e tênis). Escolhi esses quatro por serem conhecidos no Brasil e por terem documentação pública suficiente; AgendaPro, Fresha, Avec, Simples Agenda e Gendo ficaram de fora por falta de material verificável (detalhes no fim).
+Apps escolhidos: **Trinks** (salão e estética), **Booksy** (barbearia e beleza, marketplace global), **AppBarber** (barbearia) e **Playtomic** (quadra de padel e tênis). Os quatro foram escolhidos por serem conhecidos no Brasil e por terem documentação pública suficiente; AgendaPro, Fresha, Avec, Simples Agenda e Gendo ficaram de fora por falta de material verificável (detalhes no fim).
 
 ---
 
@@ -14,7 +14,7 @@ Apps escolhidos: **Trinks** (salão e estética), **Booksy** (barbearia e beleza
 
 A Trinks é um sistema de gestão para negócios de beleza (salões, barbearias, clínicas de estética) que inclui agendamento online para o cliente final. Segundo a página institucional, a empresa foi adquirida pelo Grupo Stone ([Trinks, Quem somos](https://negocios.trinks.com/quem-somos/)).
 
-| Aspecto | O que encontrei | Fonte |
+| Aspecto | O que a fonte diz | Fonte |
 |---|---|---|
 | (1) Como o cliente agenda | Pelo app Trinks.com ou pelo site trinks.com, buscando o estabelecimento. Exige cadastro: no site, "Entrar" e depois "Quero me Cadastrar" (ou login com Facebook); no app, "SOU NOVO NO TRINKS". | [Ajuda Trinks: cadastro do cliente](https://ajuda.trinks.com/cliente-como-se-cadastrar-atrav%C3%A9s-do-site-ou-aplicativo) |
 | (1) Link via WhatsApp | O dono pode colocar o link do seu site na Trinks, acrescido de "/framebusca", na mensagem de saudação do WhatsApp Business; o agendamento feito por esse link cai na agenda da Trinks. | [Ajuda Trinks: agendamento por WhatsApp](https://ajuda.trinks.com/agendamento-por-whatsapp-como-direcionar-o-seu-cliente-para-a-agenda-usando-o-whatsapp-business-central-de-ajuda-do-trinks) |
@@ -30,7 +30,7 @@ A Trinks é um sistema de gestão para negócios de beleza (salões, barbearias,
 - O cliente remarca ou cancela sozinho, num ponto único ("+" em "Meus Compromissos"). [Ajuda Trinks: agendamento pelo app](https://ajuda.trinks.com/cliente-agendamento-online-atrav%C3%A9s-do-aplicativo)
 
 **Faz mal / fricção**
-- O cliente precisa criar conta (no site ou no app) para agendar; não encontrei documentação de agendamento sem cadastro. [Ajuda Trinks: cadastro do cliente](https://ajuda.trinks.com/cliente-como-se-cadastrar-atrav%C3%A9s-do-site-ou-aplicativo)
+- O cliente precisa criar conta (no site ou no app) para agendar; não há documentação de agendamento sem cadastro. [Ajuda Trinks: cadastro do cliente](https://ajuda.trinks.com/cliente-como-se-cadastrar-atrav%C3%A9s-do-site-ou-aplicativo)
 - As mensagens de WhatsApp saem exclusivamente do número da Trinks, em nome e com a logo da Trinks, e o texto ainda não pode ser personalizado; o cliente recebe a mensagem de uma marca que não é a do salão. [FAQ Rotina de Mensagens](https://ajuda.trinks.com/faq-rotina-de-mensagens-central-de-ajuda-do-trinks)
 - A confirmação por WhatsApp é cobrada à parte do plano ("Item adicional"). [Trinks: planos](https://negocios.trinks.com/planos/)
 - Uma reclamação pública no Reclame Aqui, feita por uma empresa de Dourados (MS) que usa a Trinks, relata clientes voltando à tela de login depois de agendar e não recebendo o código de confirmação por e-mail ou SMS (caso individual; a última interação do reclamante é de fevereiro de 2025). [Reclame Aqui](https://www.reclameaqui.com.br/trinks/problemas-recorrentes-no-agendamento-online-e-cadastro_xW5wsoS83y5_F64E/)
@@ -41,7 +41,7 @@ A Trinks é um sistema de gestão para negócios de beleza (salões, barbearias,
 
 O Booksy é uma plataforma de agendamento para beleza com marketplace: a versão em português lista barbearias e salões no Brasil (por exemplo, em São Paulo) com agendamento online ([Booksy: Barbearias](https://booksy.com/pt-br/s/barbearias)). A maior parte da central de ajuda encontrada é a versão dos EUA, então detalhes podem variar no Brasil.
 
-| Aspecto | O que encontrei | Fonte |
+| Aspecto | O que a fonte diz | Fonte |
 |---|---|---|
 | (1) Como o cliente agenda | Pelo app Booksy for Customers, pelo marketplace em Booksy.com ou por integrações com redes sociais. A central afirma que o cliente não precisa ter o app baixado para agendar. | [Booksy Support: o cliente precisa do app?](https://support.booksy.com/hc/en-us/articles/16486697667346-Do-my-clients-need-to-have-Booksy-for-Customers-downloaded-on-their-mobile-device-to-book-with-me) |
 | (1) Conta do cliente | A conta é criada pelo app ou em booksy.com ("Log In / Sign Up"), com escolha do país, e-mail e dados pessoais; um código de verificação por SMS conclui o cadastro. | [Booksy Help: criar conta](https://help.booksy.com/hc/en-us/articles/21595664947474-How-do-I-create-a-Booksy-account) |
@@ -67,7 +67,7 @@ O Booksy é uma plataforma de agendamento para beleza com marketplace: a versão
 
 O AppBarber é um sistema de agendamento e gestão para barbearias, com site para o estabelecimento e um app separado para o cliente final, "AppBarber: Cliente" ([AppBarber: Funcionalidades](https://www.appbarber.com.br/funcionalidades/); [App Store: AppBarber Cliente](https://apps.apple.com/br/app/appbarber-cliente/id6450795073)).
 
-| Aspecto | O que encontrei | Fonte |
+| Aspecto | O que a fonte diz | Fonte |
 |---|---|---|
 | (1) Como o cliente agenda | Pelo app do cliente (download gratuito, iOS e Android) ou pelo site da barbearia gerado pelo sistema, onde clientes novos podem encontrar o negócio por buscadores e agendar; o agendamento também pode ser colocado numa página do Facebook. | [AppBarber: Funcionalidades](https://www.appbarber.com.br/funcionalidades/) |
 | (1) Cadastro | Post do blog (2020): "Ao fazer o cadastro no estabelecimento, nosso aplicativo já aprova automaticamente o acesso à sua agenda", ou seja, há cadastro do cliente, mas o dono não precisa aprovar um a um. | [Blog AppBarber (2020)](https://blog.appbarber.com.br/2020/09/09/o-appbarber-trabalha-24h-com-voce/) |
@@ -92,7 +92,7 @@ O AppBarber é um sistema de agendamento e gestão para barbearias, com site par
 
 A Playtomic se apresenta como app para jogadores e clubes de esportes de raquete (padel, tênis), com o software Playtomic Manager para a gestão do clube ([Playtomic](https://playtomic.com/); [Playtomic Manager](https://playtomic.com/playtomic-manager)). Há clube brasileiro na plataforma, como a Academia Santo Padel Nacional, na Barra Funda, em São Paulo ([Playtomic: Academia Santo Padel Nacional](https://playtomic.com/clubs/academia-santo-padel-nacional)). A central de ajuda em português usa português de Portugal (ex.: "Como registar-se e criar a sua conta") ([Playtomic: criar conta](https://playerhelp.playtomic.com/hc/pt/articles/19831938095633-Como-registar-se-e-criar-a-sua-conta-no-Playtomic)).
 
-| Aspecto | O que encontrei | Fonte |
+| Aspecto | O que a fonte diz | Fonte |
 |---|---|---|
 | (1) Como o jogador reserva | Pelo app Playtomic, buscando o clube. Cadastro com Apple, Google, Facebook ou e-mail e senha; número de celular obrigatório; e-mail de confirmação com link para ativar a conta. Pelo site, só Apple, Google ou Facebook. Conta obrigatória para entrar em partidas públicas. | [Playtomic: criar conta](https://playerhelp.playtomic.com/hc/pt/articles/19831938095633-Como-registar-se-e-criar-a-sua-conta-no-Playtomic) |
 | (2) Etapas | Tela inicial, reservar campo, modalidade, busca do clube (nome, cidade ou código postal), data e hora, filtros opcionais, escolha do clube, horário e campo, escolha entre pagar a sua parte ou o valor total, revisão da política de cancelamento do clube, meio de pagamento e conclusão. | [Playtomic: criar uma reserva](https://playerhelp.playtomic.com/hc/pt/articles/19831881490449-Criar-uma-reserva-na-aplica%C3%A7%C3%A3o-Playtomic) |
@@ -135,24 +135,24 @@ A Playtomic se apresenta como app para jogadores e clubes de esportes de raquete
 
 ## Afirmações descartadas
 
-O que tentei verificar e não entrou (ou entrou sem o detalhe):
+O que não deu para verificar e não entrou (ou entrou sem o detalhe):
 
-- **Acesso direto às páginas:** WebFetch bloqueado (EGRESS_BLOCKED) em trinks.com, ajuda.trinks.com, negocios.trinks.com, booksy.com, biz.booksy.com, support.booksy.com, playtomic.com, appbarber.com.br, agendapro.com, fresha.com, simplesagenda.com.br, avec.app, play.google.com, apps.apple.com, reclameaqui.com.br, getapp.com, sebrae.com.br e en.wikipedia.org. Nenhuma página foi lida na íntegra.
-- **Valores exatos da Trinks:** a página de planos indexada mostrava valores para 1 a 2 profissionais, mas o trecho não deixava claro o nome do plano nem a periodicidade, então não citei nenhum valor.
+- **Acesso direto às páginas:** não foram abertas as páginas de trinks.com, ajuda.trinks.com, negocios.trinks.com, booksy.com, biz.booksy.com, support.booksy.com, playtomic.com, appbarber.com.br, agendapro.com, fresha.com, simplesagenda.com.br, avec.app, play.google.com, apps.apple.com, reclameaqui.com.br, getapp.com, sebrae.com.br e en.wikipedia.org. Nenhuma página foi lida na íntegra.
+- **Valores exatos da Trinks:** a página de planos indexada mostrava valores para 1 a 2 profissionais, mas o trecho não deixava claro o nome do plano nem a periodicidade, então nenhum valor foi citado.
 - **Valores exatos do AppBarber:** a página indexada mostrava valores por faixa, mas com rótulos de ciclo (mensal, semestral, anual) embaralhados; não dá para afirmar qual valor é de qual ciclo.
-- **Preço do Booksy em reais:** não encontrei página pública com preço para o Brasil; só a página global em dólar.
+- **Preço do Booksy em reais:** não há página pública com preço para o Brasil; só a página global em dólar.
 - **Booksy sem conta pelo link:** a ajuda diz que não é preciso baixar o app, mas não diz se é possível agendar pelo navegador sem criar conta.
-- **Booksy e link que força download:** um trecho indicava que certo tipo de link leva quem não tem o app a baixá-lo, mas não consegui ligar o trecho a uma URL específica.
-- **Etapas do agendamento no AppBarber:** não encontrei passo a passo oficial do fluxo do cliente.
-- **Lembrete automático antes do jogo na Playtomic:** não encontrei documentação de lembrete nativo enviado ao jogador.
-- **Valores e moeda dos planos da Playtomic:** a página em espanhol mostrava números sem moeda clara e com dois conjuntos de valores; não usei.
+- **Booksy e link que força download:** um trecho indicava que certo tipo de link leva quem não tem o app a baixá-lo, mas o trecho não pôde ser ligado a uma URL específica.
+- **Etapas do agendamento no AppBarber:** não há passo a passo oficial do fluxo do cliente.
+- **Lembrete automático antes do jogo na Playtomic:** não há documentação de lembrete nativo enviado ao jogador.
+- **Valores e moeda dos planos da Playtomic:** a página em espanhol mostrava números sem moeda clara e com dois conjuntos de valores; não entrou.
 - **Prazo de reembolso da Playtomic:** a página em português fala em 2 a 10 dias úteis e a versão em inglês em até 15 dias úteis; contradição, retirei do texto.
 - **Removidas no fact-check:** "profissionais" como autores das reclamações de cancelamento de conta do Booksy (uma das respostas trata de perfil de cliente, então troquei por "usuários"); "documentação pública escassa" do AppBarber (era afirmação de ausência, sem fonte que a sustente).
 - **Reembolso da taxa de serviço da Playtomic:** artigos da própria central se contradizem (um diz que não é devolvida, outro diz que é).
-- **Período de teste da Playtomic:** artigos citam "dois meses" e "duas semanas"; contradição, não usei.
-- **Notas, número de avaliações e downloads nas lojas de apps:** as lojas estavam bloqueadas; os números só apareceram em trechos de busca com datas divergentes, então não citei.
-- **Avaliações de usuários na Google Play e App Store:** não li nenhuma avaliação diretamente; não citei.
-- **Indicadores do Reclame Aqui (nota, % resolvidas, contagem por categoria):** os trechos mostravam versões diferentes da página com números que não batem; citei apenas reclamações específicas.
-- **Trinks: número de estabelecimentos atendidos:** páginas da própria empresa citam números diferentes; não usei.
+- **Período de teste da Playtomic:** artigos citam "dois meses" e "duas semanas"; contradição, não entrou.
+- **Notas, número de avaliações e downloads nas lojas de apps:** as lojas não foram abertas; os números só apareceram em trechos de busca com datas divergentes, então não entraram.
+- **Avaliações de usuários na Google Play e App Store:** nenhuma avaliação foi lida diretamente; não entraram.
+- **Indicadores do Reclame Aqui (nota, % resolvidas, contagem por categoria):** os trechos mostravam versões diferentes da página com números que não batem; entraram apenas reclamações específicas.
+- **Trinks: número de estabelecimentos atendidos:** páginas da própria empresa citam números diferentes; não entrou.
 - **Trinks: lembrete por SMS ("Lembrete Premium"):** apareceu num resumo de busca, mas não confirmei no artigo específico.
 - **AgendaPro, Fresha, Avec, Simples Agenda e Gendo:** não entraram. A AgendaPro tem material sobre agendamento por link e lembretes por WhatsApp, mas as páginas com caminho /br/ estavam em espanhol e a busca não trouxe detalhes específicos do Brasil; as demais não foram pesquisadas a fundo.

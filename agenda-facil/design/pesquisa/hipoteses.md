@@ -22,4 +22,4 @@ Uso três status: **não validada** (ainda não testei), **confirmada** e **refu
 
 ## O que já tenho de fonte pública
 
-Só o [benchmark](benchmark.md): o que outros apps de agendamento mostram nos próprios sites, centrais de ajuda e lojas de apps. Isso me diz o que o mercado oferece, **não** o que os donos e clientes precisam. Não usei nenhum dado de usuário que eu não tenha coletado.
+Só o [benchmark](benchmark.md): o que outros apps de agendamento mostram nos próprios sites, centrais de ajuda e lojas de apps. Isso me diz o que o mercado oferece, **não** o que os donos e clientes precisam. Nenhum dado de usuário foi usado, porque ainda não há entrevistas.

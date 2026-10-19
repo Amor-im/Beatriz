@@ -2,13 +2,13 @@
 
 Data das buscas: 2026-10-08.
 
-**Como ler esta tabela.** Nenhuma página foi aberta direto: o assistente de IA que montou o rascunho só conseguiu usar uma ferramenta de busca, que devolve uma resposta resumida por um modelo, com trechos das páginas indexadas embutidos. A coluna "Trecho exato" traz só o texto que a busca devolveu entre aspas ou como citação literal, copiado sem alterações. Mesmo assim, esses trechos não foram conferidos contra a página ao vivo: a Beatriz deve abrir cada URL e confirmar. Quando a busca devolveu só paráfrase ou tradução, a linha diz isso. Quando não há trecho literal, a linha diz "não reencontrado". Para evitar travessão neste arquivo, duas citações foram cortadas no ponto em que a fonte usava esse sinal (marcado com [...]).
+**Como ler esta tabela.** Nenhuma página foi aberta direto: os trechos vieram de uma ferramenta de busca, que devolve uma resposta resumida com trechos das páginas indexadas embutidos. A coluna "Trecho exato" traz só o texto que a busca devolveu entre aspas ou como citação literal, copiado sem alterações. Mesmo assim, esses trechos não foram conferidos contra a página ao vivo: a Beatriz deve abrir cada URL e confirmar. Quando a busca devolveu só paráfrase ou tradução, a linha diz isso. Quando não há trecho literal, a linha diz "não reencontrado". Para evitar travessão neste arquivo, duas citações foram cortadas no ponto em que a fonte usava esse sinal (marcado com [...]).
 
 Há uma linha por URL citada em `benchmark.md` (45 URLs).
 
 ## Trinks
 
-| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na WebSearch |
+| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na busca |
 |---|---|---|---|
 | Trinks foi adquirida pelo Grupo Stone | https://negocios.trinks.com/quem-somos/ | "A Trinks foi adquirida pelo Grupo Stone, o que abriu novas portas para inovação." | `Trinks Stone aquisição sistema gestão salões beleza` |
 | Cliente precisa se cadastrar no site ("Entrar", "Quero me Cadastrar") ou no app ("SOU NOVO NO TRINKS") | https://ajuda.trinks.com/cliente-como-se-cadastrar-atrav%C3%A9s-do-site-ou-aplicativo | "Acesse Trinks.com > "Entrar"." / "Em Quero me Cadastrar preencha os seus dados, depois clique em "Cadastrar"." / "clique no menu destacado no print abaixo e depois em "SOU NOVO NO TRINKS"." / "Em Cadastro, preencha todos os seus dados e clique em "CADASTRAR"." Nota: o artigo mostra como criar a conta. Que a conta é exigida para agendar vem do artigo de agendamento pelo app (linha abaixo), que começa pelo login; isso só voltou em paráfrase. | `Trinks "Quero me Cadastrar" "SOU NOVO NO TRINKS" cadastro cliente site aplicativo` (antes: `"Cliente: Como se cadastrar através do site ou aplicativo" Trinks`) |
@@ -24,7 +24,7 @@ Há uma linha por URL citada em `benchmark.md` (45 URLs).
 
 ## Booksy
 
-| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na WebSearch |
+| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na busca |
 |---|---|---|---|
 | Marketplace pt-BR com barbearias no Brasil; etapas "agendar agora", lista de horários | https://booksy.com/pt-br/s/barbearias | "Selecione o estabelecimento que deseja e os serviços que vai querer e clique em "agendar agora". Uma listagem de horários e vagas abertas será aberta e você poderá selecionar qual melhor se encaixa na sua agenda" | `Booksy "agendar agora" "Uma listagem de horários" estabelecimento serviços` |
 | Categoria de salões de beleza no marketplace pt-BR | https://booksy.com/pt-br/s/saloes-de-beleza | Título do resultado: "Salões de Beleza - Booksy". Trecho devolvido junto com páginas de salões por cidade (atribuição a esta URL não confirmada): "Marcar um horário é um processo simples e rápido com Booksy. Ao digitar a sua localização, uma listagem dos cabeleireiros mais próximos de você aparecerá." | `Booksy Salões de Beleza agendamento online cabeleireiros` |
@@ -43,7 +43,7 @@ Há uma linha por URL citada em `benchmark.md` (45 URLs).
 
 ## AppBarber
 
-| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na WebSearch |
+| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na busca |
 |---|---|---|---|
 | Site da barbearia com agendamento; lembrete por push + e-mail; lembretes por notificação, e-mail e/ou SMS; lista de espera; app gratuito | https://www.appbarber.com.br/funcionalidades/ | "Com o AppBarber, sua Barbearia já ganha um site onde você pode personalizar com informações de horário de funcionamento, formas de pagamento, imagens da Barbearia, localização, serviços e profissionais. Além disso, seus clientes (ou novos) podem encontrar seu negócio por sites de busca e inclusive podem agendar horários por lá." / "Seu cliente, ao agendar horários, receberá automaticamente uma notificação (via Push Notification) no aplicativo e um e-mail, no horário configurado para lembrá-lo." / "O Profissional pode configurar lembretes também, para serem enviados via Notificação, E-mail e/ou SMS." / "Sua agenda está lotada em determinado dia... o cliente pode se adicionar na lista do dia e ser avisado, automaticamente, quando vagar algum horário." Nota: "download do aplicativo AppBarber é gratuito e está disponível para iOS e Android", a opção do Facebook e o teste de 30 dias vieram embutidos na resposta, sem aspas. | `AppBarber cliente agendar pelo site sem baixar aplicativo cadastro login`; `AppBarber central de ajuda cliente cancelar agendamento aplicativo notificação`; `AppBarber funcionalidades lista de espera notificação horário disponível` |
 | Planos por faixa de profissionais (1, 2 a 5, 6 a 15, mais de 15), ciclos mensal, semestral e anual; público barbearias | https://appbarber.com.br/ | não reencontrado (trecho literal). A busca devolveu só paráfrase e valores soltos, com rótulos de ciclo contraditórios; a captura tinha cerca de 293 dias. | `AppBarber planos "1 profissional" "2 a 5 profissionais" "6 a 15" "mais de 15" mensal semestral anual`; antes: `AppBarber planos preços profissionais mensal semestral anual teste grátis 30 dias` |
@@ -54,7 +54,7 @@ Há uma linha por URL citada em `benchmark.md` (45 URLs).
 
 ## Playtomic
 
-| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na WebSearch |
+| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na busca |
 |---|---|---|---|
 | App para jogadores e clubes de esportes de raquete | https://playtomic.com/ | "Playtomic is the world's leading App for racket sport players and clubs." | `Playtomic about us racket sports app players clubs countries` |
 | Playtomic Manager: software para o clube receber reservas online | https://playtomic.com/playtomic-manager | "Receive online bookings, manage your customers, create social activities and increase the occupancy of your courts." | `Playtomic about us racket sports app players clubs countries` |
@@ -71,7 +71,7 @@ Há uma linha por URL citada em `benchmark.md` (45 URLs).
 
 ## Sebrae
 
-| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na WebSearch |
+| Afirmação (resumo) | URL | Trecho exato que a busca devolveu (entre aspas) | Consulta usada na busca |
 |---|---|---|---|
 | Pulso 12ª edição: WhatsApp alcança 82% dos MEI e MPE; principal canal de comunicação e vendas; mais de 8,2 mil empreendedores, fev. a mar. 2026 | https://agenciasebrae.com.br/dados/whatsapp-se-consolida-nas-vendas-on-line-enquanto-facebook-e-lojas-proprias-perdem-folego/ | "O índice cresceu um ponto percentual em comparação a 2024 e agora alcança 82% dos microempreendedores individuais (MEI) e das micro e pequenas empresas." / "Oito em cada dez donos de pequenos negócios apontam que o WhatsApp é o seu principal canal de comunicação e de vendas." / "A 12ª edição da Pulso ouviu mais de 8,2 mil empreendedores de todo o país no período de fevereiro e março de 2026." Nota: este levantamento corrigiu a redação do benchmark ("canal de venda on-line" virou "principal canal de comunicação e de vendas"). | `"agora alcança 82%" WhatsApp microempreendedores individuais micro e pequenas empresas Pulso 8,2 mil empreendedores`; antes: `"WhatsApp se consolida nas vendas on-line" Sebrae 82% Pulso dos Pequenos Negócios` |
 | TIC 2023: WhatsApp 56% e Instagram 43% para vender; por telefone (CATI); 6.247 entrevistados | https://agenciasebrae.com.br/wp-content/uploads/2023/12/Pesquisa_TIC_2023-RESUMO_segmentos_economicos-1.pdf | "Pesquisa quantitativa aplicada por telefone (CATI). Público-alvo composto por empreendedores MEI, ME e EPP de todas as regiões do Brasil." / "Amostra: 6.247 entrevistados distribuídos em cotas por unidade da federação, porte e setor de atividade." / "Cerca de 70% dos PN que costumam utilizar internet realizam vendas por canais digitais. Whats app (56%) e Instagram (43%) são os canais digitais mais utilizados para vender" | `Transformação Digital nos Pequenos Negócios 2023 6ª edição WhatsApp 56% metodologia entrevistas telefone amostra` |

@@ -12,7 +12,7 @@ O Agenda Fácil substitui o **caderno de agenda** e o **cartãozinho de papel** 
 - **Verde marca-texto** como destaque, usado pouco: no logotipo, no canhoto do cartão do horário, no "hoje" da faixa de dias e no ícone dos estados vazios.
 - **Cartão do horário** na tela de confirmação: é a única peça "ousada" do produto. Tem picote e canhoto, como o cartão de papel. Todo o resto é quieto e funcional.
 
-Escolhi de propósito fugir do terracota do meu portfólio e dos visuais que viraram padrão em sites gerados por IA (fundo creme com acento terracota; preto com verde-ácido).
+Escolhi de propósito fugir do terracota do meu portfólio e dos visuais que viraram padrão em muitos sites (fundo creme com acento terracota; preto com verde-ácido).
 
 ---
 

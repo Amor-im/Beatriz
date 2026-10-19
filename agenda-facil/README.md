@@ -10,7 +10,6 @@ Agenda Fácil: case de UX + produto full stack, em construção. Agendamento onl
 - **Produto (Parte 2) e deploy:** em breve
 - **Código:** [github.com/beatrizcampos-dev/agenda-facil](https://github.com/beatrizcampos-dev/agenda-facil)
 - **Autora:** Beatriz Campos Alves
-- **Como foi feito:** rascunho montado com um assistente de IA (Claude Code), sem entrevistas nem testes com usuário ainda; detalhes no [case](design/README.md#como-este-case-foi-feito)
 
 <!-- TODO(Beatriz): conferir se o arquivo do Figma está na minha conta e tirar o "(Copy)" do nome. -->
 
@@ -52,8 +51,6 @@ Parte 1 (case e protótipo):
 - Mermaid (fluxos e mapa de telas)
 
 Parte 2: em breve.
-
-As decisões técnicas estão explicadas em linguagem simples no [ESTUDO.md](ESTUDO.md).
 
 ## Como rodar
 

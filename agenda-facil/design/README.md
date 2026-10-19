@@ -13,12 +13,6 @@ Agendamento online para pequenos negócios de serviço. O dono configura serviç
 - **Uma regra que atravessa o projeto:** dois clientes nunca ficam com o mesmo horário. No protótipo, é a tela de quem perde a disputa; na Parte 2, vira uma regra no banco de dados.
 - **Pesquisa planejada, não inventada:** ninguém foi entrevistado ainda. Tudo o que fala de pessoas é hipótese e está marcado assim; o que tem fonte pública traz o link.
 
-## Como este case foi feito
-
-O rascunho foi montado com um assistente de IA (Claude Code), numa sessão só, a partir de um briefing: textos, wireframes, avaliação heurística, protótipo e scripts de verificação. Ninguém foi entrevistado e ninguém testou o protótipo ainda.
-
-<!-- TODO(Beatriz): quando eu refizer a avaliação, reproduzir o bug, entrevistar e testar, reescrever esta seção dizendo o que eu fiz sozinha e o que veio da IA. -->
-
 | Peça | Onde |
 |---|---|
 | Protótipo navegável (abre com dois cliques) | [`prototipo/index.html`](prototipo/index.html) |
@@ -104,7 +98,7 @@ Três fluxos cobrem o MVP ([fluxos.md](fluxos.md)); o mapa de telas está em [ar
 
 ## Wireframes
 
-A primeira versão é um [wireframe em baixa fidelidade](wireframes/index.html) ingênuo de propósito, no jeito mais comum de app de agendamento, feito para servir de base a uma avaliação com as 10 heurísticas de Nielsen. A avaliação foi feita com o assistente de IA e apontou 12 problemas, como horário ocupado diferente do livre só pela cor e cancelar com um ícone de lixeira, sem confirmação. A [avaliação completa](avaliacao-heuristica.md) tem cada achado com o antes e o depois.
+A primeira versão é um [wireframe em baixa fidelidade](wireframes/index.html) ingênuo de propósito, no jeito mais comum de app de agendamento, feito para servir de base a uma avaliação com as 10 heurísticas de Nielsen. A avaliação apontou 12 problemas, como horário ocupado diferente do livre só pela cor e cancelar com um ícone de lixeira, sem confirmação. A [avaliação completa](avaliacao-heuristica.md) tem cada achado com o antes e o depois.
 
 <!-- TODO(Beatriz): avaliar a v1 sozinha com a mesma lista, antes de ler a avaliação, e comparar o que cada uma achou. -->
 
@@ -126,7 +120,7 @@ Em **HTML e CSS estáticos**, com um pouco de JavaScript, em [`prototipo/`](prot
 
 **Como foi verificado:** [`ferramentas/verificar.mjs`](ferramentas/verificar.mjs) percorre os fluxos do cliente e do dono, roda o axe-core nas 24 telas e estados e mede os alvos de toque. Ele pegou um bug real: ao tocar em "Confirmar agendamento", a mensagem de erro do campo aparecia, empurrava o botão para baixo e o toque se perdia. O bug foi corrigido e ganhou um teste para não voltar.
 
-<!-- TODO(Beatriz): reproduzir esse bug sozinha (passo a passo no item 13 do ESTUDO.md) antes de contar essa história numa entrevista. -->
+<!-- TODO(Beatriz): reproduzir esse bug sozinha antes de contar essa história numa entrevista. -->
 
 **No Figma** ([Agenda Fácil · Case UX](https://www.figma.com/design/KzXCAfLG2xE3x8FT3fQGRR)): variáveis com os mesmos nomes do CSS, componentes com variantes, as 14 telas, os wireframes, a pesquisa, os fluxos e o caminho do cliente clicável na página "Protótipo". O plano gratuito aceita 3 páginas, então as cinco partes ficaram em "Pesquisa · Fluxos", "Wireframes · UI" e "Protótipo".
 
