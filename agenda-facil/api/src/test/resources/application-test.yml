@@ -1,0 +1,10 @@
+# Perfil dos testes: o banco vem do Testcontainers (um Postgres 16 descartável)
+# e o segredo do token é só para teste, nunca usado fora daqui.
+app:
+  jwt:
+    segredo: segredo-apenas-para-os-testes-automatizados-0123456789
+  cors:
+    origens: http://localhost:3000
+logging:
+  level:
+    com.agendafacil: INFO
