@@ -34,6 +34,7 @@ public final class IcsGerador {
         linha(ics, "DTSTAMP:" + UTC.format(agora));
         linha(ics, "DTSTART:" + UTC.format(agendamento.getInicio()));
         linha(ics, "DTEND:" + UTC.format(agendamento.getFim()));
+        linha(ics, "STATUS:" + statusDoCalendario(agendamento.getStatus()));
         linha(ics, "SUMMARY:" + escapar(servico.getNome() + " · " + negocio.getNome()));
         if (negocio.getEndereco() != null) {
             linha(ics, "LOCATION:" + escapar(negocio.getEndereco()));
@@ -48,6 +49,15 @@ public final class IcsGerador {
         linha(ics, "END:VEVENT");
         linha(ics, "END:VCALENDAR");
         return ics.toString();
+    }
+
+    /** Cancelado vira CANCELLED: quem já salvou o evento vê que ele foi cancelado ao abrir o arquivo de novo. */
+    static String statusDoCalendario(StatusAgendamento status) {
+        return switch (status) {
+            case CONFIRMADO -> "CONFIRMED";
+            case A_CONFIRMAR -> "TENTATIVE";
+            case CANCELADO -> "CANCELLED";
+        };
     }
 
     static String escapar(String texto) {

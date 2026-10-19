@@ -33,6 +33,19 @@ class IcsGeradorTest {
     }
 
     @Test
+    void agendamentoCanceladoSaiComoCanceladoNoCalendario() {
+        Negocio negocio = new Negocio(null, "Studio Exemplo", "studio-exemplo", "00900000000", null);
+        Servico servico = new Servico(negocio, "Corte", 40, null, true);
+        Instant inicio = Instant.parse("2030-03-05T13:20:00Z");
+        Agendamento agendamento = new Agendamento(negocio, servico, "Cliente de exemplo", "00900000000",
+            inicio, inicio.plusSeconds(40 * 60));
+
+        assertThat(IcsGerador.gerar(agendamento, negocio, servico, inicio)).contains("STATUS:TENTATIVE\r\n");
+        agendamento.cancelar();
+        assertThat(IcsGerador.gerar(agendamento, negocio, servico, inicio)).contains("STATUS:CANCELLED\r\n");
+    }
+
+    @Test
     void escapaOsCaracteresEspeciaisDoFormato() {
         assertThat(IcsGerador.escapar("a,b;c\\d\ne")).isEqualTo("a\\,b\\;c\\\\d\\ne");
     }
