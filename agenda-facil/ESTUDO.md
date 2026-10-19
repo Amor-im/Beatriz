@@ -1,10 +1,6 @@
-# Estudo do código
+# Como o código funciona
 
-Este guia explica, parte por parte, como o Agenda Fácil funciona por dentro, para estudar e para conseguir explicar numa entrevista. Cada seção traz o conceito, onde ele aparece no código e uma pergunta de entrevista para responder com as próprias palavras (sem resposta pronta de propósito).
-
-Uma sugestão de como estudar: leia a seção, abra os arquivos indicados, rode o teste que cobre aquela parte e depois responda a pergunta em voz alta.
-
-<!-- TODO(Beatriz): depois de estudar cada seção, escrever aqui embaixo a sua resposta para a pergunta, com as suas palavras. -->
+Um guia, parte por parte, de como o Agenda Fácil funciona por dentro e por que cada escolha foi feita. Cada seção traz o conceito e onde ele aparece no código. O melhor jeito de usar: ler a seção, abrir os arquivos indicados e rodar o teste que cobre aquela parte.
 
 ---
 
@@ -22,7 +18,6 @@ Os erros também têm um lugar só: as exceções do pacote `erro` viram respost
 
 **Onde olhar:** `api/src/main/java/com/agendafacil/servico/` (o pacote mais simples), `erro/ApiExceptionHandler.java`.
 
-**Pergunta de entrevista:** por que não colocar a regra "serviço com agendamento não pode ser excluído" direto no controller?
 
 ---
 
@@ -43,7 +38,6 @@ Pontos para entender:
 
 **Onde olhar:** `agendamento/Agendamento.java`, `agendamento/AgendamentoRepository.java`, `negocio/Negocio.java`.
 
-**Pergunta de entrevista:** o que é o problema N+1 e como ele apareceria na tela de agenda se não existisse o `join fetch`?
 
 ---
 
@@ -59,7 +53,6 @@ O `V1__esquema_inicial.sql` tem as regras que o banco garante sozinho, mesmo que
 
 **Onde olhar:** `V1__esquema_inicial.sql`, teste `oProprioBancoRecusaHorariosQueSeSobrepoem` em `AgendamentoIntegracaoTest`.
 
-**Pergunta de entrevista:** se a API já confere se o horário está livre, por que repetir a regra no banco?
 
 ---
 
@@ -71,15 +64,16 @@ O `V1__esquema_inicial.sql` tem as regras que o banco garante sozinho, mesmo que
 
 **Cookie HttpOnly.** O token vai num cookie `af_sessao` com `HttpOnly` (o JavaScript da página não lê), `SameSite=Lax` (outro site não consegue disparar requisições com ele) e `Secure` em produção. Em cada rota do painel, o Spring Security (`oauth2ResourceServer().jwt()`) lê o cookie, confere a assinatura e a validade e entrega o token para o controller (`@AuthenticationPrincipal Jwt`).
 
-Proteções do login (`AuthService`):
+Proteções do login e do cadastro (`AuthService`):
 
-- a mesma mensagem para e-mail inexistente e para senha errada;
-- o BCrypt roda mesmo quando o e-mail não existe, para o tempo de resposta não entregar quais e-mails têm conta;
-- limite de 10 tentativas por minuto por IP e de 5 senhas erradas por e-mail em 15 minutos (`LimitadorDeTentativas`).
+- no login, a mesma mensagem para e-mail inexistente e para senha errada;
+- o BCrypt roda mesmo quando o e-mail não existe, para o tempo de resposta do login não entregar quais e-mails têm conta;
+- no login, limite de 10 tentativas por minuto por IP e de 5 senhas erradas para o mesmo e-mail, a partir do mesmo IP, em 15 minutos. A chave junta e-mail e IP porque, só com o e-mail, qualquer pessoa conseguiria trancar o dono fora da própria conta;
+- o cadastro avisa quando o e-mail já tem conta (ajuda quem esqueceu que se cadastrou). Para isso não virar um jeito de testar e-mails em massa, toda tentativa de cadastro conta no limite de 10 por hora por IP, inclusive as recusadas;
+- a API não sobe se o `JWT_SEGREDO` for curto ou ainda for o texto de exemplo do `.env.example`.
 
 **Onde olhar:** `config/SegurancaConfig.java`, `auth/AuthService.java`, `auth/TokenService.java`, `auth/CookieDeSessao.java`, `AuthIntegracaoTest`.
 
-**Pergunta de entrevista:** quais são os riscos de guardar o JWT no `localStorage` em vez de num cookie HttpOnly? E qual risco o cookie traz que o `localStorage` não traz?
 
 ---
 
@@ -93,9 +87,10 @@ O cálculo fica na `CalculadoraDeHorarios`, uma classe sem Spring e sem banco: r
 
 O `AgendamentoService.agendar` não tem `@Transactional` de propósito: a gravação usa a transação do próprio repositório (`saveAndFlush`), e se o banco recusar por sobreposição, a exceção chega ao service, que responde 409 com os horários livres mais próximos.
 
+O banco só garante agendamento contra agendamento. Agendamento contra bloqueio é conferido no service, mas sem trava: se o dono bloquear e um cliente marcar no mesmo instante, os dois podem entrar. A correção seria um `SELECT ... FOR UPDATE` na linha do negócio (uma trava pessimista). Essa limitação está descrita no README, em "Limitações conhecidas".
+
 **Onde olhar:** `agendamento/CalculadoraDeHorarios.java`, `agendamento/DisponibilidadeService.java`, `agendamento/AgendamentoService.java`, teste `duasPessoasConfirmandoAoMesmoTempoSoUmaConsegue`.
 
-**Pergunta de entrevista:** duas pessoas clicam em "Confirmar" no mesmo horário, no mesmo segundo. Conte, passo a passo, o que acontece em cada camada até cada uma ver a sua tela.
 
 ---
 
@@ -112,7 +107,6 @@ As rotas são pastas dentro de `web/src/app/`: `app/painel/servicos/page.tsx` vi
 
 **Onde olhar:** `app/[slug]/page.tsx`, `componentes/publico/FluxoDeAgendamento.tsx`, `proxy.ts`, `lib/api.ts`.
 
-**Pergunta de entrevista:** qual é a diferença entre um Server Component e um Client Component, e por que a página pública usa os dois?
 
 ---
 
@@ -127,7 +121,6 @@ A validação existe nos dois lados: o front valida para responder rápido, e o 
 
 **Onde olhar:** `lib/esquemas.ts`, `componentes/publico/FormularioAgendamento.tsx`, `componentes/Campo.tsx`, `agendamento/NovoAgendamentoRequest.java`.
 
-**Pergunta de entrevista:** se o front já valida com Zod, por que a API valida de novo? Dê um exemplo de algo que só o back-end consegue validar.
 
 ---
 
@@ -142,7 +135,7 @@ A validação existe nos dois lados: o front valida para responder rápido, e o 
 | Ponta a ponta | Playwright | o navegador de verdade clicando nas telas, com a API rodando | `e2e/cliente.spec.ts` (390 px), `e2e/dono.spec.ts` (1440 px) |
 | Acessibilidade | axe-core no Playwright | regras WCAG 2.1 A e AA em cada tela | `e2e/cliente-acessibilidade.spec.ts` |
 
-Detalhes que valem explicar:
+Detalhes importantes:
 
 - **`Clock` injetado.** As classes recebem um `Clock` em vez de chamar `Instant.now()`. Nos testes, o relógio fica parado numa segunda-feira às 08:00, e os testes não dependem do dia em que rodam.
 - **Mock vs. container.** O Mockito testa a regra rápido e sem banco. O Testcontainers testa o que o mock não consegue: o SQL, o Flyway e a regra `EXCLUDE` do PostgreSQL.
@@ -150,7 +143,6 @@ Detalhes que valem explicar:
 
 **Onde olhar:** `api/src/test/`, `web/src/**/*.test.tsx`, `web/e2e/`.
 
-**Pergunta de entrevista:** por que o teste de "duas pessoas ao mesmo tempo" precisa de um banco de verdade e não funciona com Mockito?
 
 ---
 
