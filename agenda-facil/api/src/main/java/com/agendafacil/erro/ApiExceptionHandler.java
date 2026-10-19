@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -62,6 +63,12 @@ public class ApiExceptionHandler {
         ProblemDetail problema = problema(HttpStatus.CONFLICT, "Conflito", excecao.getMessage());
         excecao.getExtras().forEach(problema::setProperty);
         return problema;
+    }
+
+    /** Duas requisições gravando o mesmo e-mail ou link no mesmo instante: o banco recusa a segunda. */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail dadoRepetido(DataIntegrityViolationException excecao) {
+        return problema(HttpStatus.CONFLICT, "Conflito", "Esses dados acabaram de ser usados por outra pessoa. Confira e tente de novo.");
     }
 
     @ExceptionHandler(RegraDeNegocioException.class)

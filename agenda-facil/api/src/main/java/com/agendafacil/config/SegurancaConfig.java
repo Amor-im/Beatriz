@@ -80,11 +80,23 @@ public class SegurancaConfig {
     @Bean
     public SecretKey chaveDoToken(PropriedadesApp propriedades) {
         String segredo = propriedades.jwt().segredo();
+        validarSegredo(segredo);
+        return new SecretKeySpec(segredo.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+    }
+
+    /**
+     * Para a API logo na subida se o segredo for curto ou ainda for o texto de exemplo do .env.example:
+     * esse texto está no repositório público, e com ele qualquer pessoa conseguiria assinar um token.
+     */
+    static void validarSegredo(String segredo) {
         if (segredo == null || segredo.getBytes(StandardCharsets.UTF_8).length < 32) {
             throw new IllegalStateException(
                 "Defina JWT_SEGREDO no arquivo .env com pelo menos 32 caracteres (veja .env.example).");
         }
-        return new SecretKeySpec(segredo.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        if (segredo.startsWith("troque")) {
+            throw new IllegalStateException(
+                "JWT_SEGREDO ainda é o valor de exemplo. Gere um segredo novo (veja .env.example).");
+        }
     }
 
     @Bean

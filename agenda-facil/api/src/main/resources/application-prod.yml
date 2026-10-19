@@ -2,9 +2,18 @@
 # Uso: SPRING_PROFILES_ACTIVE=prod
 server:
   # Atrás do proxy da hospedagem, o IP do cliente chega no cabeçalho X-Forwarded-For.
-  # Só é seguro ligar isso quando a API não fica exposta direto na internet (o proxy reescreve o cabeçalho).
-  forward-headers-strategy: framework
+  # "native" usa o RemoteIpValve do Tomcat: ele lê o cabeçalho da direita para a esquerda e só aceita
+  # o valor que veio de um proxy interno, então um X-Forwarded-For inventado pelo cliente não troca o IP.
+  # Na hora do deploy, conferir se o proxy da hospedagem está na faixa de "proxies internos" do Tomcat.
+  forward-headers-strategy: native
 
 app:
   cookie:
     seguro: true   # cookie de sessão só por HTTPS
+
+# Documentação da API só no ambiente local
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
