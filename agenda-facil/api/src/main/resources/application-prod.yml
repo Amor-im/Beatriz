@@ -1,0 +1,10 @@
+# Perfil de produção (ainda sem deploy; veja "Plano de deploy" no README).
+# Uso: SPRING_PROFILES_ACTIVE=prod
+server:
+  # Atrás do proxy da hospedagem, o IP do cliente chega no cabeçalho X-Forwarded-For.
+  # Só é seguro ligar isso quando a API não fica exposta direto na internet (o proxy reescreve o cabeçalho).
+  forward-headers-strategy: framework
+
+app:
+  cookie:
+    seguro: true   # cookie de sessão só por HTTPS
