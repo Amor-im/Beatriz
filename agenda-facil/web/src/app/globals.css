@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/*
+ * Tokens do design system da Parte 1 (design/prototipo/estilos/tokens.css) dentro do Tailwind.
+ * Cada token vira classe: bg-papel, text-tinta, border-linha-forte, rounded-m, shadow-1, font-hora...
+ * Contraste de cada par está documentado em design/design-system.md.
+ */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Tinta e papel */
+  --color-tinta: #131a2e;
+  --color-tinta-suave: #4a5470;
+  --color-tinta-dica: #6b7389;
+  --color-papel: #f5f6fa;
+  --color-superficie: #ffffff;
+  --color-linha: #d6dae5;
+  --color-linha-forte: #79819a;
+
+  /* Caneta: a cor das ações */
+  --color-caneta: #2340c2;
+  --color-caneta-escura: #182e91;
+  --color-caneta-clara: #e6eafb;
+
+  /* Marca-texto: só como fundo atrás de texto tinta, nunca como cor de texto */
+  --color-marca-texto: #d4f56a;
+
+  /* Estados: sempre com ícone e texto junto */
+  --color-sucesso: #11743f;
+  --color-sucesso-fundo: #e3f4ea;
+  --color-aviso: #8a4b00;
+  --color-aviso-fundo: #fdf0d5;
+  --color-erro: #b3261e;
+  --color-erro-fundo: #fce8e6;
+
+  /* Tipografia */
+  --font-titulo: var(--fonte-gabarito), "Trebuchet MS", system-ui, sans-serif;
+  --font-texto: var(--fonte-atkinson), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hora: var(--fonte-atkinson-mono), ui-monospace, Menlo, monospace;
+
+  --text-destaque: 2rem;
+  --text-destaque--line-height: 1.125;
+  --text-h1: 1.625rem;
+  --text-h1--line-height: 1.23;
+  --text-h2: 1.25rem;
+  --text-h2--line-height: 1.3;
+  --text-h3: 1.0625rem;
+  --text-h3--line-height: 1.41;
+  --text-corpo: 1rem;
+  --text-corpo--line-height: 1.5;
+  --text-pequeno: 0.875rem;
+  --text-pequeno--line-height: 1.43;
+
+  /* Raios e sombras */
+  --radius-p: 8px;
+  --radius-m: 12px;
+  --radius-g: 20px;
+  --shadow-1: 0 1px 2px rgb(19 26 46 / 6%), 0 2px 8px rgb(19 26 46 / 6%);
+  --shadow-2: 0 8px 24px rgb(19 26 46 / 14%), 0 2px 6px rgb(19 26 46 / 8%);
+
+  /* Alvo de toque mínimo (botão, horário, item de lista) e largura da página do cliente */
+  --spacing-alvo: 48px;
+  --container-cliente: 480px;
+
+  --animate-girar: girar 700ms linear infinite;
+  --animate-brilhar: brilhar 1.4s ease-in-out infinite;
+
+  @keyframes girar {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes brilhar {
+    to { background-position: -200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-papel text-tinta font-texto text-corpo antialiased;
+  }
+
+  h1 {
+    @apply font-titulo text-h1 font-extrabold tracking-[-0.01em] md:text-[2rem];
+  }
+
+  h2 {
+    @apply font-titulo text-h2 font-bold;
+  }
+
+  /* Link no meio do texto é sublinhado: não depende só da cor (WCAG 1.4.1). Botões e menus tiram o sublinhado. */
+  a {
+    @apply text-caneta underline underline-offset-[3px] hover:text-caneta-escura;
+  }
+
+  /* Foco do teclado: igual em tudo e sempre visível */
+  :focus-visible {
+    outline: 3px solid var(--color-caneta);
+    outline-offset: 2px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
