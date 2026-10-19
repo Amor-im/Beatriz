@@ -165,7 +165,11 @@ function PassoServico({ negocio }: { negocio: NegocioPublico }) {
                     <span className="text-h3 font-bold">{servico.nome}</span>
                     <span className="text-pequeno text-tinta-suave">{formatarDuracao(servico.duracaoMinutos)}</span>
                   </span>
-                  {servico.precoCentavos !== null && <span className="whitespace-nowrap font-bold">{formatarPreco(servico.precoCentavos)}</span>}
+                  {servico.precoCentavos !== null ? (
+                    <span className="whitespace-nowrap font-bold">{formatarPreco(servico.precoCentavos)}</span>
+                  ) : (
+                    <span className="whitespace-nowrap text-pequeno text-tinta-suave">Preço no local</span>
+                  )}
                   <Icone nome="chevron-direita" className="size-5 text-tinta-suave transition-transform duration-[120ms] group-hover:translate-x-0.5 group-hover:text-caneta" />
                 </Link>
               </li>
@@ -339,8 +343,7 @@ function PassoDados({
 
         <ul className="divide-y divide-linha rounded-m border-[1.5px] border-linha bg-superficie shadow-1">
           <ItemDoResumo icone="tesoura" rotulo="Serviço" alterar={linkCom({ servico: null, data: null, horario: null })}>
-            {servico.nome} · {formatarDuracao(servico.duracaoMinutos)}
-            {preco && ` · ${preco}`}
+            {servico.nome} · {formatarDuracao(servico.duracaoMinutos)} · {preco ?? "preço no local"}
           </ItemDoResumo>
           <ItemDoResumo icone="calendario" rotulo="Quando" alterar={linkCom({ horario: null })}>
             {dataPorExtenso(data)}
@@ -368,7 +371,8 @@ function PassoDados({
           avisoBloqueado="O botão volta a funcionar quando você escolher um novo horário."
         />
         <p className="text-pequeno text-tinta-suave">
-          Seu nome e WhatsApp vão só para {negocio.nome}, para falar sobre este horário.
+          Seu nome e WhatsApp vão só para {negocio.nome}, para falar sobre este horário.{" "}
+          <Link href="/privacidade">Como seus dados são usados</Link>
         </p>
       </main>
       <Rodape negocio={negocio} />
