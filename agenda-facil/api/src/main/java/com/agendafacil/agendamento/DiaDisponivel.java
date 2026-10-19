@@ -8,8 +8,10 @@ public record DiaDisponivel(LocalDate data, Situacao situacao, int livres) {
     public enum Situacao {
         /** Tem pelo menos um horário livre. */
         LIVRE,
-        /** Abre nesse dia, mas não sobrou horário (ou o dia já acabou). */
+        /** Abre nesse dia, mas os horários livres já foram ocupados. */
         LOTADO,
+        /** É hoje e o horário de atendimento já passou. */
+        ENCERRADO,
         /** Não abre nesse dia. */
         FECHADO
     }

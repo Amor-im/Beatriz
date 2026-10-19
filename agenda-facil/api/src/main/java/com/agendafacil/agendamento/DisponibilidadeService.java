@@ -84,9 +84,20 @@ public class DisponibilidadeService {
             }
             int livres = CalculadoraDeHorarios.horariosLivres(dia, expediente, servico.getDuracaoMinutos(),
                 ocupados, agora, negocio.zona()).size();
-            dias.add(new DiaDisponivel(dia, livres > 0 ? DiaDisponivel.Situacao.LIVRE : DiaDisponivel.Situacao.LOTADO, livres));
+            dias.add(new DiaDisponivel(dia, situacao(dia, expediente, servico, livres, agora, negocio), livres));
         }
         return dias;
+    }
+
+    /** Sem horário livre hoje porque o expediente já passou é "encerrado"; por causa de agendamentos, "lotado". */
+    private static DiaDisponivel.Situacao situacao(LocalDate dia, Expediente expediente, Servico servico, int livres,
+            Instant agora, Negocio negocio) {
+        if (livres > 0) {
+            return DiaDisponivel.Situacao.LIVRE;
+        }
+        boolean sobrouHorarioNoRelogio = !CalculadoraDeHorarios.horariosLivres(dia, expediente, servico.getDuracaoMinutos(),
+            List.of(), agora, negocio.zona()).isEmpty();
+        return sobrouHorarioNoRelogio ? DiaDisponivel.Situacao.LOTADO : DiaDisponivel.Situacao.ENCERRADO;
     }
 
     /**

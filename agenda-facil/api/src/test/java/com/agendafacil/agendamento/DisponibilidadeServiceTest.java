@@ -96,6 +96,20 @@ class DisponibilidadeServiceTest {
     }
 
     @Test
+    void hojeDepoisDoExpedienteApareceComoEncerradoENaoComoLotado() {
+        Clock segunda19h = Clock.fixed(Instant.parse("2030-03-04T22:00:00Z"), ZoneId.of("UTC"));
+        disponibilidade = new DisponibilidadeService(horarios, agendamentos, bloqueios, segunda19h);
+        abreDeSegundaASabado(new Expediente(hora("09:00"), hora("18:00"), null, null));
+        when(agendamentos.ativosEntre(anyLong(), any(), any())).thenReturn(List.of());
+        when(bloqueios.entre(anyLong(), any(), any())).thenReturn(List.of());
+
+        List<DiaDisponivel> dias = disponibilidade.proximosDias(negocio, corte);
+
+        assertThat(dias.get(0).situacao()).isEqualTo(DiaDisponivel.Situacao.ENCERRADO);
+        assertThat(dias.get(1).situacao()).isEqualTo(DiaDisponivel.Situacao.LIVRE);
+    }
+
+    @Test
     void sugereOsHorariosLivresMaisProximosDoPedido() {
         abreDeSegundaASabado(new Expediente(hora("09:00"), hora("15:00"), null, null));
         when(agendamentos.ativosEntre(anyLong(), any(), any())).thenReturn(List.of(agendamentoNaTerca("11:00", "12:00")));
