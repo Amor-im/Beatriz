@@ -14,7 +14,6 @@ Por enquanto cobre a Parte 1 (o case de UX e o protótipo). A Parte 2 (o produto
 
 - **Faço sozinha:** as entrevistas e a síntese, o texto final do case, a avaliação heurística refeita, a reprodução do bug do botão, os dois achados em aberto da avaliação e a explicação do projeto em 3 minutos.
 - **A IA pode ajudar a:** explicar um conceito, revisar o que eu escrevi, sugerir casos de teste e revisar código.
-- **Nos commits:** o que foi feito com ajuda de IA leva a linha `Co-Authored-By`; o que eu fiz sozinha não leva.
 - **Na entrevista:** só conto como meu o que eu fiz ou refiz.
 
 ---

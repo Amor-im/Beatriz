@@ -15,7 +15,7 @@ Agendamento online para pequenos negócios de serviço. O dono configura serviç
 
 ## Como este case foi feito
 
-O rascunho foi montado com um assistente de IA (Claude Code), numa sessão só, a partir de um briefing: textos, wireframes, avaliação heurística, protótipo e scripts de verificação. Os commits trazem a linha `Co-Authored-By: Claude`. Ninguém foi entrevistado e ninguém testou o protótipo ainda.
+O rascunho foi montado com um assistente de IA (Claude Code), numa sessão só, a partir de um briefing: textos, wireframes, avaliação heurística, protótipo e scripts de verificação. Ninguém foi entrevistado e ninguém testou o protótipo ainda.
 
 <!-- TODO(Beatriz): quando eu refizer a avaliação, reproduzir o bug, entrevistar e testar, reescrever esta seção dizendo o que eu fiz sozinha e o que veio da IA. -->
 
