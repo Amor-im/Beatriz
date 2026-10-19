@@ -15,7 +15,7 @@ Agendamento online para pequenos negócios de serviço. O dono configura serviç
 
 | Peça | Onde |
 |---|---|
-| Protótipo navegável (abre com dois cliques) | [`prototipo/index.html`](prototipo/index.html) |
+| Protótipo navegável | [abrir no navegador](https://beatrizcampos-dev.github.io/agenda-facil/design/prototipo/) · [código](prototipo/) |
 | Arquivo no Figma: pesquisa, fluxos, wireframes, UI e protótipo clicável | [Agenda Fácil · Case UX](https://www.figma.com/design/KzXCAfLG2xE3x8FT3fQGRR) |
 | Telas exportadas | [`telas/`](telas/) |
 | Pesquisa | [`pesquisa/`](pesquisa/) |
@@ -108,7 +108,7 @@ A primeira versão é um [wireframe em baixa fidelidade](wireframes/index.html) 
 
 ## Protótipo
 
-Em **HTML e CSS estáticos**, com um pouco de JavaScript, em [`prototipo/`](prototipo/). Abre com dois cliques, sem internet e sem instalar nada. Negócio, nomes, telefones e valores são dados de exemplo.
+Em **HTML e CSS estáticos**, com um pouco de JavaScript, em [`prototipo/`](prototipo/). Dá para [abrir no navegador](https://beatrizcampos-dev.github.io/agenda-facil/design/prototipo/) ou baixar e abrir `prototipo/index.html` com dois cliques, sem instalar nada. Negócio, nomes, telefones e valores são dados de exemplo.
 
 | Serviço | Profissional | Dia e horário | Seus dados | Horário marcado |
 |---|---|---|---|---|

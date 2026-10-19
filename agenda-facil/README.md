@@ -5,9 +5,9 @@ Agenda Fácil: case de UX + produto full stack, em construção. Agendamento onl
 ![Agenda Fácil: página do negócio, escolha do horário, horário marcado e agenda do dono](docs/capa.png)
 
 - **Case de UX (Parte 1):** [design/README.md](design/README.md)
-- **Protótipo navegável:** [design/prototipo/index.html](design/prototipo/index.html) (abre com dois cliques)
+- **Protótipo navegável:** [abrir no navegador](https://beatrizcampos-dev.github.io/agenda-facil/design/prototipo/) ([código](design/prototipo/))
 - **Figma:** [Agenda Fácil · Case UX](https://www.figma.com/design/KzXCAfLG2xE3x8FT3fQGRR) (pesquisa, fluxos, wireframes, UI e protótipo clicável)
-- **Produto (Parte 2) e deploy:** em breve
+- **Produto (Parte 2):** em breve
 - **Código:** [github.com/beatrizcampos-dev/agenda-facil](https://github.com/beatrizcampos-dev/agenda-facil)
 - **Autora:** Beatriz Campos Alves
 
@@ -54,7 +54,7 @@ Parte 2: em breve.
 
 ## Como rodar
 
-O protótipo não precisa de instalação: abra `design/prototipo/index.html` no navegador.
+O protótipo não precisa de instalação: [abra no navegador](https://beatrizcampos-dev.github.io/agenda-facil/design/prototipo/) ou abra `design/prototipo/index.html` direto do seu computador.
 
 Para refazer os prints e rodar as verificações (Node.js 20 ou mais novo):
 
