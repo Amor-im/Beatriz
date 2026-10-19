@@ -157,6 +157,23 @@ class AgendamentoServiceTest {
         servico.agendar("studio-exemplo", pedido(TERCA, DEZ_E_VINTE), "3.3.3.3");
     }
 
+    @Test
+    void oLimiteEPorNegocioClienteQueDivideOIpNaoTravaOutroNegocio() {
+        quandoOHorarioEstiverNaLista(true);
+        Negocio outro = new Negocio(null, "Outro negócio", "outro-negocio", "00900000000", null);
+        ReflectionTestUtils.setField(outro, "id", 2L);
+        Servico servicoDoOutro = new Servico(outro, "Corte", 40, null, true);
+        ReflectionTestUtils.setField(servicoDoOutro, "id", 7L);
+        when(negocios.porSlug("outro-negocio")).thenReturn(outro);
+        when(servicos.ativoDoNegocio(2L, 7L)).thenReturn(servicoDoOutro);
+        when(disponibilidade.horariosLivres(outro, servicoDoOutro, TERCA)).thenReturn(List.of(DEZ_E_VINTE));
+        for (int i = 0; i < LIMITE; i++) {
+            servico.agendar("studio-exemplo", pedido(TERCA, DEZ_E_VINTE), "4.4.4.4");
+        }
+
+        servico.agendar("outro-negocio", pedido(TERCA, DEZ_E_VINTE), "4.4.4.4");
+    }
+
     private void quandoOHorarioEstiverNaLista(boolean livre) {
         when(negocios.porSlug("studio-exemplo")).thenReturn(negocio);
         when(servicos.ativoDoNegocio(1L, 7L)).thenReturn(corte);

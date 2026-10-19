@@ -73,6 +73,28 @@ class AuthIntegracaoTest extends TesteDeIntegracao {
     }
 
     @Test
+    void tentativasDeCadastroRecusadasTambemContamNoLimite() throws Exception {
+        criarConta("ana@example.com", "studio-ana");
+        // usar um link já existente não cria conta, mas responde se o e-mail tem conta: por isso cada tentativa conta
+        for (int i = 1; i < 10; i++) {
+            cadastrar("pessoa" + i + "@example.com", "studio-ana").andExpect(status().isConflict());
+        }
+
+        cadastrar("mais-uma@example.com", "studio-ana").andExpect(status().isTooManyRequests());
+    }
+
+    @Test
+    void senhasErradasDeOutraRedeNaoTrancamODonoForaDaConta() throws Exception {
+        criarConta("ana@example.com", "studio-ana");
+        for (int i = 0; i < 5; i++) {
+            entrarDe("203.0.113.10", "ana@example.com", "senha-errada-123").andExpect(status().isUnauthorized());
+        }
+
+        entrarDe("203.0.113.10", "ana@example.com", "senha-de-teste-123").andExpect(status().isTooManyRequests());
+        entrarDe("198.51.100.20", "ana@example.com", "senha-de-teste-123").andExpect(status().isOk());
+    }
+
+    @Test
     void loginCertoDevolveCookie() throws Exception {
         criarConta("ana@example.com", "studio-ana");
 
@@ -112,6 +134,16 @@ class AuthIntegracaoTest extends TesteDeIntegracao {
             "negocio", Map.of("nome", "Negócio", "slug", slug, "whatsapp", "00900000000"));
         return mvc.perform(post("/api/auth/cadastro").contentType(MediaType.APPLICATION_JSON)
             .content(json.writeValueAsString(corpo)));
+    }
+
+    private ResultActions entrarDe(String ip, String email, String senha) throws Exception {
+        return mvc.perform(post("/api/auth/entrar")
+            .with(requisicao -> {
+                requisicao.setRemoteAddr(ip);
+                return requisicao;
+            })
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json.writeValueAsString(Map.of("email", email, "senha", senha))));
     }
 
     private ResultActions entrar(String email, String senha) throws Exception {

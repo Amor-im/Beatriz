@@ -27,13 +27,15 @@ public class AuthService {
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
     // Login: no máximo 10 tentativas por minuto vindas do mesmo IP
-    // e 5 senhas erradas para o mesmo e-mail em 15 minutos (bloqueio temporário da conta).
+    // e 5 senhas erradas para o mesmo e-mail, a partir do mesmo IP, em 15 minutos.
+    // A chave junta e-mail e IP: só pelo e-mail, qualquer pessoa trancaria o dono fora da própria conta.
     static final int MAX_TENTATIVAS_POR_IP = 10;
     static final Duration JANELA_IP = Duration.ofMinutes(1);
     static final int MAX_FALHAS_POR_EMAIL = 5;
     static final Duration JANELA_EMAIL = Duration.ofMinutes(15);
-    // Cadastro: no máximo 5 contas novas por hora vindas do mesmo IP.
-    static final int MAX_CADASTROS_POR_IP = 5;
+    // Cadastro: no máximo 10 tentativas por hora vindas do mesmo IP. Conta toda tentativa, até as recusadas:
+    // o cadastro diz se o e-mail já tem conta (para quem errou de tela), e o limite impede usar isso em massa.
+    static final int MAX_CADASTROS_POR_IP = 10;
     static final Duration JANELA_CADASTRO = Duration.ofHours(1);
 
     private final DonoRepository donos;
@@ -68,8 +70,9 @@ public class AuthService {
     public Login cadastrar(CadastroRequest dados, String ip) {
         String chaveIp = "cadastro:" + ip;
         if (limitador.excedeu(chaveIp, MAX_CADASTROS_POR_IP, JANELA_CADASTRO)) {
-            throw new MuitasTentativasException("Muitas contas criadas a partir desta rede. Tente mais tarde.", JANELA_CADASTRO);
+            throw new MuitasTentativasException("Muitas tentativas de cadastro a partir desta rede. Tente mais tarde.", JANELA_CADASTRO);
         }
+        limitador.registrar(chaveIp, JANELA_CADASTRO);
         validarTamanhoDaSenha(dados.senha());
         NegocioRequest dadosDoNegocio = dados.negocio();
         Slugs.validarNaoReservado(dadosDoNegocio.slug());
@@ -84,7 +87,6 @@ public class AuthService {
         Negocio negocio = negocios.save(new Negocio(dono, dadosDoNegocio.nome(), dadosDoNegocio.slug(),
             dadosDoNegocio.whatsapp(), dadosDoNegocio.endereco()));
         horarios.criarPadrao(negocio);
-        limitador.registrar(chaveIp, JANELA_CADASTRO);
 
         log.info("Conta criada: dono {} com o negócio {}", dono.getId(), negocio.getSlug());
         return new Login(tokens.gerar(dono), SessaoResponse.de(dono, negocio));
@@ -93,13 +95,13 @@ public class AuthService {
     @Transactional(readOnly = true)
     public Login entrar(EntrarRequest dados, String ip) {
         String chaveIp = "entrar:ip:" + ip;
-        String chaveEmail = "entrar:email:" + dados.email();
+        String chaveEmail = "entrar:email:" + dados.email() + ":" + ip;
         if (limitador.excedeu(chaveIp, MAX_TENTATIVAS_POR_IP, JANELA_IP)) {
             throw new MuitasTentativasException("Muitas tentativas seguidas. Espere um minuto e tente de novo.", JANELA_IP);
         }
         if (limitador.excedeu(chaveEmail, MAX_FALHAS_POR_EMAIL, JANELA_EMAIL)) {
             throw new MuitasTentativasException(
-                "Muitas senhas erradas para esta conta. Por segurança, espere 15 minutos.", JANELA_EMAIL);
+                "Muitas senhas erradas seguidas. Por segurança, espere 15 minutos.", JANELA_EMAIL);
         }
         limitador.registrar(chaveIp, JANELA_IP);
 

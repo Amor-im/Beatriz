@@ -31,7 +31,8 @@ public class AgendamentoService {
 
     private static final Logger log = LoggerFactory.getLogger(AgendamentoService.class);
 
-    // Limite de tentativas de agendamento por IP numa janela de 10 minutos (app.limites no application.yml).
+    // Limite de tentativas de agendamento por IP, em cada negócio, numa janela de 10 minutos
+    // (app.limites no application.yml). Conta toda tentativa, inclusive as recusadas.
     static final Duration JANELA_AGENDAMENTO = Duration.ofMinutes(10);
 
     /** Nome da regra do banco que impede dois agendamentos no mesmo horário (V1__esquema_inicial.sql). */
@@ -69,7 +70,7 @@ public class AgendamentoService {
      * então, se o banco recusar, a exceção chega aqui e vira uma resposta 409 com sugestões.
      */
     public AgendamentoPublicoResponse agendar(String slug, NovoAgendamentoRequest dados, String ip) {
-        String chave = "agendar:" + ip;
+        String chave = "agendar:" + slug + ":" + ip;
         if (limitador.excedeu(chave, propriedades.limites().agendamentosPorIp(), JANELA_AGENDAMENTO)) {
             throw new MuitasTentativasException("Muitas tentativas de agendamento. Espere alguns minutos e tente de novo.",
                 JANELA_AGENDAMENTO);

@@ -7,7 +7,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LimitadorDeTentativas {
+
+    /** A maior janela usada no projeto (cadastro: 1 hora). Tentativa mais antiga que isso não conta para nada. */
+    static final Duration MAIOR_JANELA = Duration.ofHours(1);
 
     private final Clock relogio;
     private final Map<String, Deque<Instant>> tentativas = new ConcurrentHashMap<>();
@@ -47,6 +52,26 @@ public class LimitadorDeTentativas {
 
     public void limpar(String chave) {
         tentativas.remove(chave);
+    }
+
+    /**
+     * A cada 10 minutos, apaga as chaves sem tentativa recente. Sem isso, cada IP novo
+     * ficaria guardado para sempre e a memória cresceria sem limite.
+     */
+    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
+    public void limparVencidas() {
+        Instant limite = relogio.instant().minus(MAIOR_JANELA);
+        tentativas.entrySet().removeIf(entrada -> {
+            synchronized (entrada.getValue()) {
+                Instant ultima = entrada.getValue().peekLast();
+                return ultima == null || ultima.isBefore(limite);
+            }
+        });
+    }
+
+    /** Quantas chaves estão guardadas (usado nos testes). */
+    int quantidadeDeChaves() {
+        return tentativas.size();
     }
 
     /** Zera todos os contadores (usado entre um teste e outro). */

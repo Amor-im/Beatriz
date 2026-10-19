@@ -53,6 +53,20 @@ class LimitadorDeTentativasTest {
     }
 
     @Test
+    void chavesSemTentativaRecenteSaemDaMemoria() {
+        RelogioDeTeste relogio = new RelogioDeTeste();
+        LimitadorDeTentativas limitador = new LimitadorDeTentativas(relogio);
+        limitador.registrar("antiga", Duration.ofMinutes(15));
+        relogio.avancar(Duration.ofMinutes(50));
+        limitador.registrar("recente", Duration.ofMinutes(15));
+        relogio.avancar(Duration.ofMinutes(20)); // "antiga" tem 70 min; "recente", 20 min
+
+        limitador.limparVencidas();
+
+        assertThat(limitador.quantidadeDeChaves()).isEqualTo(1);
+    }
+
+    @Test
     void limparZeraAChave() {
         LimitadorDeTentativas limitador = new LimitadorDeTentativas(new RelogioDeTeste());
         limitador.registrar("x", Duration.ofMinutes(1));
