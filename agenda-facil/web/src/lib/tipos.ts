@@ -33,7 +33,7 @@ export type NegocioPublico = {
   servicos: Servico[];
 };
 
-export type SituacaoDoDia = "LIVRE" | "LOTADO" | "FECHADO";
+export type SituacaoDoDia = "LIVRE" | "LOTADO" | "ENCERRADO" | "FECHADO";
 
 export type DiaDisponivel = {
   data: string; // "2026-10-20"

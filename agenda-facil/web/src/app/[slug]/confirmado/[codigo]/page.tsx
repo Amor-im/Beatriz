@@ -10,7 +10,7 @@ import { apiPublica, ErroDaApi } from "@/lib/api";
 import { diaDaSemana, diaEMes, formatarPreco, linkWhatsapp } from "@/lib/formatos";
 
 export const metadata: Metadata = {
-  title: "Horário marcado",
+  title: "Seu horário",
   // a página tem o nome do cliente: não deve aparecer em buscadores
   robots: { index: false, follow: false },
 };
@@ -36,6 +36,19 @@ async function Confirmacao({ params }: { params: PageProps<"/[slug]/confirmado/[
 
   const primeiroNome = agendamento.clienteNome.split(" ")[0];
   const preco = formatarPreco(agendamento.precoCentavos);
+  const cancelado = agendamento.status === "CANCELADO";
+  // o texto do topo acompanha o status: a cliente pode abrir este link de novo depois de dias
+  const topo = {
+    A_CONFIRMAR: {
+      titulo: "Horário reservado",
+      texto: `Te esperamos, ${primeiroNome}. ${agendamento.negocioNome} vai confirmar pelo WhatsApp.`,
+    },
+    CONFIRMADO: { titulo: "Horário confirmado", texto: `${agendamento.negocioNome} confirmou. Te esperamos, ${primeiroNome}.` },
+    CANCELADO: {
+      titulo: "Horário cancelado",
+      texto: `${agendamento.negocioNome} cancelou este horário. Se quiser, escolha outro dia ou fale pelo WhatsApp.`,
+    },
+  }[agendamento.status];
   const quando = `${diaDaSemana(agendamento.data)}, ${diaEMes(agendamento.data)}, às ${agendamento.inicio}`;
   const mensagem =
     `Olá, ${agendamento.negocioNome}! Acabei de agendar ${agendamento.servicoNome} para ${quando} pelo Agenda Fácil. ` +
@@ -44,16 +57,14 @@ async function Confirmacao({ params }: { params: PageProps<"/[slug]/confirmado/[
   return (
     <main id="conteudo" className="mx-auto grid max-w-cliente gap-6 px-4 py-10">
       <div className="grid gap-3">
-        <span className="grid size-[60px] place-items-center rounded-full bg-sucesso text-white">
-          <Icone nome="check" className="size-8" />
+        <span className={`grid size-[60px] place-items-center rounded-full text-white ${cancelado ? "bg-erro" : "bg-sucesso"}`}>
+          <Icone nome={cancelado ? "x" : "check"} className="size-8" />
         </span>
-        <h1>Horário reservado</h1>
-        <p className="text-tinta-suave">
-          Te esperamos, {primeiroNome}. {agendamento.negocioNome} vai confirmar pelo WhatsApp.
-        </p>
+        <h1>{topo.titulo}</h1>
+        <p className="text-tinta-suave">{topo.texto}</p>
       </div>
 
-      <section aria-label="Seu horário" className="overflow-hidden rounded-g bg-superficie shadow-2">
+      <section aria-label="Seu horário" className={`overflow-hidden rounded-g bg-superficie shadow-2 ${cancelado ? "opacity-70" : ""}`}>
         <div className="grid gap-1 p-6">
           <p className="flex justify-between gap-4 text-pequeno font-bold uppercase tracking-[0.08em] text-tinta-suave">
             <span>{agendamento.negocioNome}</span>
@@ -61,7 +72,7 @@ async function Confirmacao({ params }: { params: PageProps<"/[slug]/confirmado/[
           </p>
           <p className="mt-2 font-semibold text-tinta-suave">{diaDaSemana(agendamento.data)}</p>
           <p className="font-titulo text-destaque font-extrabold">{diaEMes(agendamento.data)}</p>
-          <p className="font-hora text-[2rem] font-semibold text-caneta">
+          <p className={`font-hora text-[2rem] font-semibold ${cancelado ? "text-tinta-suave line-through" : "text-caneta"}`}>
             {agendamento.inicio} <span className="font-texto text-h3 text-tinta-suave">às</span> {agendamento.fim}
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 font-semibold">
@@ -69,7 +80,7 @@ async function Confirmacao({ params }: { params: PageProps<"/[slug]/confirmado/[
               <Icone nome="tesoura" />
               {agendamento.servicoNome}
             </span>
-            {preco && <span>{preco}</span>}
+            <span>{preco ?? "Preço no local"}</span>
           </p>
         </div>
         {agendamento.negocioEndereco && (
@@ -90,25 +101,47 @@ async function Confirmacao({ params }: { params: PageProps<"/[slug]/confirmado/[
         )}
       </section>
 
-      <div className="grid gap-3">
-        <LinkBotao href={apiPublica.linkCalendario(agendamento.codigo)} icone="calendario" largo externo>
-          Salvar na agenda do celular
-        </LinkBotao>
-        <LinkBotao href={linkWhatsapp(agendamento.negocioWhatsapp, mensagem)} icone="mensagem" variante="secundario" largo externo>
-          Avisar no WhatsApp
-        </LinkBotao>
-      </div>
+      {cancelado ? (
+        <div className="grid gap-3">
+          <LinkBotao href={`/${agendamento.negocioSlug}`} icone="calendario" largo>
+            Escolher outro horário
+          </LinkBotao>
+          <LinkBotao
+            href={linkWhatsapp(agendamento.negocioWhatsapp, `Olá, ${agendamento.negocioNome}! Vi que meu horário de ${quando} foi cancelado.`)}
+            icone="mensagem"
+            variante="secundario"
+            largo
+            externo
+          >
+            Falar no WhatsApp
+          </LinkBotao>
+        </div>
+      ) : (
+        <>
+          <div className="grid gap-3">
+            <LinkBotao href={apiPublica.linkCalendario(agendamento.codigo)} icone="calendario" largo externo>
+              Salvar na agenda do celular
+            </LinkBotao>
+            <LinkBotao href={linkWhatsapp(agendamento.negocioWhatsapp, mensagem)} icone="mensagem" variante="secundario" largo externo>
+              Avisar no WhatsApp
+            </LinkBotao>
+          </div>
 
-      <section className="grid gap-2 rounded-m border-[1.5px] border-linha bg-superficie p-6">
-        <h2 className="font-texto text-h3 font-bold">Precisa mudar?</h2>
-        <p className="text-tinta-suave">
-          Para remarcar ou cancelar, fale com {agendamento.negocioNome} pelo WhatsApp. Guarde este link: ele mostra seu horário.
+          <section className="grid gap-2 rounded-m border-[1.5px] border-linha bg-superficie p-6">
+            <h2 className="font-texto text-h3 font-bold">Precisa mudar?</h2>
+            <p className="text-tinta-suave">
+              Para remarcar ou cancelar, fale com {agendamento.negocioNome} pelo WhatsApp. Guarde este link: ele mostra se o
+              horário continua de pé.
+            </p>
+          </section>
+        </>
+      )}
+
+      {!cancelado && (
+        <p className="text-center text-pequeno text-tinta-suave">
+          <Link href={`/${agendamento.negocioSlug}`}>Marcar outro horário</Link>
         </p>
-      </section>
-
-      <p className="text-center text-pequeno text-tinta-suave">
-        <Link href={`/${agendamento.negocioSlug}`}>Marcar outro horário</Link>
-      </p>
+      )}
     </main>
   );
 }

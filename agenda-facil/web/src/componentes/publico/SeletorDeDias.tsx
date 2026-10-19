@@ -21,7 +21,7 @@ export function SeletorDeDias({
         {dias.map((dia) => {
           const ehHoje = dia.data === hoje;
           const escolhido = dia.data === selecionado;
-          const legenda = dia.situacao === "FECHADO" ? "fechado" : dia.situacao === "LOTADO" ? "lotado" : ehHoje ? "hoje" : null;
+          const legenda = { FECHADO: "fechado", LOTADO: "lotado", ENCERRADO: "encerrado", LIVRE: ehHoje ? "hoje" : null }[dia.situacao];
           const conteudo = (
             <>
               <span className="text-pequeno font-bold">{diaDaSemanaCurto(dia.data)}</span>
