@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /** Configurações próprias do Agenda Fácil (bloco "app" do application.yml). */
 @ConfigurationProperties(prefix = "app")
-public record PropriedadesApp(Jwt jwt, Cookie cookie, Cors cors) {
+public record PropriedadesApp(Jwt jwt, Cookie cookie, Cors cors, Limites limites) {
 
     public record Jwt(String segredo, Duration validade) {
     }
@@ -21,5 +21,9 @@ public record PropriedadesApp(Jwt jwt, Cookie cookie, Cors cors) {
     }
 
     public record Cors(List<String> origens) {
+    }
+
+    /** Quantos agendamentos um mesmo IP pode tentar a cada 10 minutos. */
+    public record Limites(int agendamentosPorIp) {
     }
 }

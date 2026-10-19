@@ -32,6 +32,8 @@ app:
     dominio: ${COOKIE_DOMINIO:}      # vazio no ambiente local
   cors:
     origens: ${CORS_ORIGENS:http://localhost:3000}
+  limites:
+    agendamentos-por-ip: ${LIMITE_AGENDAMENTOS_POR_IP:10}
 
 springdoc:
   swagger-ui:

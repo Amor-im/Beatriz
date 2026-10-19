@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import com.agendafacil.config.PropriedadesApp;
 import com.agendafacil.erro.ConflitoException;
 import com.agendafacil.erro.MuitasTentativasException;
 import com.agendafacil.erro.RegraDeNegocioException;
@@ -41,6 +42,7 @@ class AgendamentoServiceTest {
     private static final Clock SEGUNDA_8H = Clock.fixed(Instant.parse("2030-03-04T11:00:00Z"), ZoneId.of("UTC"));
     private static final LocalDate TERCA = LocalDate.of(2030, 3, 5);
     private static final LocalTime DEZ_E_VINTE = LocalTime.of(10, 20);
+    private static final int LIMITE = 10;
 
     @Mock
     private AgendamentoRepository agendamentos;
@@ -58,7 +60,8 @@ class AgendamentoServiceTest {
     @BeforeEach
     void preparar() {
         servico = new AgendamentoService(agendamentos, negocios, servicos, disponibilidade,
-            new LimitadorDeTentativas(SEGUNDA_8H), SEGUNDA_8H);
+            new LimitadorDeTentativas(SEGUNDA_8H), new PropriedadesApp(null, null, null, new PropriedadesApp.Limites(LIMITE)),
+            SEGUNDA_8H);
         negocio = new Negocio(null, "Studio Exemplo", "studio-exemplo", "00900000000", null);
         ReflectionTestUtils.setField(negocio, "id", 1L);
         corte = new Servico(negocio, "Corte", 40, 4500, true);
@@ -144,7 +147,7 @@ class AgendamentoServiceTest {
     @Test
     void limitaAsTentativasPorIp() {
         quandoOHorarioEstiverNaLista(true);
-        for (int i = 0; i < AgendamentoService.MAX_AGENDAMENTOS_POR_IP; i++) {
+        for (int i = 0; i < LIMITE; i++) {
             servico.agendar("studio-exemplo", pedido(TERCA, DEZ_E_VINTE), "2.2.2.2");
         }
 

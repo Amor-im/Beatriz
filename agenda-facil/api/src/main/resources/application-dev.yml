@@ -3,3 +3,8 @@
 logging:
   level:
     com.agendafacil: DEBUG
+
+app:
+  limites:
+    # no computador de desenvolvimento os testes de ponta a ponta marcam vários horários seguidos
+    agendamentos-por-ip: 100

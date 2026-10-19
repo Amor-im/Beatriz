@@ -14,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.agendafacil.config.PropriedadesApp;
 import com.agendafacil.erro.ConflitoException;
 import com.agendafacil.erro.MuitasTentativasException;
 import com.agendafacil.erro.NaoEncontradoException;
@@ -30,8 +31,7 @@ public class AgendamentoService {
 
     private static final Logger log = LoggerFactory.getLogger(AgendamentoService.class);
 
-    // Até 10 tentativas de agendamento a cada 10 minutos vindas do mesmo IP.
-    static final int MAX_AGENDAMENTOS_POR_IP = 10;
+    // Limite de tentativas de agendamento por IP numa janela de 10 minutos (app.limites no application.yml).
     static final Duration JANELA_AGENDAMENTO = Duration.ofMinutes(10);
 
     /** Nome da regra do banco que impede dois agendamentos no mesmo horário (V1__esquema_inicial.sql). */
@@ -44,15 +44,18 @@ public class AgendamentoService {
     private final ServicoService servicos;
     private final DisponibilidadeService disponibilidade;
     private final LimitadorDeTentativas limitador;
+    private final PropriedadesApp propriedades;
     private final Clock relogio;
 
     public AgendamentoService(AgendamentoRepository agendamentos, NegocioService negocios, ServicoService servicos,
-            DisponibilidadeService disponibilidade, LimitadorDeTentativas limitador, Clock relogio) {
+            DisponibilidadeService disponibilidade, LimitadorDeTentativas limitador, PropriedadesApp propriedades,
+            Clock relogio) {
         this.agendamentos = agendamentos;
         this.negocios = negocios;
         this.servicos = servicos;
         this.disponibilidade = disponibilidade;
         this.limitador = limitador;
+        this.propriedades = propriedades;
         this.relogio = relogio;
     }
 
@@ -67,7 +70,7 @@ public class AgendamentoService {
      */
     public AgendamentoPublicoResponse agendar(String slug, NovoAgendamentoRequest dados, String ip) {
         String chave = "agendar:" + ip;
-        if (limitador.excedeu(chave, MAX_AGENDAMENTOS_POR_IP, JANELA_AGENDAMENTO)) {
+        if (limitador.excedeu(chave, propriedades.limites().agendamentosPorIp(), JANELA_AGENDAMENTO)) {
             throw new MuitasTentativasException("Muitas tentativas de agendamento. Espere alguns minutos e tente de novo.",
                 JANELA_AGENDAMENTO);
         }
